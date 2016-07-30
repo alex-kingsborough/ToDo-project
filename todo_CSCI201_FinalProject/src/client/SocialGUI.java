@@ -8,7 +8,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-public class SocialGUI extends JPanel {
+public class SocialGUI extends JPanel implements Runnable {
 
 	/**
 	 * Social GUI shows social tabs and panel
@@ -16,6 +16,7 @@ public class SocialGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane tabbedPane;
 	private JTable friendsTodo, publicTodo, popularTodo;
+	private JScrollPane friendSP, pubSP, popSP;
 	
 	
 	public SocialGUI() {
@@ -25,8 +26,11 @@ public class SocialGUI extends JPanel {
 		createFriendsTab();
 		createPublicTab();
 		createPopularTab();
+		
+		run();
 	}
 	
+	//create the friends tab
 	public void createFriendsTab() {
 		//TODO: Implement get FriendsTodos function
 		Object[][] todos = {
@@ -41,10 +45,41 @@ public class SocialGUI extends JPanel {
 		    	System.out.println("Selected this: " + friendsTodo.getValueAt(row, 1));
 		     }
 		});
-		JScrollPane jsp = new JScrollPane(friendsTodo);
-		tabbedPane.add(jsp, "Friends");
+		friendSP = new JScrollPane(friendsTodo);
+		tabbedPane.add(friendSP, "Friends");
 	}
 	
+	//will update the table with the new todos
+	public void updateTab( int tabId) {
+		
+		//tabId = 0 then update friends tab
+		if (tabId == 0)
+		{
+			//TODO: add method to get newest todos for friends
+			Object[][] newTodos = {{}};
+			friendsTodo.setModel(new TodoTableModel(newTodos));
+		}
+		
+		//tabId = 1 then update public tab
+		else if (tabId == 1)
+		{
+			//TODO: add method to get newest todos for public
+			Object[][] newTodos = {{}};
+			publicTodo.setModel(new TodoTableModel(newTodos));
+		}
+		
+		//tabId = 2 then update popular tab
+		else if (tabId == 2)
+		{
+			//TODO: add method to get newest todos for popular
+			Object[][] newTodos = {{}};
+			popularTodo.setModel(new TodoTableModel(newTodos));
+		}
+	}
+	
+	
+	
+	//creates the public tab
 	public void createPublicTab() {
 		//TODO: Implement get PublicTodos function
 		Object[][] todos = {
@@ -58,11 +93,12 @@ public class SocialGUI extends JPanel {
 		    	System.out.println("Selected this: " + publicTodo.getValueAt(row, 1));
 		     }
 		});
-		JScrollPane jsp = new JScrollPane(publicTodo);
-		tabbedPane.add(jsp, "Public");
+		pubSP = new JScrollPane(publicTodo);
+		tabbedPane.add(pubSP, "Public");
 		
 	}
 	
+	//creates the user tab
 	public void createPopularTab() {
 		//TODO: Implement get popular todos function
 		Object[][] todos = {
@@ -76,8 +112,8 @@ public class SocialGUI extends JPanel {
 		    	System.out.println("Selected this: " + popularTodo.getValueAt(row, 1));
 		     }
 		});
-		JScrollPane jsp = new JScrollPane(popularTodo);
-		tabbedPane.add(jsp, "Popular");
+		pubSP = new JScrollPane(popularTodo);
+		tabbedPane.add(popSP, "Popular");
 
 	}
 	
@@ -122,6 +158,24 @@ public class SocialGUI extends JPanel {
 	    	return false;
 	    }
 
+	}
+
+	//call update on currently select tab every 5 seconds
+	public void run() {
+		while (true)
+		{
+			try {
+				//wait for 5 seconds
+				Thread.sleep(5000);
+				
+				int selectedTab = tabbedPane.getSelectedIndex();
+				updateTab(selectedTab);
+				System.out.println("Updating " + selectedTab);
+				
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	
