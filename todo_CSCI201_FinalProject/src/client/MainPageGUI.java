@@ -61,9 +61,11 @@ public class MainPageGUI extends JPanel {
 	
 	//Necessary user variables
 	//These next variables are hypotheticals, don't know what types we are using yet
+	TodoUser mUser;
 	Vector<String> mTabTitles;
+	Vector<TodoObject> mAllTodos;
+	Object[][] mTableData;
 	/*
-	Vector<Todo> mAllTodos;
 	//TODO
 	*/
 	
@@ -73,11 +75,27 @@ public class MainPageGUI extends JPanel {
 		mMainTabbedPane = new JTabbedPane();
 		mMainEastPanel = new JPanel();
 		mTabTitles = new Vector<String>();
+		
+
 		//Fill user variables from user
 		//TODO replace with filling from User
-		mTabTitles = new Vector<String>();
+		mUser = new TodoUser(); //TODO CHANGE THIS LINE TO GET THE USER FROM THE CLIENT
+		//mTabTitles = mUser.getTabTitles();mTabTitles = new Vector<String>();
 		mTabTitles.add("Work");
 		mTabTitles.add("Play");
+		//mTableData = mUser.getTodoArray();
+		mTableData = new Object[][]
+				{{"Kathy", "Smith",
+		     "Snowboarding", new Integer(5), new Boolean(false),new Integer(123)},
+			    {"John", "Doe",
+			     "Rowing", new Integer(3), new Boolean(true),new Integer(123)},
+			    {"Sue", "Black",
+			     "Knitting", new Integer(2), new Boolean(false),new Integer(123)},
+			    {"Jane", "White",
+			     "Speed reading", new Integer(20), new Boolean(true),new Integer(123)},
+			    {"Joe", "Brown",
+			     "Pool", new Integer(10), new Boolean(false),new Integer(123)}
+			};
 		
 		
 		createTabbedPane();
@@ -91,20 +109,7 @@ public class MainPageGUI extends JPanel {
 	private void createTabbedPane(){//Creating the Tabbed pane which is the bulk of the Main Page
 		//Creating a tab with appropriate title for each TabTitle in the User, then filling each tab with a scroll pane that is filled with a table of Todos
 		for(int i=0; i<mTabTitles.size(); i++){
-			
-			Object[][] Data = {{"Kathy", "Smith",
-			     "Snowboarding", new Integer(5), new Boolean(false)},
-				    {"John", "Doe",
-				     "Rowing", new Integer(3), new Boolean(true)},
-				    {"Sue", "Black",
-				     "Knitting", new Integer(2), new Boolean(false)},
-				    {"Jane", "White",
-				     "Speed reading", new Integer(20), new Boolean(true)},
-				    {"Joe", "Brown",
-				     "Pool", new Integer(10), new Boolean(false)}
-				};
-			
-			JTable mTable = new JTable(new MainPageTableModel(Data));
+			JTable mTable = new JTable(new MainPageTableModel(mTableData));
 	        
 			JScrollPane mScrollPane = new JScrollPane(mTable);
 			mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

@@ -8,6 +8,7 @@ public class TodoObject {
 	private boolean isCompleted;
 	private String list;
 	private String desc;
+	private int mPoints;
 	
 	public TodoObject(String _title, String _priority, boolean _isPrivate, String _list, String _desc){
 		title = _title;
@@ -68,6 +69,14 @@ public class TodoObject {
 	
 	public void setCompleted() {
 		
+	}
+	
+	public void setPoints(int inPoints){
+		mPoints = inPoints;
+	}
+	
+	public int getPoints(){
+		return mPoints;
 	}
 	
 }

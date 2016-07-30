@@ -84,9 +84,8 @@ public class TodoUser {
 		return mTodoList;
 	}
 	
-	//returns a 2D array of todo objects
-	public Object[][] getTodoArray() {
-		Object[][] todoArray = new Object[mTodoList.size()][5];
+	public Object[][] getTodoArray() {//Returns a 2D array of todo objects
+		Object[][] todoArray = new Object[mTodoList.size()][6];
 		
 		//loop through the user's todo list and add it to a 2D array
 		for (int i=0; i < mTodoList.size(); i++)
@@ -97,6 +96,7 @@ public class TodoUser {
 			todoArray[i][2] = currTodo.getDescription();
 			todoArray[i][3] = currTodo.getIsPrivate();
 			todoArray[i][4] = currTodo.getPriority();
+			todoArray[i][5] = currTodo.getPoints();
 		}
 		return todoArray;
 	}
