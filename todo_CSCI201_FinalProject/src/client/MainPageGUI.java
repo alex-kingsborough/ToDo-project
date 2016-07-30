@@ -5,12 +5,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -19,7 +23,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -28,6 +34,16 @@ public class MainPageGUI extends JPanel {
 	public static void main(String [] args){ //TODO FIX THIS ALL
 		JFrame mTesting = new JFrame("test");
 		mTesting.add(new MainPageGUI());
+		
+		JMenuBar mTestBar = new JMenuBar();
+		mTesting.setJMenuBar(mTestBar);
+		JMenu mTestMenu = new JMenu("Menu");
+		mTestMenu.setMnemonic('M');
+		mTestBar.add(mTestMenu);
+		JMenuItem mMainPageItem = new JMenuItem("Main Page");
+		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
+		mTestMenu.add(mMainPageItem);
+		
 		
 		mTesting.setSize(800, 500);
 		mTesting.setLocationRelativeTo(null);
@@ -45,7 +61,6 @@ public class MainPageGUI extends JPanel {
 	
 	//Necessary user variables
 	//These next variables are hypotheticals, don't know what types we are using yet
-	
 	Vector<String> mTabTitles;
 	/*
 	Vector<Todo> mAllTodos;
@@ -68,29 +83,32 @@ public class MainPageGUI extends JPanel {
 		createTabbedPane();
 		createEastPanel();
 		setLayout(new BorderLayout());
+		mMainEastPanel.setPreferredSize(new Dimension(150, this.getHeight()));
 		add(mMainEastPanel, BorderLayout.EAST);
 		add(mMainTabbedPane, BorderLayout.CENTER);
 	}
 	
-	private void createTabbedPane(){
+	private void createTabbedPane(){//Creating the Tabbed pane which is the bulk of the Main Page
+		//Creating a tab with appropriate title for each TabTitle in the User, then filling each tab with a scroll pane that is filled with a table of Todos
 		for(int i=0; i<mTabTitles.size(); i++){
 			
-			JTable mTable = new JTable();
-			DefaultTableModel mDefaultTable = new DefaultTableModel(0,0);
-			mDefaultTable.setColumnIdentifiers(mTableHeaders);
-			mTable.setModel(mDefaultTable);
-			//TODO properly fill the Default Table from Todo vector  
-			for (int j = 1; j<50; j++) {
-				JRadioButton mFinishedButton = new JRadioButton("Finished");
-				mDefaultTable.addRow(new Object[] { "Finished", "Title button",
-						"Description String","Privacy String", "Priority Int" });
-			}
-
-	        mTable.getColumn("Title").setCellRenderer(new ButtonRenderer());
-	        mTable.getColumn("Title").setCellEditor(new ButtonEditor(new JCheckBox()));
+			Object[][] Data = {{"Kathy", "Smith",
+			     "Snowboarding", new Integer(5), new Boolean(false)},
+				    {"John", "Doe",
+				     "Rowing", new Integer(3), new Boolean(true)},
+				    {"Sue", "Black",
+				     "Knitting", new Integer(2), new Boolean(false)},
+				    {"Jane", "White",
+				     "Speed reading", new Integer(20), new Boolean(true)},
+				    {"Joe", "Brown",
+				     "Pool", new Integer(10), new Boolean(false)}
+				};
 			
+			JTable mTable = new JTable(new MainPageTableModel(Data));
+	        
 			JScrollPane mScrollPane = new JScrollPane(mTable);
 			mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			mScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			
 			mMainTabbedPane.add(mTabTitles.get(i),mScrollPane);
 		}
@@ -98,7 +116,7 @@ public class MainPageGUI extends JPanel {
 	
 	private void createEastPanel(){ //Creating and filling out the panel on the east holding the add button and Social Panel
 		mAddTodoButton = new JButton("Add Todo");
-		mAddTodoButton.setPreferredSize(new Dimension(100,21));
+		mAddTodoButton.setPreferredSize(new Dimension(mMainEastPanel.getWidth(),21));
 		//TODO add action listener to open new todo dialog when pressed, visuals
 		
 		createSocialPanel();
@@ -121,12 +139,67 @@ public class MainPageGUI extends JPanel {
 		mSocialPanel.add(mSocialText);
 	}
 	
+	class MainPageTableModel extends AbstractTableModel {
+
+		private static final long serialVersionUID = 12616123;
+		
+		private String[] mColumnHeaders = mTableHeaders;
+	    private Object[][] mData;
+	    
+	    public MainPageTableModel(Object[][] inData){
+	    	super();
+	    	this.mData = inData;
+	    }
+	    
+	    @Override
+	    public int getColumnCount(){
+	        return mColumnHeaders.length;
+	    }
+	    
+	    @Override
+	    public int getRowCount(){
+	        return mData.length;
+	    }
+
+	    @Override
+	    public String getColumnName(int colnum){
+	        return mColumnHeaders[colnum];
+	    }
+
+	    @Override
+	    public Object getValueAt(int row, int col){
+	        return mData[row][col];
+	    }
+
+	    @Override
+	    public Class<? extends Object> getColumnClass(int c){
+	        return getValueAt(0,c).getClass();
+	    }
+	}
+	/*
 	//BOTH OF THESE CLASSES BELOW ARE FROM http://stackoverflow.com/questions/13833688/adding-jbutton-to-jtable
 	//PROBABLY NEED UPDATE AND CHANGES TO MAKE IT THE WAY WE WANT, LEAVING FOR NOW THOUGH
+	class FinishedCellRenderer extends JRadioButton implements TableCellRenderer {
+
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {
+	        if (isSelected) {
+	            setForeground(table.getSelectionForeground());
+	            setBackground(table.getSelectionBackground());
+	        } else {
+	            setForeground(table.getForeground());
+	            setBackground(table.getBackground());//UIManager.getColor("Button.background"));
+	        }
+	        setText((value == null) ? "" : value.toString());
+	        return this;
+	    }
+	}
+	
 	class ButtonRenderer extends JButton implements TableCellRenderer {
 
 	    public ButtonRenderer() {
-	        setOpaque(true);
+	    //    setOpaque(true);
 	    }
 
 	    @Override
@@ -137,7 +210,7 @@ public class MainPageGUI extends JPanel {
 	            setBackground(table.getSelectionBackground());
 	        } else {
 	            setForeground(table.getForeground());
-	            setBackground(UIManager.getColor("Button.background"));
+	            setBackground(table.getBackground());//UIManager.getColor("Button.background"));
 	        }
 	        setText((value == null) ? "" : value.toString());
 	        return this;
@@ -153,7 +226,7 @@ public class MainPageGUI extends JPanel {
 	    public ButtonEditor(JCheckBox checkBox) {
 	        super(checkBox);
 	        button = new JButton();
-	        button.setOpaque(false);
+	        button.setOpaque(true);
 	    }
 
 	    @Override
@@ -191,5 +264,5 @@ public class MainPageGUI extends JPanel {
 	    protected void fireEditingStopped() {
 	        super.fireEditingStopped();
 	    }
-	}
+	}*/
 }
