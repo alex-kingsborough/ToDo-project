@@ -5,6 +5,7 @@ public class TodoObject {
 	private String title;
 	private String priority;
 	private boolean isPrivate;
+	private boolean isCompleted;
 	private String list;
 	private String desc;
 	
@@ -59,6 +60,14 @@ public class TodoObject {
 	public void setDescription(String _desc){
 		desc = _desc;
 		return;
+	}
+	
+	public boolean getCompleted() {
+		return isCompleted;
+	}
+	
+	public void setCompleted() {
+		
 	}
 	
 }
