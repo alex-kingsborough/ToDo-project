@@ -57,7 +57,7 @@ public class MainPageGUI extends JPanel {
 	JPanel mMainEastPanel;
 	JPanel mSocialPanel;
 	JButton mAddTodoButton;
-	String [] mTableHeaders = { "Finished", "Title", "Description", "Privacy", "Priority" };
+	String [] mTableHeaders = { "Finished", "Title", "Description", "Privacy", "Priority", "Points" };
 	
 	//Necessary user variables
 	//These next variables are hypotheticals, don't know what types we are using yet
