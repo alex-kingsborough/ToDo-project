@@ -1,4 +1,4 @@
-package AddTodo;
+package client;
 
 public class TodoObject {
 	
