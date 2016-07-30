@@ -18,6 +18,7 @@ public class TodoUser {
 	Vector<TodoObject> mTodoList;
 	Vector<Integer> mFriendList;
 	Vector<String> mTabTitles;
+	private int mTotalPoints;
 	
 	public void setID(int inID){
 		mID=inID;
@@ -116,4 +117,11 @@ public class TodoUser {
 		return mTabTitles;
 	}
 	
+	public void setTotalPoints(int inTotalPoints){
+		mTotalPoints=inTotalPoints;
+	}
+	
+	public int getTotalPoints(){
+		return mTotalPoints;
+	}
 }
