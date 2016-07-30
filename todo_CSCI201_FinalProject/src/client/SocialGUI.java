@@ -10,9 +10,11 @@ import javax.swing.table.AbstractTableModel;
 
 public class SocialGUI extends JPanel implements Runnable {
 
-	/**
-	 * Social GUI shows social tabs and panel
-	 */
+	/** ****** *** ***** ****** **** *** ***** **\
+	 *  Social GUI shows social tabs and panel  * 
+	 *  **************************************  *
+    \*                                          */
+	
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane tabbedPane;
 	private JTable friendsTodo, publicTodo, popularTodo;
@@ -27,7 +29,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		createPublicTab();
 		createPopularTab();
 		
-		run();
+		(new Thread(this)).start();	
 	}
 	
 	//create the friends tab
@@ -47,34 +49,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		});
 		friendSP = new JScrollPane(friendsTodo);
 		tabbedPane.add(friendSP, "Friends");
-	}
-	
-	//will update the table with the new todos
-	public void updateTab( int tabId) {
 		
-		//tabId = 0 then update friends tab
-		if (tabId == 0)
-		{
-			//TODO: add method to get newest todos for friends
-			Object[][] newTodos = {{}};
-			friendsTodo.setModel(new TodoTableModel(newTodos));
-		}
-		
-		//tabId = 1 then update public tab
-		else if (tabId == 1)
-		{
-			//TODO: add method to get newest todos for public
-			Object[][] newTodos = {{}};
-			publicTodo.setModel(new TodoTableModel(newTodos));
-		}
-		
-		//tabId = 2 then update popular tab
-		else if (tabId == 2)
-		{
-			//TODO: add method to get newest todos for popular
-			Object[][] newTodos = {{}};
-			popularTodo.setModel(new TodoTableModel(newTodos));
-		}
 	}
 	
 	
@@ -112,11 +87,66 @@ public class SocialGUI extends JPanel implements Runnable {
 		    	System.out.println("Selected this: " + popularTodo.getValueAt(row, 1));
 		     }
 		});
-		pubSP = new JScrollPane(popularTodo);
+		popSP = new JScrollPane(popularTodo);
 		tabbedPane.add(popSP, "Popular");
 
 	}
 	
+	//will update the table with the new todos
+	public void updateTab( int tabId) {
+		
+		//tabId = 0 then update friends tab
+		if (tabId == 0)
+		{
+			//TODO: add method to get newest todos for friends
+			Object[][] newTodos = {
+					{true, "This", "Was", "Updated"}
+			};
+			friendsTodo.setModel(new TodoTableModel(newTodos));
+		}
+		
+		//tabId = 1 then update public tab
+		else if (tabId == 1)
+		{
+			//TODO: add method to get newest todos for public
+			Object[][] newTodos = {
+					{true, "This", "Was", "Updated"}
+			};
+			publicTodo.setModel(new TodoTableModel(newTodos));
+		}
+		
+		//tabId = 2 then update popular tab
+		else if (tabId == 2)
+		{
+			//TODO: add method to get newest todos for popular
+			Object[][] newTodos = {
+					{true, "This", "Was", "Updated"}
+			};
+			popularTodo.setModel(new TodoTableModel(newTodos));
+		}
+	}
+	
+	//call update on currently select tab every 5 seconds
+	public void run() {
+		while (true)
+		{
+			try {
+				//wait for 5 seconds
+				Thread.sleep(5000);
+				
+				//call update on selected tab
+				int selectedTab = tabbedPane.getSelectedIndex();
+				updateTab(selectedTab);
+				System.out.println("Updating " + selectedTab);
+				
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	//Model for todo table
 	class TodoTableModel extends AbstractTableModel {
 
 		private static final long serialVersionUID = 1L;
@@ -158,24 +188,6 @@ public class SocialGUI extends JPanel implements Runnable {
 	    	return false;
 	    }
 
-	}
-
-	//call update on currently select tab every 5 seconds
-	public void run() {
-		while (true)
-		{
-			try {
-				//wait for 5 seconds
-				Thread.sleep(5000);
-				
-				int selectedTab = tabbedPane.getSelectedIndex();
-				updateTab(selectedTab);
-				System.out.println("Updating " + selectedTab);
-				
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	
