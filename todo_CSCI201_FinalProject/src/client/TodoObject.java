@@ -12,23 +12,24 @@ public class TodoObject {
 	private int mPoints;
 	
 	//constructor without owner
-	public TodoObject(String _title, int _priority, boolean _isPrivate, String _desc, int _points){
+	public TodoObject(String _title, int _priority, boolean _isPrivate, String list, String _desc, int _points){
 		title = _title;
 		priority = _priority;
 		isPrivate = _isPrivate;
 		desc = _desc;
+		
 		mPoints = _points;
 	}
 	
 	//constructor with owner
-	public TodoObject(String _title, String _owner, String _priority, boolean _isPrivate, String _list, String _desc, int _points){
+	/*public TodoObject(String _title, String _owner, boolean _isPrivate, String _list, String _desc, int _points){
 		setOwner(_owner);
 		title = _title;
 		priority = _priority;
 		isPrivate = _isPrivate;
 		desc = _desc;
 		mPoints = _points;
-	}
+	}*/
 	
 	public String getTitle(){
 		return title;
@@ -95,8 +96,8 @@ public class TodoObject {
 	/**
 	 * @return the owner
 	 */
-	public String getOwner() {
+	/*public String getOwner() {
 		return owner;
-	}
+	}*/
 	
 }
