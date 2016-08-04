@@ -18,6 +18,7 @@ public class SignInGUI extends JPanel {
 	private JButton loginButton;
 	private JButton signupButton;
 	private JButton offlineButton;
+	private Navigator mNav;
 	
 	{
 		setLayout(new GridBagLayout());
@@ -26,12 +27,14 @@ public class SignInGUI extends JPanel {
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to login page
+				mNav.toLogin();
 			}
 		});
 		signupButton = new JButton("SIGNUP");
 		signupButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to signup page
+				mNav.toSignup();
 			}
 		});
 		JPanel topButtonPanel = new JPanel(new FlowLayout());
@@ -46,6 +49,7 @@ public class SignInGUI extends JPanel {
 		offlineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to main page in Guest Mode
+				mNav.toMain();
 			}
 		});
 
@@ -55,4 +59,7 @@ public class SignInGUI extends JPanel {
 		add(offlineButton, gbc);
 	}
 	
+	SignInGUI(Navigator nav) {
+		mNav = nav;
+	}
 }

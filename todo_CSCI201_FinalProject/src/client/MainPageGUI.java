@@ -181,6 +181,8 @@ public class MainPageGUI extends JPanel {
 	        return getValueAt(0,c).getClass();
 	    }
 	}
+	
+
 	/*
 	//BOTH OF THESE CLASSES BELOW ARE FROM http://stackoverflow.com/questions/13833688/adding-jbutton-to-jtable
 	//PROBABLY NEED UPDATE AND CHANGES TO MAKE IT THE WAY WE WANT, LEAVING FOR NOW THOUGH
