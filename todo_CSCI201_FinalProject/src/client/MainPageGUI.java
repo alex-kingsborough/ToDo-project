@@ -57,14 +57,14 @@ public class MainPageGUI extends JPanel {
 	JPanel mMainEastPanel;
 	JPanel mSocialPanel;
 	JButton mAddTodoButton;
-	String [] mTableHeaders = { "Finished", "Title", "Description", "Privacy", "Priority", "Points" };
+	String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
 	
 	//Necessary user variables
 	//These next variables are hypotheticals, don't know what types we are using yet
 	TodoUser mUser;
 	Vector<String> mTabTitles;
 	Vector<TodoObject> mAllTodos;
-	Object[][] mTableData;
+	//Object[][] mTableData;
 	/*
 	//TODO
 	*/
@@ -79,12 +79,22 @@ public class MainPageGUI extends JPanel {
 
 		//Fill user variables from user
 		//TODO replace with filling from User
-		mUser = new TodoUser(); //TODO CHANGE THIS LINE TO GET THE USER FROM THE CLIENT
+		//TODO CHANGE THIS LINE TO GET THE USER FROM THE CLIENT
+		mUser = new TodoUser(); 
+		Vector<TodoObject> tempTodoVec = new Vector<TodoObject>();
+		for(int i =0;i<6;i++){
+			String tempTitle = "TITLE"+i;
+			TodoObject tempTodo = new TodoObject(tempTitle, "mid", true, "Work", "I LIKE TO HAVE FUN", i);
+			tempTodoVec.add(tempTodo);
+		}
+		mUser.setTodoList(tempTodoVec);
+		mAllTodos = mUser.getTodoList();
+		
 		//mTabTitles = mUser.getTabTitles();mTabTitles = new Vector<String>();
 		mTabTitles.add("Work");
 		mTabTitles.add("Play");
 		//mTableData = mUser.getTodoArray();
-		mTableData = new Object[][]
+		/*mTableData = new Object[][]
 				{{"Kathy", "Smith",
 		     "Snowboarding", new Integer(5), new Boolean(false),new Integer(123)},
 			    {"John", "Doe",
@@ -95,7 +105,7 @@ public class MainPageGUI extends JPanel {
 			     "Speed reading", new Integer(20), new Boolean(true),new Integer(123)},
 			    {"Joe", "Brown",
 			     "Pool", new Integer(10), new Boolean(false),new Integer(123)}
-			};
+			};*/
 		
 		
 		createTabbedPane();
@@ -109,7 +119,27 @@ public class MainPageGUI extends JPanel {
 	private void createTabbedPane(){//Creating the Tabbed pane which is the bulk of the Main Page
 		//Creating a tab with appropriate title for each TabTitle in the User, then filling each tab with a scroll pane that is filled with a table of Todos
 		for(int i=0; i<mTabTitles.size(); i++){
-			JTable mTable = new JTable(new MainPageTableModel(mTableData));
+			Vector<TodoObject> tabTodos = new Vector<TodoObject>();
+			for(TodoObject currTodo : mAllTodos){
+				System.out.println(mTabTitles.elementAt(i));
+				System.out.println(currTodo.getList());
+				if(currTodo.getList().equals(mTabTitles.elementAt(i))){
+					tabTodos.add(currTodo);
+				}
+			}
+			
+			Object[][] currTableData = new Object[tabTodos.size()][6];
+			for(int j=0;j<tabTodos.size();j++){
+				TodoObject moveTodo = tabTodos.get(i);
+				currTableData[j][0] = moveTodo.getCompleted();
+				currTableData[j][1] = moveTodo.getTitle();
+				currTableData[j][2] = moveTodo.getDescription();
+				currTableData[j][3] = moveTodo.getIsPrivate();
+				currTableData[j][4] = moveTodo.getPriority();
+				currTableData[j][5] = moveTodo.getPoints();
+			}
+			
+			JTable mTable = new JTable(new MainPageTableModel(currTableData));
 	        
 			JScrollPane mScrollPane = new JScrollPane(mTable);
 			mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

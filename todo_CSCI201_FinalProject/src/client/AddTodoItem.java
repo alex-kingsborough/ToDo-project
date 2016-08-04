@@ -173,7 +173,8 @@ public class AddTodoItem extends JFrame {
 				String priority = mPriorityBox.getSelectedItem().toString();
 				String list = mListBox.getSelectedItem().toString();
 				String description = mDescriptionText.getText();
-				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description);
+				int points = 0;//TODO ALEX I DIDN't want to mess with all your implementation, just
+				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
 				//need to send this to the client to add to user's todos
 			}
 		});
