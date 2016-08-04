@@ -1,39 +1,24 @@
 package client;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 public class MainPageGUI extends JPanel {
+	private static final long serialVersionUID = 1293859318L;
 	
 	public static void main(String [] args){ //TODO FIX THIS ALL
 		JFrame mTesting = new JFrame("test");
@@ -58,8 +43,6 @@ public class MainPageGUI extends JPanel {
 	//MEMBER VARIABLES
 	//Panes and Panels and GUI stuff
 	JTabbedPane mMainTabbedPane;
-	JPanel mMainEastPanel;
-	JScrollPane mSocialPanel;
 	JButton mAddTodoButton;
 	String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
 	
@@ -76,7 +59,6 @@ public class MainPageGUI extends JPanel {
 	//Constructor
 	public MainPageGUI(){ //TODO make it take in a User object to fill all necessary variables
 		mMainTabbedPane = new JTabbedPane();
-		mMainEastPanel = new JPanel();
 
 		//Fill user variables from user
 		//TODO replace with filling from User
@@ -104,10 +86,7 @@ public class MainPageGUI extends JPanel {
 		
 		
 		createTabbedPane();
-		createEastPanel();
 		setLayout(new BorderLayout());
-		mMainEastPanel.setPreferredSize(new Dimension(175, this.getHeight()));
-		add(mMainEastPanel, BorderLayout.EAST);
 		add(mMainTabbedPane, BorderLayout.CENTER);
 	}
 	
@@ -138,58 +117,6 @@ public class MainPageGUI extends JPanel {
 		}
 	}
 	
-	private void createEastPanel(){ //Creating and filling out the panel on the east holding the add button and Social Panel
-		mAddTodoButton = new JButton("Add Todo");
-		mAddTodoButton.setPreferredSize(new Dimension(mMainEastPanel.getWidth(),21));
-		mAddTodoButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent ae){
-				AddTodoItem mati=new AddTodoItem();
-				mati.setVisible(true);
-			}
-		});
-		
-		createSocialPanel();
-		
-		mMainEastPanel.setLayout(new BorderLayout());
-		mMainEastPanel.add(mAddTodoButton, BorderLayout.NORTH);
-		mMainEastPanel.add(mSocialPanel, BorderLayout.CENTER);
-	}
-	
-	private void createSocialPanel(){ //Creating and filling out the Social Panel that is on every page
-		mSocialPanel = new JScrollPane();
-		mSocialPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		mSocialPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
-		JPanel mSocialGrid = new JPanel();
-		mSocialGrid.setLayout(new GridLayout(100,1));
-		
-		for(int i=0; i<10; i++){
-			JPanel mSocialItemPanel = new JPanel();
-			mSocialItemPanel.setLayout(new BorderLayout());
-			
-			JTextArea mSocialInfo = new JTextArea();
-			mSocialInfo.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 36));
-			mSocialInfo.setEditable(false);
-			mSocialInfo.setLineWrap(true);
-			mSocialInfo.setText("USER made a new todo named TITLE: begin description");
-			
-			JButton mSocialButton = new JButton();
-			mSocialButton.setText("View TITLE");
-			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
-			
-			JLabel mSpaceLabel = new JLabel();
-			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 9));
-			
-			mSocialItemPanel.add(mSocialInfo, BorderLayout.CENTER);
-			mSocialItemPanel.add(mSpaceLabel, BorderLayout.NORTH);
-			mSocialItemPanel.add(mSocialButton, BorderLayout.SOUTH);
-			mSocialGrid.add(mSocialItemPanel);
-		}
-		
-		
-		mSocialPanel.getViewport().add(mSocialGrid);
-	}
 	
 	class MainPageTableModel extends AbstractTableModel {
 

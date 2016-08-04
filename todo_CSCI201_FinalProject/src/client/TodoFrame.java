@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -33,7 +34,8 @@ public class TodoFrame extends JFrame implements Navigator {
 	@Override
 	public void toMain() {
 		getContentPane().removeAll();
-		getContentPane().add(new MainPageGUI());
+		getContentPane().add(new MainPageGUI(), BorderLayout.CENTER);
+		getContentPane().add(new SocialSidebar(this), BorderLayout.EAST);
 
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
