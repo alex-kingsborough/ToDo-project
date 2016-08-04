@@ -2,6 +2,7 @@ package client;
 
 public class TodoObject {
 	
+	private String owner;
 	private String title;
 	private String priority;
 	private boolean isPrivate;
@@ -10,7 +11,8 @@ public class TodoObject {
 	private String desc;
 	private int mPoints;
 	
-	public TodoObject(String _title, String _priority, boolean _isPrivate, String _list, String _desc, int _points){
+	public TodoObject(String _title, String _owner, String _priority, boolean _isPrivate, String _list, String _desc, int _points){
+		setOwner(_owner);
 		title = _title;
 		priority = _priority;
 		isPrivate = _isPrivate;
@@ -68,8 +70,8 @@ public class TodoObject {
 		return isCompleted;
 	}
 	
-	public void setCompleted() {
-		
+	public void setCompleted(boolean c) {
+		isCompleted=c;
 	}
 	
 	public void setPoints(int inPoints){
@@ -78,6 +80,13 @@ public class TodoObject {
 	
 	public int getPoints(){
 		return mPoints;
+	}
+
+	/**
+	 * @return the owner
+	 */
+	public String getOwner() {
+		return owner;
 	}
 	
 }
