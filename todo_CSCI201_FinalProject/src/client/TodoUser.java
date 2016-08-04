@@ -34,6 +34,10 @@ public class TodoUser {
 		allTodoLists = tlv;
 	}
 	
+	public Vector<TodoList> getTodoLists(){
+		return allTodoLists;
+	}
+	
 	public void setID(int inID){
 		mID=inID;
 	}

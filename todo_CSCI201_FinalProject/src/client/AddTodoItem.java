@@ -56,7 +56,7 @@ public class AddTodoItem extends JFrame {
 	Vector<String> mListVector;
 	boolean isPrivate;
 	
-	private AddTodoItem(){
+	public AddTodoItem(){
 		super("Add Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
