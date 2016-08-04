@@ -11,14 +11,28 @@ public class TodoUser {
 	private String mPassword;
 	private String mName;
 	private String mEmail;
-	private String mBirthday;
 	private String mAboutMe;
 	
 	//Objects of the User:
-	Vector<TodoObject> mTodoList;
+	Vector<TodoList> allTodoLists;
+	Vector<TodoObject> mTodoList; //deprecated
 	Vector<Integer> mFriendList;
 	Vector<String> mTabTitles;
 	private int mTotalPoints;
+	
+	//set mID to 0 if we still need to query db to get info about user
+	public TodoUser(int ID, String username, String password, String email)
+	{
+		mID = ID;
+		mUsername = username;
+		mPassword = password;
+		mEmail = email;
+	}
+	
+	public void setTodoLists(Vector<TodoList> tlv)
+	{
+		allTodoLists = tlv;
+	}
 	
 	public void setID(int inID){
 		mID=inID;
@@ -52,6 +66,7 @@ public class TodoUser {
 		return mName;
 	}
 	
+	/*
 	public void setBirthday(String inBirthday){
 		mBirthday=inBirthday;
 	}
@@ -59,6 +74,7 @@ public class TodoUser {
 	public String getBirthday(){
 		return mBirthday;
 	}
+	*/
 	
 	public void setEmail(String inEmail){
 		mEmail=inEmail;
