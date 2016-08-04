@@ -24,6 +24,7 @@ public class UserInfoGUI extends JPanel {
 	private JLabel mNameLabel;
 	private JLabel mEmailLabel;
 	private JLabel mDOBLabel;
+	private JLabel mPointsLabel;
 	private JLabel mAboutMeLabel;
 	private JTextArea mAboutMeTextArea;
 	JLabel mAddFriendLabel;
@@ -59,9 +60,13 @@ public class UserInfoGUI extends JPanel {
 		mDOBLabel = new JLabel("DOB: 06/14/93");
 		mDOBLabel.setFont(mDOBLabel.getFont().deriveFont(15f));
 		
+		mPointsLabel = new JLabel("Total Points: 30000");
+		mPointsLabel.setFont(mPointsLabel.getFont().deriveFont(15f));
+		
 		mInfoPanel.add(mNameLabel);
 		mInfoPanel.add(mEmailLabel);
 		mInfoPanel.add(mDOBLabel);
+		mInfoPanel.add(mPointsLabel);
 		mInfoPanel.add(Box.createGlue());
 		
 		JPanel mAboutMePanel = new JPanel(new GridLayout(1,1));
