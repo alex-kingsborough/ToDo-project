@@ -38,7 +38,13 @@ public class ServerThread extends Thread{
 	public void run() {
 		try {
 
-			//In the chat client this is where the thread constantly reads in objects.
+			/*
+			 * TODO
+			 * This is where we read in new objects, So any objects that are SENT from the client
+			 * (i.e. the ClientServerCommunicator class) MUST be handled here. Truthfully, that's not
+			 * difficult to manage with the if(o instanceof CLASS) architecture.
+			 */
+			
 			while(true){
 				Object o = mInputReader.readObject();
 				if(o instanceof String){
@@ -52,6 +58,12 @@ public class ServerThread extends Thread{
 					if(echo){
 						sendMessage("Server Echo: " + s);
 					}
+				} else if (o instanceof TodoUser){
+					TodoUser tu = (TodoUser) o;
+					handleRecievedUser(tu);
+				} else if (o instanceof TodoObject){
+					TodoObject to = (TodoObject) o;
+					handleRecievedTodoObject(to);
 				}
 			}
 		} catch (ClassNotFoundException cnfe) {
@@ -61,6 +73,10 @@ public class ServerThread extends Thread{
 		}
 	}
 
+	private void handleRecievedUser(TodoUser tu){
+		
+	}
+	
 	public Socket getSocket() {
 		return sSocket;
 	}

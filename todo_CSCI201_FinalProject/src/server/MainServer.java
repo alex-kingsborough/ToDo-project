@@ -8,7 +8,7 @@ import java.util.Vector;
 public class MainServer {
 
 	static ServerGUI gui = null;
-	Vector<ServerThread> serverThreads;
+	Vector<ClientConnection> clientConnections;
 	boolean started = false;
 	private ServerSocket ss = null;
 	private static MainServer mServ;
@@ -16,7 +16,7 @@ public class MainServer {
 	Thread serverThread;
 	
 	MainServer(){
-		serverThreads = new Vector<ServerThread>();
+		ClientConnections = new Vector<ClientConnection>();
 		mServerPort = 6789;
 	}
 
@@ -40,10 +40,10 @@ public class MainServer {
 			gui.writeToLog("Server Started On Port:" + mServerPort);
 			while(true) {
 				Socket socket = ss.accept();
-				serverThreads.add(new ServerThread(socket,this));
+				ClientConnections.add(new ClientConnection(socket,this));
 			}
 		} catch (Exception e) {
-			for(ServerThread st : serverThreads)
+			for(ClientConnection st : ClientConnections)
 				try { st.getSocket().close(); } catch (IOException e1) { }
 			gui.writeToLog("Server stopped.");
 		} finally {

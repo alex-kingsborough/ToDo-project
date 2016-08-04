@@ -8,14 +8,14 @@ import java.util.Vector;
 
 
 
-public class ClientServerCommunicator extends Thread {
+public class TodoClientListener extends Thread {
 	
 	private Vector<String> recievedStrings = null;
 	Socket s;
 	
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-	public ClientServerCommunicator(String hostname, int port) {
+	public TodoClientListener(String hostname, int port) {
 		s = null;
 		recievedStrings = new Vector<String>();
 		try {
