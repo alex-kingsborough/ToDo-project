@@ -10,11 +10,12 @@ public class TodoObject {
 	private String desc;
 	private int mPoints;
 	
-	public TodoObject(String _title, String _priority, boolean _isPrivate, String _list, String _desc){
+	public TodoObject(String _title, String _priority, boolean _isPrivate, String _list, String _desc, int _points){
 		title = _title;
 		priority = _priority;
 		isPrivate = _isPrivate;
 		desc = _desc;
+		mPoints = _points;
 	}
 	
 	public String getTitle(){
