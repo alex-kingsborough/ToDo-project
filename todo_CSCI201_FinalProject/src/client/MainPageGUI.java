@@ -123,8 +123,10 @@ public class MainPageGUI extends JPanel {
 			for(TodoObject currTodo : mAllTodos){
 				System.out.println(mTabTitles.elementAt(i));
 				System.out.println(currTodo.getList());
-				if(currTodo.getList().equals(mTabTitles.elementAt(i))){
-					tabTodos.add(currTodo);
+				if(currTodo.getList() != null) {
+					if(currTodo.getList().equals(mTabTitles.elementAt(i))){
+						tabTodos.add(currTodo);
+					}
 				}
 			}
 			
