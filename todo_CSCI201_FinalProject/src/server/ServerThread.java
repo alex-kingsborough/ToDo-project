@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerThread extends Thread{
@@ -10,10 +11,12 @@ public class ServerThread extends Thread{
 	private ObjectOutputStream mOutputWriter;
 	private ObjectInputStream mInputReader;
 	private MainServer ms;
+	private Socket sSocket;
 	boolean echo = false;
 
 	public ServerThread(Socket s, MainServer mainServer) {
 		ms = mainServer;
+		sSocket = s;
 		try{
 			mOutputWriter = new ObjectOutputStream(s.getOutputStream());
 			mInputReader = new ObjectInputStream(s.getInputStream());
@@ -45,7 +48,7 @@ public class ServerThread extends Thread{
 							echo = !echo;
 						}
 					}
-					ms.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
+					MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 					if(echo){
 						sendMessage("Server Echo: " + s);
 					}
@@ -56,6 +59,10 @@ public class ServerThread extends Thread{
 		} catch (IOException ioe) {
 			System.out.println("ioe in run: " + ioe.getMessage());
 		}
+	}
+
+	public Socket getSocket() {
+		return sSocket;
 	}
 }
 
