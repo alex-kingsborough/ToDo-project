@@ -3,19 +3,20 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerThread extends Thread{
+import client.TodoObject;
+import client.TodoUser;
+
+public class ClientConnection extends Thread{
 
 	private ObjectOutputStream mOutputWriter;
 	private ObjectInputStream mInputReader;
-	private MainServer ms;
 	private Socket sSocket;
 	boolean echo = false;
+	private Database db = Database.get();
 
-	public ServerThread(Socket s, MainServer mainServer) {
-		ms = mainServer;
+	public ClientConnection(Socket s, MainServer mainServer) {
 		sSocket = s;
 		try{
 			mOutputWriter = new ObjectOutputStream(s.getOutputStream());
@@ -71,6 +72,11 @@ public class ServerThread extends Thread{
 		} catch (IOException ioe) {
 			System.out.println("ioe in run: " + ioe.getMessage());
 		}
+	}
+
+	private void handleRecievedTodoObject(TodoObject to) {
+		db.addTodo(to);
+		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
 	}
 
 	private void handleRecievedUser(TodoUser tu){

@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
+import client.Encrypt;
+
 public class MainServer {
 
 	static ServerGUI gui = null;
@@ -16,7 +18,7 @@ public class MainServer {
 	Thread serverThread;
 	
 	MainServer(){
-		ClientConnections = new Vector<ClientConnection>();
+		clientConnections = new Vector<ClientConnection>();
 		mServerPort = 6789;
 	}
 
@@ -40,10 +42,10 @@ public class MainServer {
 			gui.writeToLog("Server Started On Port:" + mServerPort);
 			while(true) {
 				Socket socket = ss.accept();
-				ClientConnections.add(new ClientConnection(socket,this));
+				clientConnections.add(new ClientConnection(socket,this));
 			}
 		} catch (Exception e) {
-			for(ClientConnection st : ClientConnections)
+			for(ClientConnection st : clientConnections)
 				try { st.getSocket().close(); } catch (IOException e1) { }
 			gui.writeToLog("Server stopped.");
 		} finally {
