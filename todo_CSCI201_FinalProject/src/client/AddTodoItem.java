@@ -60,19 +60,19 @@ public class AddTodoItem extends JFrame {
 	JTextField mPointsText;
 	Font mFont;
 	
-	public AddTodoItem(){
+	public AddTodoItem(TodoUser tu){
 		super("Add Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo();
+		AddTodo(tu);
 		addPublicRBEvents();
 		addPrivateRBEvents();
 		
 	
 	}
 	
-	private void AddTodo() {
+	private void AddTodo(TodoUser tu) {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mTitleLabel = new JLabel("Title: ");
@@ -102,7 +102,9 @@ public class AddTodoItem extends JFrame {
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15);
-		mListVector = new Vector<String>();
+		mListVector = tu.getTodoLists();
+		
+		
 		mListVector.add("Public Todos");
 		mListVector.add("Private Todos");
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
@@ -196,7 +198,7 @@ public class AddTodoItem extends JFrame {
 				
 				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
 				
-				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
+				//TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
 				//need to send this to the client to add to user's todos
 			}
 		});
