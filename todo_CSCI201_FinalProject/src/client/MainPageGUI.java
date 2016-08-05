@@ -47,7 +47,6 @@ public class MainPageGUI extends JPanel {
 	String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
 	
 	//Necessary user variables
-	//These next variables are hypotheticals, don't know what types we are using yet
 	TodoUser mUser;
 	Vector<TodoList> mAllTodos;
 	/*
