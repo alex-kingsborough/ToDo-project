@@ -15,6 +15,7 @@ public class ClientConnection extends Thread{
 	private Socket sSocket;
 	boolean echo = false;
 	private Database db = Database.get();
+	private string username = "";
 
 	public ClientConnection(Socket s, MainServer mainServer) {
 		sSocket = s;
@@ -54,6 +55,8 @@ public class ClientConnection extends Thread{
 						if(s.endsWith("echo")){
 							echo = !echo;
 						}
+					} if(s.startsWith("login: ")){
+						String[] elements = s.split(" ");
 					}
 					MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 					if(echo){
