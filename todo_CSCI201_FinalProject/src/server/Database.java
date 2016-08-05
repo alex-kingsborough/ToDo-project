@@ -141,7 +141,7 @@ public class Database {
 		try{
 			PreparedStatement ps = con.prepareStatement(addTodo);
 			ps.setInt(1, getUserID(username));
-			ps.setInt(2, getListID(to.getList()));
+			ps.setInt(2, to.getList());
 			ps.setInt(3, to.getPoints());
 			ps.setInt(4, to.getPriority());
 			ps.setString(5, to.getDescription());
