@@ -15,6 +15,7 @@ public class ClientConnection extends Thread{
 	private Socket sSocket;
 	boolean echo = false;
 	private Database db = Database.get();
+	private String username = "";
 
 	public ClientConnection(Socket s, MainServer mainServer) {
 		sSocket = s;
@@ -54,6 +55,8 @@ public class ClientConnection extends Thread{
 						if(s.endsWith("echo")){
 							echo = !echo;
 						}
+					} if(s.startsWith("login: ")){
+						String[] elements = s.split(" ");
 					}
 					MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 					if(echo){
@@ -75,12 +78,16 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
-		db.addTodo(to);
+		db.addTodo(to,username);
 		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
 	}
 
 	private void handleRecievedUser(TodoUser tu){
-		
+<<<<<<< HEAD
+		db.signup(tu);
+=======
+//		db.signup(tu); //TODO this isn't working with the signUp method in database
+>>>>>>> branch 'master' of https://forrestmdunlap@bitbucket.org/csci201todo/todogroupproject.git
 	}
 	
 	public Socket getSocket() {

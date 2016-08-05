@@ -32,7 +32,7 @@ public class TodoFrame extends JFrame implements Navigator {
 	}
 	
 	@Override
-	public void toMain() {
+	public void toPortal() {
 		getContentPane().removeAll();
 		getContentPane().add(new MainPageGUI(), BorderLayout.CENTER);
 		getContentPane().add(new SocialSidebar(this), BorderLayout.EAST);
@@ -45,6 +45,14 @@ public class TodoFrame extends JFrame implements Navigator {
 		JMenuItem mMainPageItem = new JMenuItem("Main Page");
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		mTestMenu.add(mMainPageItem);
+		
+		JMenuItem mSocialPageItem = new JMenuItem("Social Page");
+		mSocialPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		mTestMenu.add(mSocialPageItem);
+		
+		JMenuItem mUserInfoItem = new JMenuItem("User Info");
+		mUserInfoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
+		mTestMenu.add(mUserInfoItem);
 		
 		revalidate();
 		repaint();

@@ -2,7 +2,9 @@ package server;
 
 import com.mysql.jdbc.Driver;
 
+import client.TodoList;
 import client.TodoObject;
+import client.TodoUser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,12 +24,13 @@ public class Database {
 		sDatabase = new Database();
 	}
 	
-	private final static String newAccount = "INSERT INTO USERS(USERNAME,HASHWORD,ACTUALNAME,EMAIL,DOB,ABOUTME) VALUES(?,?,?,?,?,?)";
+	private final static String newAccount = "INSERT INTO USERS(USERNAME,HASHWORD,ACTUALNAME,EMAIL,ABOUTME) VALUES(?,?,?,?,?)";
 	private final static String selectUser = "SELECT HASHWORD FROM USERS WHERE USERNAME=?";
 	private final static String getUserTodos ="SELECT T.TODONAME, T.TODOPRIORITY, T.TODOPRIVATE, L.LISTNAME, T.TODODESC, T.TODOPOINTS, T.TODOFINISHED FROM TODOS T, USERS U, LISTS L WHERE T.USERID=U.USERID AND U.USERID=L.USERID AND T.LISTID=L.LISTID AND U.USERNAME=?";
 	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
 	private final static String getUserID = "SELECT USERID FROM USERS WHERE USERNAME=?";
 	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=?";
+	private final static String getLatestPublicTodos = "Select * FROM todos WHERE isPrivate=0 LIMIT 50 ORDER BY createdAt DESC";
 	
 	private Connection con;
 	
@@ -44,11 +47,11 @@ public class Database {
 		try {con.close();} catch (SQLException e) {e.printStackTrace();}
 	}
 	
-	public boolean signup(String username, String hashword, String actualName, int dob, String email, String aboutme) {
+	public boolean signup(TodoUser tu) {
 		try {
 			{ //check if the user exists
 				PreparedStatement ps = con.prepareStatement(selectUser);
-				ps.setString(1,username);
+				ps.setString(1,tu.getUsername());
 				ResultSet result = ps.executeQuery();
 				if(result.next()) {//if we have any results, don't let the user sign up.
 					return false;
@@ -56,12 +59,11 @@ public class Database {
 			}
 			{ //sign up
 				PreparedStatement ps = con.prepareStatement(newAccount);
-				ps.setString(1, username);
-				ps.setString(2, hashword);
-				ps.setString(3, actualName);
-				ps.setInt(4, dob);
-				ps.setString(5, email);
-				ps.setString(6, aboutme);
+				ps.setString(1, tu.getUsername());
+				ps.setString(2, tu.getPassword());
+				ps.setString(3, tu.getName());
+				ps.setString(4, tu.getEmail());
+				ps.setString(5, tu.getAboutMe());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {return false;}
@@ -90,13 +92,13 @@ public class Database {
 			ResultSet result = ps.executeQuery();
 			while(result.next()) {
 				String name = result.getString("TODONAME");
-				String priority = result.getString("TODOPRIORITY");
+				int priority = result.getInt("TODOPRIORITY");
 				boolean isPrivate = result.getBoolean("TODOPRIVATE");
 				String list = result.getString("LISTNAME");
 				String desc = result.getString("TODODESC");
 				int points = result.getInt("TODOPOINTS");
 				boolean isFinished = result.getBoolean("TODOFINISHED");
-				TodoObject to = new TodoObject(name, username, priority, isPrivate, list, desc, points);
+				TodoObject to = new TodoObject(name, priority, isPrivate, list, desc, points);
 				if(isFinished) to.setCompleted(isFinished);
 				retvec.add(to);
 			}
@@ -135,13 +137,13 @@ public class Database {
 	
 	
 	//(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate)
-	public void addTodo(TodoObject to){
+	public void addTodo(TodoObject to, String username){
 		try{
 			PreparedStatement ps = con.prepareStatement(addTodo);
-			ps.setInt(1, getUserID(to.getOwner()));
+			ps.setInt(1, getUserID(username));
 			ps.setInt(2, getListID(to.getList()));
 			ps.setInt(3, to.getPoints());
-			ps.setString(4, to.getPriority());
+			ps.setInt(4, to.getPriority());
 			ps.setString(5, to.getDescription());
 			ps.setString(6, to.getTitle());
 			ps.setBoolean(7, to.getCompleted());
@@ -156,4 +158,90 @@ public class Database {
 		java.util.Date today = new java.util.Date();
 		return new java.sql.Timestamp(today.getTime());
 	}
+	
+	//gets all user info with just username
+		//including all todos
+		public TodoUser getUserInfo(String mUsername)
+		{
+			try{
+				PreparedStatement ps = con.prepareStatement(selectUser);
+				ps.setString(1, mUsername);
+				ResultSet result = ps.executeQuery();
+				while(result.next())
+				{
+					int userId = result.getInt(0);
+					String username = result.getString(1);
+					String email = result.getString(2);
+					String password = result.getString(3);
+					TodoUser newUser = new TodoUser(userId,username,email,password);
+					newUser.setAboutMe(result.getString(4));
+					
+					//get all todos
+					newUser.setTodoLists(getUserTodoLists(newUser));
+					
+					return newUser;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			//user does not exist
+			return null;
+		}
+		
+		
+		//more queries
+		private final static String getAllTodoLists = "Select * FROM lists WHERE userID=?";
+		private final static String getTodosFromTodoList = "Select * FROM todos WHERE listID=?";
+		
+		//gets all todolists for the given user
+		public Vector<TodoList> getUserTodoLists(TodoUser user) 
+		{
+			//do nothing if the user id is not set
+			if (user.getID() == 0)
+				return null;
+			
+			Vector<TodoList> todolistVector = new Vector<TodoList>();
+			//get todo lists
+			try{
+				PreparedStatement ps = con.prepareStatement(getAllTodoLists);
+				ps.setInt(1, user.getID());
+				ResultSet result = ps.executeQuery();
+				while(result.next())
+				{
+					
+					int id = result.getInt(0);
+					String name = result.getString(2);
+					TodoList tl = new TodoList(id, name);
+					todolistVector.add(tl);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			//we have all todolists, now get all todos in them
+			for (TodoList tl : todolistVector)
+			{
+				try{
+					//get all todos for current todolist
+					PreparedStatement ps = con.prepareStatement(getTodosFromTodoList);
+					ps.setInt(1, tl.getID());
+					ResultSet result = ps.executeQuery();
+					while(result.next())
+					{
+						//loop through all todos, create todo objects and add them to tl
+						String name = result.getString(6);
+						String description = result.getString(5);
+						boolean isComplete = result.getBoolean(7);
+						int priority = result.getInt(4);
+						boolean isPrivate = result.getBoolean(8);
+						int points = result.getInt(3);
+						int listId = result.getInt(2);
+						TodoObject to = new TodoObject(name, priority, isPrivate, listId, description, points);
+						tl.addTodo(to);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return todolistVector;
+		}
 }

@@ -27,7 +27,7 @@ CREATE TABLE todos(
     userID int(11) not null,
     listID int(12) not null,
     todoPoints int(10),
-    todoPriority varchar(20),
+    todoPriority int(20),
     todoDesc varchar(140),
     todoName varchar(25) not null,
     todoFinished bool,
@@ -38,6 +38,11 @@ CREATE TABLE todos(
     FOREIGN KEY fk3(listID) REFERENCES lists(listID)
 );
 
-
+CREATE TABLE friendship (
+	friendshipID int(11) primary key auto_increment,
+    fromID int(11) not null,
+    toId int(11) not null,
+    createdAt datetime default current_timestamp
+);
 
 INSERT INTO users(username, actualname, hashword, email, dob, aboutme) VALUES('testuser', 'Testy McTesterson', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'testemail@emailserver.net', 01301996, 'Im the best tester ever!!!!');

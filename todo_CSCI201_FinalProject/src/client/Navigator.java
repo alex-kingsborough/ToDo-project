@@ -1,7 +1,7 @@
 package client;
 
 public interface Navigator {
-	public void toMain();
+	public void toPortal();
 	public void toLogin();
 	public void toSignup();
 }
