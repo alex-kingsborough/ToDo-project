@@ -18,6 +18,8 @@ public class TodoUser {
 	Vector<TodoObject> mTodoList; //deprecated
 	Vector<Integer> mFriendList;
 	Vector<String> mTabTitles;
+	
+	
 	private int mTotalPoints;
 	
 	//set mID to 0 if we still need to query db to get info about user

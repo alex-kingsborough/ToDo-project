@@ -10,6 +10,7 @@ CREATE TABLE users(
     email varchar(40) not null,
     hashword varchar(50) not null,
     dob int(8) not null,
+    points int(22) not null,
     aboutme text
 );
 
