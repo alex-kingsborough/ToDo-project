@@ -27,7 +27,7 @@ CREATE TABLE todos(
     userID int(11) not null,
     listID int(12) not null,
     todoPoints int(10),
-    todoPriority varchar(20),
+    todoPriority int(20),
     todoDesc varchar(140),
     todoName varchar(25) not null,
     todoFinished bool,
