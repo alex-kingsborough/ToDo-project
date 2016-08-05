@@ -15,7 +15,7 @@ public class ClientConnection extends Thread{
 	private Socket sSocket;
 	boolean echo = false;
 	private Database db = Database.get();
-	private string username = "";
+	private String username = "";
 
 	public ClientConnection(Socket s, MainServer mainServer) {
 		sSocket = s;
@@ -83,7 +83,7 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedUser(TodoUser tu){
-		db.signup(tu)
+		db.signup(tu);
 	}
 	
 	public Socket getSocket() {

@@ -3,6 +3,7 @@ package server;
 import com.mysql.jdbc.Driver;
 
 import client.TodoObject;
+import client.TodoUser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +23,7 @@ public class Database {
 		sDatabase = new Database();
 	}
 	
-	private final static String newAccount = "INSERT INTO USERS(USERNAME,HASHWORD,ACTUALNAME,EMAIL,DOB,ABOUTME) VALUES(?,?,?,?,?,?)";
+	private final static String newAccount = "INSERT INTO USERS(USERNAME,HASHWORD,ACTUALNAME,EMAIL,ABOUTME) VALUES(?,?,?,?,?)";
 	private final static String selectUser = "SELECT HASHWORD FROM USERS WHERE USERNAME=?";
 	private final static String getUserTodos ="SELECT T.TODONAME, T.TODOPRIORITY, T.TODOPRIVATE, L.LISTNAME, T.TODODESC, T.TODOPOINTS, T.TODOFINISHED FROM TODOS T, USERS U, LISTS L WHERE T.USERID=U.USERID AND U.USERID=L.USERID AND T.LISTID=L.LISTID AND U.USERNAME=?";
 	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
@@ -44,11 +45,11 @@ public class Database {
 		try {con.close();} catch (SQLException e) {e.printStackTrace();}
 	}
 	
-	public boolean signup(String username, String hashword, String actualName, int dob, String email, String aboutme) {
+	public boolean signup(TodoUser tu) {
 		try {
 			{ //check if the user exists
 				PreparedStatement ps = con.prepareStatement(selectUser);
-				ps.setString(1,username);
+				ps.setString(1,tu.getUsername());
 				ResultSet result = ps.executeQuery();
 				if(result.next()) {//if we have any results, don't let the user sign up.
 					return false;
@@ -56,12 +57,11 @@ public class Database {
 			}
 			{ //sign up
 				PreparedStatement ps = con.prepareStatement(newAccount);
-				ps.setString(1, username);
-				ps.setString(2, hashword);
-				ps.setString(3, actualName);
-				ps.setInt(4, dob);
-				ps.setString(5, email);
-				ps.setString(6, aboutme);
+				ps.setString(1, tu.getUsername());
+				ps.setString(2, tu.getPassword());
+				ps.setString(3, tu.getName());
+				ps.setString(4, tu.getEmail());
+				ps.setString(5, tu.getAboutMe());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {return false;}
@@ -90,13 +90,13 @@ public class Database {
 			ResultSet result = ps.executeQuery();
 			while(result.next()) {
 				String name = result.getString("TODONAME");
-				String priority = result.getString("TODOPRIORITY");
+				int priority = result.getInt("TODOPRIORITY");
 				boolean isPrivate = result.getBoolean("TODOPRIVATE");
 				String list = result.getString("LISTNAME");
 				String desc = result.getString("TODODESC");
 				int points = result.getInt("TODOPOINTS");
 				boolean isFinished = result.getBoolean("TODOFINISHED");
-				TodoObject to = new TodoObject(name, username, priority, isPrivate, list, desc, points);
+				TodoObject to = new TodoObject(name, priority, isPrivate, list, desc, points);
 				if(isFinished) to.setCompleted(isFinished);
 				retvec.add(to);
 			}
@@ -138,7 +138,7 @@ public class Database {
 	public void addTodo(TodoObject to, String username){
 		try{
 			PreparedStatement ps = con.prepareStatement(addTodo);
-			ps.setInt(1, getUserID(username);
+			ps.setInt(1, getUserID(username));
 			ps.setInt(2, getListID(to.getList()));
 			ps.setInt(3, to.getPoints());
 			ps.setInt(4, to.getPriority());
