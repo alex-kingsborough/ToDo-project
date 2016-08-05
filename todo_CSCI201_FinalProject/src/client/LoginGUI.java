@@ -35,14 +35,14 @@ private static final long serialVersionUID = 456789212311L;
 					//prepare login request
 					//send request to server
 					//case: LOGIN SUCCESS
-						mNav.toMain();
+						mNav.toPortal();
 					//case: FAILURE
 						//JOptionPane.showMessageDialog(loginButton, "Username or password is \ninvalid",
 						//							"Log-in Failed", JOptionPane.ERROR_MESSAGE);
 				//CLIENT IS NOT ONLINE
 					//JOptionPane.showMessageDialog(loginButton, "Server cannot be reached.\nProgram in offline mode.",
 					//								"Log-in Failed", JOptionPane.WARNING_MESSAGE);
-					//mNav.toEditor();
+					//mNav.toPortal();
 			}
 		});
 		GridBagConstraints gbc = new GridBagConstraints();
