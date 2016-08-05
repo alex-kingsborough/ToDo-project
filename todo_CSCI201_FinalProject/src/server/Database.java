@@ -2,7 +2,9 @@ package server;
 
 import com.mysql.jdbc.Driver;
 
+import client.TodoList;
 import client.TodoObject;
+import client.TodoUser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,6 +30,7 @@ public class Database {
 	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
 	private final static String getUserID = "SELECT USERID FROM USERS WHERE USERNAME=?";
 	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=?";
+	private final static String getLatestPublicTodos = "Select * FROM todos WHERE isPrivate=0 LIMIT 50 ORDER BY createdAt DESC";
 	
 	private Connection con;
 	
@@ -156,4 +159,90 @@ public class Database {
 		java.util.Date today = new java.util.Date();
 		return new java.sql.Timestamp(today.getTime());
 	}
+	
+	//gets all user info with just username
+		//including all todos
+		public TodoUser getUserInfo(String mUsername)
+		{
+			try{
+				PreparedStatement ps = con.prepareStatement(selectUser);
+				ps.setString(1, mUsername);
+				ResultSet result = ps.executeQuery();
+				while(result.next())
+				{
+					int userId = result.getInt(0);
+					String username = result.getString(1);
+					String email = result.getString(2);
+					String password = result.getString(3);
+					TodoUser newUser = new TodoUser(userId,username,email,password);
+					newUser.setAboutMe(result.getString(4));
+					
+					//get all todos
+					newUser.setTodoLists(getUserTodoLists(newUser));
+					
+					return newUser;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			//user does not exist
+			return null;
+		}
+		
+		
+		//more queries
+		private final static String getAllTodoLists = "Select * FROM lists WHERE userID=?";
+		private final static String getTodosFromTodoList = "Select * FROM todos WHERE listID=?";
+		
+		//gets all todolists for the given user
+		public Vector<TodoList> getUserTodoLists(TodoUser user) 
+		{
+			//do nothing if the user id is not set
+			if (user.getID() == 0)
+				return null;
+			
+			Vector<TodoList> todolistVector = new Vector<TodoList>();
+			//get todo lists
+			try{
+				PreparedStatement ps = con.prepareStatement(getAllTodoLists);
+				ps.setInt(1, user.getID());
+				ResultSet result = ps.executeQuery();
+				while(result.next())
+				{
+					
+					int id = result.getInt(0);
+					String name = result.getString(2);
+					TodoList tl = new TodoList(id, name);
+					todolistVector.add(tl);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			//we have all todolists, now get all todos in them
+			for (TodoList tl : todolistVector)
+			{
+				try{
+					//get all todos for current todolist
+					PreparedStatement ps = con.prepareStatement(getTodosFromTodoList);
+					ps.setInt(1, tl.getID());
+					ResultSet result = ps.executeQuery();
+					while(result.next())
+					{
+						//loop through all todos, create todo objects and add them to tl
+						String name = result.getString(6);
+						String description = result.getString(5);
+						boolean isComplete = result.getBoolean(7);
+						int priority = result.getInt(4);
+						boolean isPrivate = result.getBoolean(8);
+						int points = result.getInt(3);
+						int listId = result.getInt(2);
+						TodoObject to = new TodoObject(name, priority, isPrivate, listId, description, points);
+						tl.addTodo(to);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return todolistVector;
+		}
 }
