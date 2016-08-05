@@ -82,6 +82,7 @@ public class Database {
 		return false;
 	}
 	
+	/* Deprecated use getUserTodoLists() instead
 	public Vector<TodoObject> getUserTodos(String username){
 		
 		Vector<TodoObject> retvec = new Vector<TodoObject>();
@@ -108,6 +109,7 @@ public class Database {
 		
 		return retvec;
 	}
+	*/
 	
 	public int getUserID(String username){
 		try{
