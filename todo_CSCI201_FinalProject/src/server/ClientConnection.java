@@ -83,11 +83,9 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedUser(TodoUser tu){
-<<<<<<< HEAD
 		db.signup(tu);
-=======
 //		db.signup(tu); //TODO this isn't working with the signUp method in database
->>>>>>> branch 'master' of https://forrestmdunlap@bitbucket.org/csci201todo/todogroupproject.git
+//forrestmdunlap@bitbucket.org/csci201todo/todogroupproject.git
 	}
 	
 	public Socket getSocket() {

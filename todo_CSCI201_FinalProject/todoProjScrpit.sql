@@ -10,7 +10,7 @@ CREATE TABLE users(
     email varchar(40) not null,
     hashword varchar(50) not null,
     dob int(8) not null,
-    aboutme varchar(140)
+    aboutme text
 );
 
 CREATE TABLE lists(
@@ -28,7 +28,7 @@ CREATE TABLE todos(
     listID int(12) not null,
     todoPoints int(10),
     todoPriority int(20),
-    todoDesc varchar(140),
+    todoDesc text,
     todoName varchar(25) not null,
     todoFinished bool,
     todoPrivate bool,
