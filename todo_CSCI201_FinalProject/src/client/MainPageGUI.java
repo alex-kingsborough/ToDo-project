@@ -50,7 +50,6 @@ public class MainPageGUI extends JPanel {
 	//These next variables are hypotheticals, don't know what types we are using yet
 	TodoUser mUser;
 	Vector<TodoList> mAllTodos;
-	//Object[][] mTableData;
 	/*
 	//TODO
 	*/
