@@ -2,7 +2,6 @@ package client;
 
 public class TodoObject {
 	
-	private String owner;
 	private String title;
 	private int priority;
 	private boolean isPrivate;
@@ -12,7 +11,6 @@ public class TodoObject {
 	private int mPoints;
 	
 	
-	//constructor with owner
 	public TodoObject(String _title, int _priority, boolean _isPrivate, int _list, String _desc, int _points){
 		title = _title;
 		priority = _priority;
@@ -82,13 +80,6 @@ public class TodoObject {
 	
 	public int getPoints(){
 		return mPoints;
-	}
-
-	/**
-	 * @return the owner
-	 */
-	public String getOwner() {
-		return owner;
 	}
 	
 }
