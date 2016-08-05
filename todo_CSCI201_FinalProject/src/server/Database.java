@@ -135,13 +135,13 @@ public class Database {
 	
 	
 	//(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate)
-	public void addTodo(TodoObject to){
+	public void addTodo(TodoObject to, String username){
 		try{
 			PreparedStatement ps = con.prepareStatement(addTodo);
-			ps.setInt(1, getUserID(to.getOwner()));
+			ps.setInt(1, getUserID(username);
 			ps.setInt(2, getListID(to.getList()));
 			ps.setInt(3, to.getPoints());
-			ps.setString(4, to.getPriority());
+			ps.setInt(4, to.getPriority());
 			ps.setString(5, to.getDescription());
 			ps.setString(6, to.getTitle());
 			ps.setBoolean(7, to.getCompleted());

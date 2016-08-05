@@ -75,12 +75,12 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
-		db.addTodo(to);
+		db.addTodo(to,username);
 		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
 	}
 
 	private void handleRecievedUser(TodoUser tu){
-		
+		db.signup(tu)
 	}
 	
 	public Socket getSocket() {
