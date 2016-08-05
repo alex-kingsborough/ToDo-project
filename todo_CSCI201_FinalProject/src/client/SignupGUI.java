@@ -57,7 +57,7 @@ public class SignupGUI extends JPanel {
 						//read response from server
 						//case: SIGNUP SUCCESS
 							//signup user and go to editor
-							mNav.toMain();
+							mNav.toPortal();
 						//case: SIGNUP FAILURE
 							//JOptionPane.showMessageDialog(loginButton, "Username or password is \ninvalid.",
 							//							"Sign-up Failed", JOptionPane.ERROR_MESSAGE);
@@ -72,7 +72,7 @@ public class SignupGUI extends JPanel {
 					JOptionPane.showMessageDialog(loginButton, "Server cannot be reached.\nProgram in offline mode.",
 							"Log-in Failed", JOptionPane.WARNING_MESSAGE);
 					//set client to GUEST
-					//mNav.toMain();
+					//mNav.toPortal();
 					
 			} //end actionPerformed()
 		});
