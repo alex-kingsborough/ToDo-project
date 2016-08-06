@@ -73,7 +73,6 @@ public class AddTodoItem extends JFrame {
 	
 	}
 	
-	private void AddTodo() {
 	private void AddTodo(TodoUser tu) {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
@@ -112,12 +111,6 @@ public class AddTodoItem extends JFrame {
 		}
 		
 		
-		mListVector = new Vector<String>();
-		mListVector = tu.getTodoLists();
-		
-		
-		mListVector.add("Public Todos");
-		mListVector.add("Private Todos");
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
 		mPriorityBox.setFont(mFont.deriveFont(20));
 		mListBox = new JComboBox<String>(mListVector);
@@ -206,8 +199,6 @@ public class AddTodoItem extends JFrame {
 				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
 				
 				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points, mTU.getID());
-				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
-				//TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
 				//need to send this to the client to add to user's todos
 			}
 		});
