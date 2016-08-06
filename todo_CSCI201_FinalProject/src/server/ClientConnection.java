@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import client.TodoObject;
 import client.TodoUser;
+import constants.Constants;
 
 public class ClientConnection extends Thread{
 
@@ -100,9 +101,7 @@ public class ClientConnection extends Thread{
 			}
 			else
 			{
-				//something went wrong with signing them up
-				// bail bail bail
-				//TODO: do something real here
+				MainServer.gui.writeToLog("Error adding user: " + tu.getUsername());
 				
 				return;
 			}
@@ -120,6 +119,7 @@ public class ClientConnection extends Thread{
 			{
 				//fuck they have the wrong password 
 				//TODO: send some kind of random ass error message
+				sendMessage(Constants.FAIL_MESSAGE);
 				return;
 			}
 		}
