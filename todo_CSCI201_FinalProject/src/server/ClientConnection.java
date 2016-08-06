@@ -98,9 +98,11 @@ public class ClientConnection extends Thread{
 				//we signed up user
 				//so let's return a populated todo object
 				tu = db.getUserInfo(tu.getUsername());
+				sendMessage(Constants.SUCCESS_MESSAGE);
 			}
 			else
 			{
+				
 				MainServer.gui.writeToLog("Error adding user: " + tu.getUsername());
 				
 				return;
