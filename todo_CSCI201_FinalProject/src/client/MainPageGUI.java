@@ -95,14 +95,14 @@ public class MainPageGUI extends JPanel {
 			mMainTabbedPane.add(currTodoList.getName(),mScrollPane);
 		}
 	}
-	
 	public void updatePage(){
+		int currIndex = mMainTabbedPane.getSelectedIndex();
 		mMainTabbedPane.removeAll();
 		createTabbedPane();
-		setLayout(new BorderLayout());
+		mMainTabbedPane.setSelectedIndex(currIndex);
 		add(mMainTabbedPane, BorderLayout.CENTER);
 	}
-	
+
 	class MainPageTableModel extends AbstractTableModel {
 
 		private static final long serialVersionUID = 12616123;
