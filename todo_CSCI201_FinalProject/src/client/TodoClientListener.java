@@ -15,6 +15,8 @@ public class TodoClientListener extends Thread {
 	
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
+	private TodoUser tuGlobal;
+	
 	public TodoClientListener(String hostname, int port) {
 		s = null;
 		recievedStrings = new Vector<String>();
@@ -81,8 +83,9 @@ public class TodoClientListener extends Thread {
 				} else if(o instanceof TodoUser){
 					TodoUser tu = (TodoUser) o;
 					/*
-					 * TODO what do we do when we receive a user?
+					 * set global user to received TodoUser
 					 */
+					tuGlobal = tu;
 				} else if(o instanceof TodoObject[]){
 					TodoObject [] todoArr = (TodoObject[]) o ;
 					/*
@@ -115,14 +118,20 @@ public class TodoClientListener extends Thread {
 		return null;
 	}
 	
+	
+	
 	public void updateUserOnServer(TodoUser tu){
 		
 		/*
-		 * TODO send the user object to the server
-		 * TODO Have the server populate/update changes in the SQL database.
-		 * Actually, this should be a pretty easy operation.
-		 * I just need the SQL setup.
+		 * Send user object to server
+		 * server will send back an updated user object
 		 */
+		try {
+			oos.writeObject(tu);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean isConnected(){

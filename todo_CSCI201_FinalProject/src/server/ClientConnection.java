@@ -78,14 +78,30 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
-		db.addTodo(to,username);
-		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
+		//commented out for now
+		//db.addTodo(to,username);
+		//MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
 	}
 
 	private void handleRecievedUser(TodoUser tu){
-		db.signup(tu);
-//		db.signup(tu); //TODO this isn't working with the signUp method in database
-//forrestmdunlap@bitbucket.org/csci201todo/todogroupproject.git
+		//db.signup(tu); sign up should go through string i believe
+		
+		//get all user info
+		TodoUser newTu = db.getUserInfo(tu.getUsername());
+		
+		//TODO user does not exist in DB try to sign them up?
+		if (newTu == null)
+		{
+			db.signup(tu);
+			return;
+		}
+		
+		//if user does exist try to write them to the socket
+		try {
+			mOutputWriter.writeObject(newTu);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Socket getSocket() {
