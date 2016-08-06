@@ -5,9 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -23,8 +26,11 @@ public class PortalManager extends JPanel {
 	MainPageGUI mMainPage;
 	SocialGUI mSocialPage;
 	UserInfoGUI mUserInfoPage;
+	private TodoUser mUser;
 	
-	public PortalManager(JMenuBar jmb) {
+	public PortalManager(TodoUser inUser, JMenuBar jmb) {
+		mUser = inUser;
+		
 		mJMenuBar = jmb;
 		setLayout(new CardLayout());
 		
@@ -51,13 +57,20 @@ public class PortalManager extends JPanel {
 		mNewTabItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
-				
+			    String mNewTabMessage = "Please enter the title of the new tab:";
+			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage);
+			    if(mTabTitle != null){
+			    	int newTodoListIndex = mUser.getTodoLists().size();
+			    	TodoList mNewTodoList = new TodoList(newTodoListIndex, mTabTitle);
+			    	mUser.addTodoList(mNewTodoList);
+			    	mMainPage.updatePage();
+			    } //Else do nothing, user hit cancel
 			}
 		});
 		mTestMenu.addSeparator();
 		mTestMenu.add(mNewTabItem);
 		
-		mMainPage = new MainPageGUI();
+		mMainPage = new MainPageGUI(mUser);
 		mSocialPage = new SocialGUI();
 		mUserInfoPage = new UserInfoGUI();
 		
