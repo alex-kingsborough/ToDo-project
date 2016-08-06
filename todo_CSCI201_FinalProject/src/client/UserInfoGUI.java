@@ -72,6 +72,9 @@ public class UserInfoGUI extends JPanel {
 		
 		JPanel mAboutMePanel = new JPanel(new GridLayout(1,1));
 		mAboutMeTextArea = new JTextArea();
+		//mAboutMeTextArea.setLineWrap(true); //TODO Marshall, you'll probably want to add this, but I noticed it fucks with the alignment
+		//of the other things. I didn't want to mess with stuff much so just leaving it here commented out. -Luc
+		mAboutMeTextArea.setEditable(false);
 		mAboutMePanel.add(mAboutMeTextArea);
 		mAboutMePanel.setBorder(new TitledBorder("About Me")); //give about me new titled border
 		mInfoPanel.add(mAboutMePanel);

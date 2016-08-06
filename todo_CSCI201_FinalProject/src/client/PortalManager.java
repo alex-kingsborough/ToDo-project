@@ -12,8 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 public class PortalManager extends JPanel {
+	private static final long serialVersionUID = 123901585432L;
 	
 	JMenuBar mJMenuBar;
+	JMenu mTestMenu;
+	JMenuItem mMainPageItem;
+	JMenuItem mSocialPageItem;
+	JMenuItem mUserInfoItem;
+	JMenuItem mNewTabItem;
 	MainPageGUI mMainPage;
 	SocialGUI mSocialPage;
 	UserInfoGUI mUserInfoPage;
@@ -22,23 +28,34 @@ public class PortalManager extends JPanel {
 		mJMenuBar = jmb;
 		setLayout(new CardLayout());
 		
-		JMenu mTestMenu = new JMenu("Menu");
+		mTestMenu = new JMenu("Menu");
 		mTestMenu.setMnemonic('M');
 		mJMenuBar.add(mTestMenu);
-		JMenuItem mMainPageItem = new JMenuItem("Main Page");
+		mMainPageItem = new JMenuItem("Main Page");
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		mMainPageItem.addActionListener(new MenuItemActionListener(this, "main"));
 		mTestMenu.add(mMainPageItem);
 		
-		JMenuItem mSocialPageItem = new JMenuItem("Social Page");
+		mSocialPageItem = new JMenuItem("Social Page");
 		mSocialPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		mSocialPageItem.addActionListener(new MenuItemActionListener(this, "social"));
 		mTestMenu.add(mSocialPageItem);
 		
-		JMenuItem mUserInfoItem = new JMenuItem("User Info");
+		mUserInfoItem = new JMenuItem("User Info");
 		mUserInfoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
 		mUserInfoItem.addActionListener(new MenuItemActionListener(this, "user"));
 		mTestMenu.add(mUserInfoItem);
+		
+		mNewTabItem = new JMenuItem("New List Tab");
+		mNewTabItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		mNewTabItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent ae){
+				
+			}
+		});
+		mTestMenu.addSeparator();
+		mTestMenu.add(mNewTabItem);
 		
 		mMainPage = new MainPageGUI();
 		mSocialPage = new SocialGUI();
@@ -48,20 +65,32 @@ public class PortalManager extends JPanel {
 		add(mSocialPage, "social");
 		add(mUserInfoPage, "user");
 	}
-}
+	
+	private class MenuItemActionListener implements ActionListener {
+		private JPanel mPortalManager;
+		private String mPanelName;
 
-class MenuItemActionListener implements ActionListener {
-	private JPanel mPortalManager;
-	private String mPanelName;
-	
-	public MenuItemActionListener(JPanel portalManager, String panelName) {
-		mPortalManager = portalManager;
-		mPanelName = panelName;
-	}
-	
-	public void actionPerformed(ActionEvent ae) {
-		System.out.println(ae.getActionCommand());
-		CardLayout cl = (CardLayout) mPortalManager.getLayout();
-		cl.show(mPortalManager, mPanelName);
+		public MenuItemActionListener(JPanel portalManager, String panelName) {
+			mPortalManager = portalManager;
+			mPanelName = panelName;
+		}
+
+		public void actionPerformed(ActionEvent ae) {
+			System.out.println(ae.getActionCommand());
+			CardLayout cl = (CardLayout) mPortalManager.getLayout();
+			cl.show(mPortalManager, mPanelName);
+			updateMenuBar(mPanelName);
+		}
+
+		private void updateMenuBar(String inPanelName) {
+			mTestMenu.removeAll();
+			mTestMenu.add(mMainPageItem);
+			mTestMenu.add(mSocialPageItem);
+			mTestMenu.add(mUserInfoItem);
+			if(inPanelName.equals("main")) {
+				mTestMenu.addSeparator();
+				mTestMenu.add(mNewTabItem);
+			}
+		}
 	}
 }

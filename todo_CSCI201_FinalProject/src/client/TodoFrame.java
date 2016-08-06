@@ -14,8 +14,9 @@ import javax.swing.KeyStroke;
 public class TodoFrame extends JFrame implements Navigator {
 	
 	private static final long serialVersionUID = 1290395190L;
-
+	
 	public static void main(String[] args) {
+		TodoClientListener mTCL = new TodoClientListener("localhost",6789);
 		new TodoFrame("Todo Frame");
 	}
 	
@@ -34,7 +35,7 @@ public class TodoFrame extends JFrame implements Navigator {
 	@Override
 	public void toPortal() {
 		getContentPane().removeAll();
-		getContentPane().add(new SocialSidebar(this), BorderLayout.EAST);
+		getContentPane().add(new SocialSidebar(new TodoUser(0,"user","pass","email"), this), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
 
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
