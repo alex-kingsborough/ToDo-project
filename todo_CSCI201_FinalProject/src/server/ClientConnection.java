@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import client.TodoObject;
 import client.TodoUser;
+import constants.Constants;
 
 public class ClientConnection extends Thread{
 
@@ -78,14 +79,57 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
-		db.addTodo(to,username);
-		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
+		//TODO: make handleRecievedTodoObject as lit as handleRecievedUser
+		
+		//commented out for now
+		//db.addTodo(to,username);
+		//MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
 	}
 
 	private void handleRecievedUser(TodoUser tu){
-		db.signup(tu);
-//		db.signup(tu); //TODO this isn't working with the signUp method in database
-//forrestmdunlap@bitbucket.org/csci201todo/todogroupproject.git
+		
+		// check if user exists
+		if (db.getUserID(tu.getUsername()) == 0)
+		{
+			//if not try to sign them up 
+			//and return the authenticated user
+			if (db.signup(tu))
+			{
+				//we signed up user
+				//so let's return a populated todo object
+				tu = db.getUserInfo(tu.getUsername());
+			}
+			else
+			{
+				MainServer.gui.writeToLog("Error adding user: " + tu.getUsername());
+				
+				return;
+			}
+		}
+		else 
+		{
+			//user exists, make sure their information is right
+			if (db.login(tu.getUsername(), tu.getPassword()))
+			{
+				//their information is all good 
+				//update that shiz
+				tu = db.getUserInfo(tu.getUsername());
+			}
+			else
+			{
+				//fuck they have the wrong password 
+				//TODO: send some kind of random ass error message
+				sendMessage(Constants.FAIL_MESSAGE);
+				return;
+			}
+		}
+		
+		//now that we have a populated user object write it the socket
+		try {
+			mOutputWriter.writeObject(tu);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Socket getSocket() {

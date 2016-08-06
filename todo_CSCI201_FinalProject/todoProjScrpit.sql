@@ -9,8 +9,7 @@ CREATE TABLE users(
     actualname varchar(40) not null,
     email varchar(40) not null,
     hashword varchar(50) not null,
-    dob int(8) not null,
-    points int(22) not null,
+    points int(22) not null DEFAULT 0,
     aboutme text
 );
 
@@ -46,4 +45,4 @@ CREATE TABLE friendship (
     createdAt datetime default current_timestamp
 );
 
-INSERT INTO users(username, actualname, hashword, email, dob, aboutme) VALUES('testuser', 'Testy McTesterson', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'testemail@emailserver.net', 01301996, 'Im the best tester ever!!!!');
+INSERT INTO users(username, actualname, hashword, email, aboutme) VALUES('testuser', 'Testy McTesterson', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'testemail@emailserver.net', 'Im the best tester ever!!!!');

@@ -35,6 +35,10 @@ public class TodoUser {
 	{
 		allTodoLists = tlv;
 	}
+
+	public void addTodoList(TodoList inTodoList){
+		allTodoLists.add(inTodoList);
+	}
 	
 	public Vector<TodoList> getTodoLists(){
 		return allTodoLists;

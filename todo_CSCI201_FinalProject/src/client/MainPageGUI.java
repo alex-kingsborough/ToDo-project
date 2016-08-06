@@ -20,7 +20,7 @@ import javax.swing.table.AbstractTableModel;
 public class MainPageGUI extends JPanel {
 	private static final long serialVersionUID = 1293859318L;
 	
-	public static void main(String [] args){ //TODO FIX THIS ALL
+	/*public static void main(String [] args){ //TODO FIX THIS ALL
 		JFrame mTesting = new JFrame("test");
 		mTesting.add(new MainPageGUI());
 		
@@ -38,50 +38,31 @@ public class MainPageGUI extends JPanel {
 		mTesting.setLocationRelativeTo(null);
 		mTesting.setVisible(true);
 		mTesting.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+	}*/
 	
 	//MEMBER VARIABLES
 	//Panes and Panels and GUI stuff
-	JTabbedPane mMainTabbedPane;
-	JButton mAddTodoButton;
-	String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
+	private JTabbedPane mMainTabbedPane;
+	private JButton mAddTodoButton;
+	private String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
 	
 	//Necessary user variables
-	TodoUser mUser;
-	Vector<TodoList> mAllTodos;
+	private TodoUser mUser;
+	private Vector<TodoList> mAllTodos;
 	/*
 	//TODO
 	*/
 	
 	
 	//Constructor
-	public MainPageGUI(){ //TODO make it take in a User object to fill all necessary variables
+	public MainPageGUI(TodoUser inUser){
+		mUser = inUser;
+		
 		mMainTabbedPane = new JTabbedPane();
 
 		//Fill user variables from user
-		//TODO replace with filling from User
-		//TODO CHANGE THIS LINE TO GET THE USER FROM THE CLIENT
-		mUser = new TodoUser(1,"Jeff","pass","email");
-		TodoList playList = new TodoList(0,"Play");
-		for(int i =0;i<6;i++){
-			String tempTitle = "TITLE "+i;
-			TodoObject tempTodo = new TodoObject(tempTitle, 1, true, 0, "I LIKE TO HAVE FUN", i);
-			playList.addTodo(tempTodo);
-		}
-		TodoList workList = new TodoList(1,"Work");
-		for(int i =0;i<10;i++){
-			String tempTitle = i+" TITLE";
-			TodoObject tempTodo = new TodoObject(tempTitle, 5, false, 0, "I WorkHard", 100-i);
-			workList.addTodo(tempTodo);
-		}
-		Vector<TodoList> tempTodoListVec = new Vector<TodoList>();
-		tempTodoListVec.add(playList);
-		tempTodoListVec.add(workList);
-		mUser.setTodoLists(tempTodoListVec);
-		//END OF TESTING STUFF THAT NEEDS TO BE CHANGED
-		
+		//TODO make sure all necessary is here
 		mAllTodos = mUser.getTodoLists();
-		
 		
 		createTabbedPane();
 		setLayout(new BorderLayout());
@@ -115,6 +96,12 @@ public class MainPageGUI extends JPanel {
 		}
 	}
 	
+	public void updatePage(){
+		mMainTabbedPane.removeAll();
+		createTabbedPane();
+		setLayout(new BorderLayout());
+		add(mMainTabbedPane, BorderLayout.CENTER);
+	}
 	
 	class MainPageTableModel extends AbstractTableModel {
 
