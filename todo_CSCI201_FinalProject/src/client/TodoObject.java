@@ -9,14 +9,14 @@ public class TodoObject {
 	private int listID;
 	private String desc;
 	private int mPoints;
+	private String owner;
 	
-<<<<<<< HEAD
+	
 	//constructor without owner
-<<<<<<< HEAD
 	public TodoObject(String _title, int _priority, boolean _isPrivate, String list, String _desc, int _points){
-=======
-	public TodoObject(String _title, String _priority, boolean _isPrivate, String _desc, int _points){
->>>>>>> 6248af3dacddc589b5c6ea3d30a04dc0f0db7dc2
+		
+	}
+	public TodoObject(String _title, int _priority, boolean _isPrivate, String _desc, int _points){
 		title = _title;
 		priority = _priority;
 		isPrivate = _isPrivate;
@@ -26,24 +26,23 @@ public class TodoObject {
 	}
 	
 	//constructor with owner
-<<<<<<< HEAD
-	/*public TodoObject(String _title, String _owner, boolean _isPrivate, String _list, String _desc, int _points){
+	public TodoObject(String _title, String _owner, boolean _isPrivate, String _list, String _desc, int _points){
 		setOwner(_owner);
-=======
+		
+	}
+
 	public TodoObject(String _title, String _owner, String _priority, boolean _isPrivate, int _list, String _desc, int _points){
 		owner = _owner;
->>>>>>> 6248af3dacddc589b5c6ea3d30a04dc0f0db7dc2
-=======
+	}
 	
 	public TodoObject(String _title, int _priority, boolean _isPrivate, int _list, String _desc, int _points){
->>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
 		title = _title;
 		priority = _priority;
 		isPrivate = _isPrivate;
 		listID = _list;
 		desc = _desc;
 		mPoints = _points;
-	}*/
+	}
 	
 	public String getTitle(){
 		return title;
@@ -106,15 +105,17 @@ public class TodoObject {
 	public int getPoints(){
 		return mPoints;
 	}
-<<<<<<< HEAD
 
 	/**
 	 * @return the owner
 	 */
-	/*public String getOwner() {
+	public String getOwner() {
 		return owner;
-	}*/
-=======
->>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
+	}
+	
+	private void setOwner(String _owner) {
+		owner = _owner;
+		
+	}
 	
 }
