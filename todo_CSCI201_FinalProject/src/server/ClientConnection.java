@@ -78,6 +78,8 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
+		//TODO: make handleRecievedTodoObject as lit as handleRecievedUser
+		
 		//commented out for now
 		//db.addTodo(to,username);
 		//MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
@@ -122,7 +124,7 @@ public class ClientConnection extends Thread{
 			}
 		}
 		
-		//if user does exist try to write them to the socket
+		//now that we have a populated user object write it the socket
 		try {
 			mOutputWriter.writeObject(tu);
 		} catch (IOException e) {
