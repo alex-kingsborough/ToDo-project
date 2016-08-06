@@ -103,8 +103,9 @@ public class ClientConnection extends Thread{
 			else
 			{
 				
-				MainServer.gui.writeToLog("Error adding user: " + tu.getUsername());
 				
+				MainServer.gui.writeToLog("Error adding user: " + tu.getUsername());
+				sendMessage(Constants.FAIL_MESSAGE);
 				return;
 			}
 		}
@@ -115,13 +116,14 @@ public class ClientConnection extends Thread{
 			{
 				//their information is all good 
 				//update that shiz
+				sendMessage(Constants.AUTHENTICATED_MESSAGE);
 				tu = db.getUserInfo(tu.getUsername());
 			}
 			else
 			{
 				//fuck they have the wrong password 
 				//TODO: send some kind of random ass error message
-				sendMessage(Constants.FAIL_MESSAGE);
+				sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 				return;
 			}
 		}
