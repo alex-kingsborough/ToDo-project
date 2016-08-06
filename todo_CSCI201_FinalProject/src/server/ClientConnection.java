@@ -84,21 +84,47 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedUser(TodoUser tu){
-		//db.signup(tu); sign up should go through string i believe
 		
-		//get all user info
-		TodoUser newTu = db.getUserInfo(tu.getUsername());
-		
-		//TODO user does not exist in DB try to sign them up?
-		if (newTu == null)
+		// check if user exists
+		if (db.getUserID(tu.getUsername()) == 0)
 		{
-			db.signup(tu);
-			return;
+			//if not try to sign them up 
+			//and return the authenticated user
+			if (db.signup(tu))
+			{
+				//we signed up user
+				//so let's return a populated todo object
+				tu = db.getUserInfo(tu.getUsername());
+			}
+			else
+			{
+				//something went wrong with signing them up
+				// bail bail bail
+				//TODO: do something real here
+				
+				return;
+			}
+		}
+		else 
+		{
+			//user exists, make sure their information is right
+			if (db.login(tu.getUsername(), tu.getPassword()))
+			{
+				//their information is all good 
+				//update that shiz
+				tu = db.getUserInfo(tu.getUsername());
+			}
+			else
+			{
+				//fuck they have the wrong password 
+				//TODO: send some kind of random ass error message
+				return;
+			}
 		}
 		
 		//if user does exist try to write them to the socket
 		try {
-			mOutputWriter.writeObject(newTu);
+			mOutputWriter.writeObject(tu);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
