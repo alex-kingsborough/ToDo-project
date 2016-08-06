@@ -31,6 +31,9 @@ public class Database {
 	private final static String getUserID = "SELECT USERID FROM USERS WHERE USERNAME=?";
 	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=?";
 	private final static String getLatestPublicTodos = "Select * FROM todos WHERE isPrivate=0 LIMIT 50 ORDER BY createdAt DESC";
+	private final static String getAllUserFriends = "SELECT * FROM friendship WHERE fromID=?";
+	private final static String getUserTodosById = "SELECT * FROM todos WHERE userID=?";
+	
 	
 	private Connection con;
 	
@@ -245,5 +248,49 @@ public class Database {
 				}
 			}
 			return todolistVector;
+		}
+		
+		//get all friends toodos
+		public Vector<TodoObject> getFriendsTodos(TodoUser tu)
+		{
+			Vector<TodoObject> friendTodos = new Vector<TodoObject>();
+			
+			//get all friends
+			PreparedStatement ps;
+			try {
+				ps = con.prepareStatement(getAllUserFriends);
+				ps.setInt(1, tu.getID());
+				ResultSet result = ps.executeQuery();
+				
+				//now iterate through all friends
+				while (result.next())
+				{
+					//get a friends todos
+					int userId = result.getInt(2);
+					ps = con.prepareStatement(getUserTodosById);
+					ps.setInt(1, tu.getID());
+					ResultSet todoResult = ps.executeQuery();
+					
+					//now iterate through all of that friends's todos
+					while (result.next())
+					{
+						String name = result.getString(6);
+						String description = result.getString(5);
+						boolean isComplete = result.getBoolean(7);
+						int priority = result.getInt(4);
+						boolean isPrivate = result.getBoolean(8);
+						int points = result.getInt(3);
+						int listId = result.getInt(2);
+						TodoObject to = new TodoObject(name, priority, isPrivate, listId, description, points);
+						friendTodos.add(to);
+					}
+				}
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return friendsTodos;
 		}
 }
