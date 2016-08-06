@@ -60,7 +60,7 @@ public class AddTodoItem extends JFrame {
 	JTextField mPointsText;
 	Font mFont;
 	
-	private AddTodoItem(){
+	public AddTodoItem(){
 		super("Add Todo");
 		setSize(400, 300);
 		setLocation(800, 400);

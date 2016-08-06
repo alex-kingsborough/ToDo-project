@@ -1,5 +1,7 @@
 package client;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -10,13 +12,33 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 public class TodoFrame extends JFrame implements Navigator {
+	
+	private static final long serialVersionUID = 1290395190L;
 
 	public static void main(String[] args) {
-		TodoFrame mFrame = new TodoFrame("Todo Frame");
-		mFrame.add(new SignInGUI(mFrame));
+		new TodoFrame("Todo Frame");
+	}
+	
+	public TodoFrame(String string) {
+		super(string);
+
+		add(new SignInGUI(this));
 		
+		setSize(800, 500);
+		setMinimumSize(new Dimension(800, 500));
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	@Override
+	public void toMain() {
+		getContentPane().removeAll();
+		getContentPane().add(new MainPageGUI(), BorderLayout.CENTER);
+		getContentPane().add(new SocialSidebar(this), BorderLayout.EAST);
+
 		JMenuBar mTestBar = new JMenuBar();
-		mFrame.setJMenuBar(mTestBar);
+		setJMenuBar(mTestBar);
 		JMenu mTestMenu = new JMenu("Menu");
 		mTestMenu.setMnemonic('M');
 		mTestBar.add(mTestMenu);
@@ -24,21 +46,6 @@ public class TodoFrame extends JFrame implements Navigator {
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		mTestMenu.add(mMainPageItem);
 		
-		
-		mFrame.setSize(800, 500);
-		mFrame.setLocationRelativeTo(null);
-		mFrame.setVisible(true);
-		mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-	
-	public TodoFrame(String string) {
-		super(string);
-	}
-	
-	@Override
-	public void toMain() {
-		getContentPane().removeAll();
-		getContentPane().add(new MainPageGUI());
 		revalidate();
 		repaint();
 	}
