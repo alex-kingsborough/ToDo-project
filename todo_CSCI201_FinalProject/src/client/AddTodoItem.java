@@ -59,6 +59,7 @@ public class AddTodoItem extends JFrame {
 	boolean isPrivate;
 	JTextField mPointsText;
 	Font mFont;
+	TodoUser mTU;
 	
 	public AddTodoItem(TodoUser tu){
 		super("Add Todo");
@@ -68,7 +69,7 @@ public class AddTodoItem extends JFrame {
 		AddTodo(tu);
 		addPublicRBEvents();
 		addPrivateRBEvents();
-		
+		mTU = tu;
 	
 	}
 	
@@ -102,11 +103,14 @@ public class AddTodoItem extends JFrame {
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15);
-		mListVector = tu.getTodoLists();
+		
+		for(int i = 0; i < tu.getTodoLists().size(); i ++){
+			String name;
+			name = tu.getTodoLists().get(i).getName();
+			mListVector.addElement(name);
+		}
 		
 		
-		mListVector.add("Public Todos");
-		mListVector.add("Private Todos");
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
 		mPriorityBox.setFont(mFont.deriveFont(20));
 		mListBox = new JComboBox<String>(mListVector);
@@ -149,10 +153,6 @@ public class AddTodoItem extends JFrame {
 		addSaveEvents();
 	}
 	
-	public static void main(String [] args){
-		AddTodoItem mtodo = new AddTodoItem();
-		mtodo.setVisible(true);
-	}
 	
 	private void addPublicRBEvents(){
 		mPublicRB.addActionListener(new ActionListener(){
@@ -198,7 +198,7 @@ public class AddTodoItem extends JFrame {
 				
 				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
 				
-				//TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
+				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points, mTU.getID());
 				//need to send this to the client to add to user's todos
 			}
 		});

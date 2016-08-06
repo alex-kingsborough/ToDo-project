@@ -59,20 +59,21 @@ public class UpdateTodo extends JFrame {
 	boolean isPrivate;
 	JTextField mPointsText;
 	Font mFont;
+	TodoUser mTU;
 	
-	public UpdateTodo(TodoObject to){
+	public UpdateTodo(TodoObject to, TodoUser tu){
 		super("Edit Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo(to);
+		AddTodo(to, tu);
 		addPublicRBEvents();
 		addPrivateRBEvents();
-		
+		mTU = tu;
 	
 	}
 	
-	private void AddTodo(TodoObject to) {
+	private void AddTodo(TodoObject to, TodoUser tu) {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mTitleLabel = new JLabel("Title: ");
@@ -108,11 +109,19 @@ public class UpdateTodo extends JFrame {
 		mPointsText = new JTextField(15);
 		mPointsText.setText(Integer.toString(to.getPoints()));
 		mListVector = new Vector<String>();
-		mListVector.add("Public Todos");
-		mListVector.add("Private Todos");
+
+		for(int i = 0; i < tu.getTodoLists().size(); i ++){
+			String name;
+			name = tu.getTodoLists().get(i).getName();
+			mListVector.addElement(name);
+		}
+		
 		int currList = 0;
 		for(int i = 0; i < mListVector.size(); i ++){
-			if(mListVector.get(i).equals(to.getList()))
+			if(mListVector.get(i).equals(to.getList())){
+				currList = i;
+				return;
+			}
 		}
 		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
@@ -120,7 +129,7 @@ public class UpdateTodo extends JFrame {
 		mPriorityBox.setSelectedIndex(10-to.getPriority());
 		mListBox = new JComboBox<String>(mListVector);
 		mListBox.setFont(mFont.deriveFont(2));
-		
+		mListBox.setSelectedIndex(currList);
 		
 		//mListBox.setSelectedIndex();
 		mMainPanel =  new JPanel();
@@ -161,10 +170,7 @@ public class UpdateTodo extends JFrame {
 		addSaveEvents();
 	}
 	
-	public static void main(String [] args){
-		UpdateTodo mtodo = new UpdateTodo();
-		mtodo.setVisible(true);
-	}
+	
 	
 	private void addPublicRBEvents(){
 		mPublicRB.addActionListener(new ActionListener(){
@@ -210,7 +216,7 @@ public class UpdateTodo extends JFrame {
 				
 				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
 				
-				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
+				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points, mTU.getID());
 				//need to send this to the client to add to user's todos
 			}
 		});
