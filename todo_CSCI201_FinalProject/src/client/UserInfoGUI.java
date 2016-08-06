@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -8,6 +9,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -18,7 +20,7 @@ import javax.swing.border.TitledBorder;
 
 public class UserInfoGUI extends JPanel {
 	
-
+	
 	private static final long serialVersionUID = 676767676761L;
 	private JLabel mUsernameLabel;
 	private JLabel mNameLabel;
@@ -40,7 +42,6 @@ public class UserInfoGUI extends JPanel {
 	
 	{
 		setLayout(new BorderLayout());
-		
 		mUsernameLabel = new JLabel("Username: username213");
 		mUsernameLabel.setFont(mUsernameLabel.getFont().deriveFont(24f));
 		JPanel mTopPanel = new JPanel();
@@ -71,6 +72,9 @@ public class UserInfoGUI extends JPanel {
 		
 		JPanel mAboutMePanel = new JPanel(new GridLayout(1,1));
 		mAboutMeTextArea = new JTextArea();
+		//mAboutMeTextArea.setLineWrap(true); //TODO Marshall, you'll probably want to add this, but I noticed it fucks with the alignment
+		//of the other things. I didn't want to mess with stuff much so just leaving it here commented out. -Luc
+		mAboutMeTextArea.setEditable(false);
 		mAboutMePanel.add(mAboutMeTextArea);
 		mAboutMePanel.setBorder(new TitledBorder("About Me")); //give about me new titled border
 		mInfoPanel.add(mAboutMePanel);
@@ -145,6 +149,13 @@ public class UserInfoGUI extends JPanel {
 		mBottomPanel.add(mRemoveFriendPanel);
 		
 		add(mBottomPanel, BorderLayout.SOUTH);
+	}
+	
+	public static void main(String [] args) {
+		JFrame mFrame = new JFrame();
+		mFrame.add(new UserInfoGUI());
+		mFrame.setSize(400, 400);
+		mFrame.setVisible(true);
 	}
 }
 

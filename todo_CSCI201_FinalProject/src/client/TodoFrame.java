@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -14,8 +15,11 @@ import javax.swing.KeyStroke;
 public class TodoFrame extends JFrame implements Navigator {
 	
 	private static final long serialVersionUID = 1290395190L;
-
+	
+	private TodoUser tempUser; //TODO temporary user for working on functionality/communication between classes
+	
 	public static void main(String[] args) {
+		TodoClientListener mTCL = new TodoClientListener("localhost",6789);
 		new TodoFrame("Todo Frame");
 	}
 	
@@ -32,20 +36,35 @@ public class TodoFrame extends JFrame implements Navigator {
 	}
 	
 	@Override
-	public void toMain() {
+	public void toPortal() {
 		getContentPane().removeAll();
-		getContentPane().add(new MainPageGUI(), BorderLayout.CENTER);
-		getContentPane().add(new SocialSidebar(this), BorderLayout.EAST);
+		
+		//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
+		tempUser = new TodoUser(1,"Jeff","pass","email");
+		TodoList playList = new TodoList(0,"Play");
+		for(int i =0;i<6;i++){
+			String tempTitle = "TITLE "+i;
+			TodoObject tempTodo = new TodoObject(tempTitle, 1, true, 0, "I LIKE TO HAVE FUN", i);
+			playList.addTodo(tempTodo);
+		}
+		TodoList workList = new TodoList(1,"Work");
+		for(int i =0;i<10;i++){
+			String tempTitle = i+" TITLE";
+			TodoObject tempTodo = new TodoObject(tempTitle, 5, false, 0, "I WorkHard", 100-i);
+			workList.addTodo(tempTodo);
+		}
+		Vector<TodoList> tempTodoListVec = new Vector<TodoList>();
+		tempTodoListVec.add(playList);
+		tempTodoListVec.add(workList);
+		tempUser.setTodoLists(tempTodoListVec);
+		//END OF STUFF TO REMOVE
+		
+		getContentPane().add(new SocialSidebar(tempUser, this), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
 
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
-		JMenu mTestMenu = new JMenu("Menu");
-		mTestMenu.setMnemonic('M');
-		mTestBar.add(mTestMenu);
-		JMenuItem mMainPageItem = new JMenuItem("Main Page");
-		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
-		mTestMenu.add(mMainPageItem);
 		
+		getContentPane().add(new PortalManager(tempUser, mTestBar), BorderLayout.CENTER);
 		revalidate();
 		repaint();
 	}

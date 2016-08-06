@@ -2,15 +2,15 @@ package client;
 
 public class TodoObject {
 	
-	private String owner;
 	private String title;
-	private String priority;
+	private int priority;
 	private boolean isPrivate;
 	private boolean isCompleted;
 	private int listID;
 	private String desc;
 	private int mPoints;
 	
+<<<<<<< HEAD
 	//constructor without owner
 <<<<<<< HEAD
 	public TodoObject(String _title, int _priority, boolean _isPrivate, String list, String _desc, int _points){
@@ -33,6 +33,10 @@ public class TodoObject {
 	public TodoObject(String _title, String _owner, String _priority, boolean _isPrivate, int _list, String _desc, int _points){
 		owner = _owner;
 >>>>>>> 6248af3dacddc589b5c6ea3d30a04dc0f0db7dc2
+=======
+	
+	public TodoObject(String _title, int _priority, boolean _isPrivate, int _list, String _desc, int _points){
+>>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
 		title = _title;
 		priority = _priority;
 		isPrivate = _isPrivate;
@@ -50,11 +54,11 @@ public class TodoObject {
 		return;
 	}
 	
-	public String getPriority(){
+	public int getPriority(){
 		return priority;
 	}
 	
-	public void setPriority(String _priority){
+	public void setPriority(int _priority){
 		priority = _priority;
 		return;
 	}
@@ -102,6 +106,7 @@ public class TodoObject {
 	public int getPoints(){
 		return mPoints;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * @return the owner
@@ -109,5 +114,7 @@ public class TodoObject {
 	/*public String getOwner() {
 		return owner;
 	}*/
+=======
+>>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
 	
 }

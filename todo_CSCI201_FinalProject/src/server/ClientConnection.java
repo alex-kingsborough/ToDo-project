@@ -15,6 +15,7 @@ public class ClientConnection extends Thread{
 	private Socket sSocket;
 	boolean echo = false;
 	private Database db = Database.get();
+	private String username = "";
 
 	public ClientConnection(Socket s, MainServer mainServer) {
 		sSocket = s;
@@ -54,6 +55,8 @@ public class ClientConnection extends Thread{
 						if(s.endsWith("echo")){
 							echo = !echo;
 						}
+					} if(s.startsWith("login: ")){
+						String[] elements = s.split(" ");
 					}
 					MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 					if(echo){
@@ -75,12 +78,58 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
-		db.addTodo(to);
-		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
+		//TODO: make handleRecievedTodoObject as lit as handleRecievedUser
+		
+		//commented out for now
+		//db.addTodo(to,username);
+		//MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
 	}
 
 	private void handleRecievedUser(TodoUser tu){
 		
+		// check if user exists
+		if (db.getUserID(tu.getUsername()) == 0)
+		{
+			//if not try to sign them up 
+			//and return the authenticated user
+			if (db.signup(tu))
+			{
+				//we signed up user
+				//so let's return a populated todo object
+				tu = db.getUserInfo(tu.getUsername());
+			}
+			else
+			{
+				//something went wrong with signing them up
+				// bail bail bail
+				//TODO: do something real here
+				
+				return;
+			}
+		}
+		else 
+		{
+			//user exists, make sure their information is right
+			if (db.login(tu.getUsername(), tu.getPassword()))
+			{
+				//their information is all good 
+				//update that shiz
+				tu = db.getUserInfo(tu.getUsername());
+			}
+			else
+			{
+				//fuck they have the wrong password 
+				//TODO: send some kind of random ass error message
+				return;
+			}
+		}
+		
+		//now that we have a populated user object write it the socket
+		try {
+			mOutputWriter.writeObject(tu);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Socket getSocket() {

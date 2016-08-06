@@ -49,7 +49,7 @@ public class SignInGUI extends JPanel {
 		offlineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to main page in Guest Mode
-				mNav.toMain();
+				mNav.toPortal();
 			}
 		});
 

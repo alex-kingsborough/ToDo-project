@@ -33,7 +33,7 @@ import javax.swing.UIManager;
  * 
  * 
 */
-public class AddTodoItem extends JFrame {
+public class UpdateTodo extends JFrame {
 	private static final long serialVersionUID = 1376543;
 	JLabel mTitleLabel;
 	JLabel mPriorityLabel;
@@ -60,23 +60,19 @@ public class AddTodoItem extends JFrame {
 	JTextField mPointsText;
 	Font mFont;
 	
-	public AddTodoItem(TodoUser tu){
-		super("Add Todo");
+	public UpdateTodo(TodoObject to){
+		super("Edit Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo(tu);
+		AddTodo(to);
 		addPublicRBEvents();
 		addPrivateRBEvents();
 		
 	
 	}
 	
-<<<<<<< HEAD
-	private void AddTodo() {
-=======
-	private void AddTodo(TodoUser tu) {
->>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
+	private void AddTodo(TodoObject to) {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mTitleLabel = new JLabel("Title: ");
@@ -94,31 +90,39 @@ public class AddTodoItem extends JFrame {
 		mSaveButton = new JButton("Save");
 		mSaveButton.setFont(mFont.deriveFont(20));
 		mPublicRB = new JRadioButton("Public");
+		mPublicRB.setSelected(!to.getIsPrivate());
 		mPublicRB.setFont(mFont.deriveFont(20));
 		mPrivateRB = new JRadioButton("Private");
+		mPrivateRB.setSelected(to.getIsPrivate());
 		mPrivateRB.setFont(mFont.deriveFont(20));
 		mTitleText = new JTextField(15);
+		mTitleText.setText(to.getTitle());
 		mTitleText.setFont(mFont.deriveFont(20));
 		mDescriptionText = new JTextArea(5, 15);
+		mDescriptionText.setText(to.getDescription());
 		mDescriptionText.setFont(mFont.deriveFont(0, 10));
 		mPriorityVector = new Vector<Integer>();
 		for(int i = 10; i > 0; i--){
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15);
-<<<<<<< HEAD
+		mPointsText.setText(Integer.toString(to.getPoints()));
 		mListVector = new Vector<String>();
-=======
-		mListVector = tu.getTodoLists();
-		
-		
->>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
 		mListVector.add("Public Todos");
 		mListVector.add("Private Todos");
+		int currList = 0;
+		for(int i = 0; i < mListVector.size(); i ++){
+			if(mListVector.get(i).equals(to.getList()))
+		}
+		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
 		mPriorityBox.setFont(mFont.deriveFont(20));
+		mPriorityBox.setSelectedIndex(10-to.getPriority());
 		mListBox = new JComboBox<String>(mListVector);
 		mListBox.setFont(mFont.deriveFont(2));
+		
+		
+		//mListBox.setSelectedIndex();
 		mMainPanel =  new JPanel();
 		mTitlePanel =  new JPanel();
 		mPriorityPanel =  new JPanel();
@@ -158,7 +162,7 @@ public class AddTodoItem extends JFrame {
 	}
 	
 	public static void main(String [] args){
-		AddTodoItem mtodo = new AddTodoItem();
+		UpdateTodo mtodo = new UpdateTodo();
 		mtodo.setVisible(true);
 	}
 	
@@ -206,11 +210,7 @@ public class AddTodoItem extends JFrame {
 				
 				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
 				
-<<<<<<< HEAD
 				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
-=======
-				//TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
->>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
 				//need to send this to the client to add to user's todos
 			}
 		});
