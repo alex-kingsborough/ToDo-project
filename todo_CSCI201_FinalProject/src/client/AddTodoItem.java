@@ -59,6 +59,7 @@ public class AddTodoItem extends JFrame {
 	boolean isPrivate;
 	JTextField mPointsText;
 	Font mFont;
+	TodoUser mTU;
 	
 	public AddTodoItem(TodoUser tu){
 		super("Add Todo");
@@ -68,7 +69,7 @@ public class AddTodoItem extends JFrame {
 		AddTodo(tu);
 		addPublicRBEvents();
 		addPrivateRBEvents();
-		
+		mTU = tu;
 	
 	}
 	
@@ -107,6 +108,16 @@ public class AddTodoItem extends JFrame {
 		}
 		mPointsText = new JTextField(15);
 <<<<<<< HEAD
+		
+		for(int i = 0; i < tu.getTodoLists().size(); i ++){
+			String name;
+			name = tu.getTodoLists().get(i).getName();
+			mListVector.addElement(name);
+		}
+		
+		
+=======
+<<<<<<< HEAD
 		mListVector = new Vector<String>();
 =======
 		mListVector = tu.getTodoLists();
@@ -115,6 +126,7 @@ public class AddTodoItem extends JFrame {
 >>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
 		mListVector.add("Public Todos");
 		mListVector.add("Private Todos");
+>>>>>>> 36475be1c944b528635da097a8cbadfa7c35bd69
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
 		mPriorityBox.setFont(mFont.deriveFont(20));
 		mListBox = new JComboBox<String>(mListVector);
@@ -157,10 +169,6 @@ public class AddTodoItem extends JFrame {
 		addSaveEvents();
 	}
 	
-	public static void main(String [] args){
-		AddTodoItem mtodo = new AddTodoItem();
-		mtodo.setVisible(true);
-	}
 	
 	private void addPublicRBEvents(){
 		mPublicRB.addActionListener(new ActionListener(){
@@ -207,10 +215,14 @@ public class AddTodoItem extends JFrame {
 				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
 				
 <<<<<<< HEAD
+				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points, mTU.getID());
+=======
+<<<<<<< HEAD
 				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
 =======
 				//TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points);
 >>>>>>> f9a5bd70f31c2657d29401eac65e712a2a10e031
+>>>>>>> 36475be1c944b528635da097a8cbadfa7c35bd69
 				//need to send this to the client to add to user's todos
 			}
 		});

@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowEvent;
 import java.util.Vector;
 
 import javax.swing.Box;
@@ -25,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
 
 
 /* This needs a vector of the different lists that the current user has 
@@ -33,7 +35,7 @@ import javax.swing.UIManager;
  * 
  * 
 */
-public class UpdateTodo extends JFrame {
+public class ViewTodo extends JFrame {
 	private static final long serialVersionUID = 1376543;
 	JLabel mTitleLabel;
 	JLabel mPriorityLabel;
@@ -61,14 +63,14 @@ public class UpdateTodo extends JFrame {
 	Font mFont;
 	TodoUser mTU;
 	
-	public UpdateTodo(TodoObject to, TodoUser tu){
+	public ViewTodo(TodoObject to, TodoUser tu){
 		super("Edit Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		AddTodo(to, tu);
-		addPublicRBEvents();
-		addPrivateRBEvents();
+		//addPublicRBEvents();
+		//addPrivateRBEvents();
 		mTU = tu;
 	
 	}
@@ -88,7 +90,7 @@ public class UpdateTodo extends JFrame {
 		mListLabel.setFont(mFont);
 		mDescriptionLabel = new JLabel("Description: ");
 		mDescriptionLabel.setFont(mFont);
-		mSaveButton = new JButton("Save");
+		mSaveButton = new JButton("Close");
 		mSaveButton.setFont(mFont.deriveFont(20));
 		mPublicRB = new JRadioButton("Public");
 		mPublicRB.setSelected(!to.getIsPrivate());
@@ -96,12 +98,27 @@ public class UpdateTodo extends JFrame {
 		mPrivateRB = new JRadioButton("Private");
 		mPrivateRB.setSelected(to.getIsPrivate());
 		mPrivateRB.setFont(mFont.deriveFont(20));
-		mTitleText = new JTextField(15);
+		mTitleText = new JTextField(15) {
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
 		mTitleText.setText(to.getTitle());
 		mTitleText.setFont(mFont.deriveFont(20));
-		mDescriptionText = new JTextArea(5, 15);
+		mTitleText.setEditable(false);
+		mTitleText.setOpaque(false);
+		
+		mDescriptionText = new JTextArea(5, 15) {
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
 		mDescriptionText.setText(to.getDescription());
 		mDescriptionText.setFont(mFont.deriveFont(0, 10));
+		mDescriptionText.setEditable(false);
+		mDescriptionText.setOpaque(false);
+		
+		
 		mPriorityVector = new Vector<Integer>();
 		for(int i = 10; i > 0; i--){
 			mPriorityVector.addElement(i);
@@ -124,14 +141,39 @@ public class UpdateTodo extends JFrame {
 			}
 		}
 		
-		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
+		/*mPriorityBox = new JComboBox<Integer>(mPriorityVector);
 		mPriorityBox.setFont(mFont.deriveFont(20));
 		mPriorityBox.setSelectedIndex(10-to.getPriority());
-		mListBox = new JComboBox<String>(mListVector);
+		*/
+		JTextField mPriorityText = new JTextField(10-to.getPriority()) {
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
+		
+/*		mListBox = new JComboBox<String>(mListVector);
 		mListBox.setFont(mFont.deriveFont(2));
 		mListBox.setSelectedIndex(currList);
-		
-		//mListBox.setSelectedIndex();
+*/		
+		JTextField mListText = new JTextField(mListVector.get(currList)) {
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
+		JTextField mPrivacyText;
+		if(isPrivate){
+			mPrivacyText = new JTextField("Private") {
+			    @Override public void setBorder(Border border) {
+			        // No!
+			    }
+			};
+		}else{
+			mPrivacyText = new JTextField("Public") {
+			    @Override public void setBorder(Border border) {
+			        // No!
+			    }
+			};
+		}
 		mMainPanel =  new JPanel();
 		mTitlePanel =  new JPanel();
 		mPriorityPanel =  new JPanel();
@@ -139,7 +181,6 @@ public class UpdateTodo extends JFrame {
 		mListPanel =  new JPanel();
 		mDescriptionPanel =  new JPanel();
 		mMainPanel.setLayout(new GridLayout(6, 2));
-		mTitlePanel.setLayout(new FlowLayout());
 		mPrivacyPanel.setLayout(new FlowLayout());
 		mPrivacyPanel.add(mPublicRB);
 		mPrivacyPanel.add(mPrivateRB);
@@ -148,16 +189,16 @@ public class UpdateTodo extends JFrame {
 		mMainPanel.add(mTitleText);
 		
 		mMainPanel.add(mPriorityLabel);
-		mMainPanel.add(mPriorityBox);
+		mMainPanel.add(mPriorityText);
 		
 		mMainPanel.add(mPointsLabel);
 		mMainPanel.add(mPointsText);
 		
 		mMainPanel.add(mPrivacyLabel);
-		mMainPanel.add(mPrivacyPanel);
+		mMainPanel.add(mPrivacyText);
 
 		mMainPanel.add(mListLabel);
-		mMainPanel.add(mListBox);
+		mMainPanel.add(mListText);
 
 		mMainPanel.add(mDescriptionLabel);
 		mMainPanel.add(mDescriptionText);
@@ -172,7 +213,7 @@ public class UpdateTodo extends JFrame {
 	
 	
 	
-	private void addPublicRBEvents(){
+	/*private void addPublicRBEvents(){
 		mPublicRB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 			    if (mPublicRB.isSelected()) {
@@ -194,36 +235,17 @@ public class UpdateTodo extends JFrame {
 			}
 		});
 	}
-	
+*/	
 	private void addSaveEvents(){
 		mSaveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 				
-				if(!isInteger(mPointsText.getText())){
-					System.out.println("in if");
-					JOptionPane.showMessageDialog(
-							null,
-						    "Please Enter a Number in the Points Field",
-						    "Error Getting Points",
-						    JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				String title = mTitleText.getText();
-				int priority = Integer.parseInt(mPriorityBox.getSelectedItem().toString());
-				String list = mListBox.getSelectedItem().toString();
-				String description = mDescriptionText.getText();
-				
-				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
-				
-				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points, mTU.getID());
-				//need to send this to the client to add to user's todos
 			}
 		});
 	}
 
 	
-	public static boolean isInteger(String s) {
+/*	public static boolean isInteger(String s) {
 	    try { 
 	        Integer.parseInt(s); 
 	    } catch(NumberFormatException e) { 
@@ -233,5 +255,5 @@ public class UpdateTodo extends JFrame {
 	    }
 	    // only got here if we didn't return false
 	    return true;
-	}
+	}*/
 }
