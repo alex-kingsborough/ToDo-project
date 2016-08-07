@@ -6,14 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.util.Vector;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,47 +17,38 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
-
-/* This needs a vector of the different lists that the current user has 
- * to give the user an option of what list to add the new todo to.
- * 
- * 
- * 
-*/
 public class UpdateTodo extends JFrame {
 	private static final long serialVersionUID = 1376543;
-	JLabel mTitleLabel;
-	JLabel mPriorityLabel;
-	JLabel mPointsLabel;
-	JLabel mPrivacyLabel;
-	JLabel mListLabel;
-	JLabel mDescriptionLabel;
-	JButton mSaveButton;
-	JTextField mTitleText;
-	JRadioButton mPublicRB;
-	JTextArea mDescriptionText;
-	JComboBox<Integer> mPriorityBox;
-	JComboBox<String> mListBox;
-	JRadioButton mPrivateRB;
-	JPanel mMainPanel;
-	JPanel mTitlePanel;
-	JPanel mPriorityPanel;
-	JPanel mPrivacyPanel;
-	JPanel mListPanel;
-	JPanel mDescriptionPanel;
-	Vector<Integer> mPriorityVector;
-	Vector<String> mListVector;
-	Vector<Integer> mListIDVector;
-	boolean isPrivate;
-	JTextField mPointsText;
-	Font mFont;
-	TodoUser mTU;
-	int listID = 0;
-	MainPageGUI mMainPage;
-	TodoObject mTO;
+	private JLabel mTitleLabel;
+	private JLabel mPriorityLabel;
+	private JLabel mPointsLabel;
+	private JLabel mPrivacyLabel;
+	private JLabel mListLabel;
+	private JLabel mDescriptionLabel;
+	private JButton mSaveButton;
+	private JTextField mTitleText;
+	private JRadioButton mPublicRB;
+	private JTextArea mDescriptionText;
+	private JComboBox<Integer> mPriorityBox;
+	private JComboBox<String> mListBox;
+	private JRadioButton mPrivateRB;
+	private JPanel mMainPanel;
+	private JPanel mTitlePanel;
+	private JPanel mPriorityPanel;
+	private JPanel mPrivacyPanel;
+	private JPanel mListPanel;
+	private JPanel mDescriptionPanel;
+	private Vector<Integer> mPriorityVector;
+	private Vector<String> mListVector;
+	private Vector<Integer> mListIDVector;
+	private boolean isPrivate;
+	private JTextField mPointsText;
+	private Font mFont;
+	private TodoUser mTU;
+	private int listID = 0;
+	private MainPageGUI mMainPage;
+	private TodoObject mTO;
 	
 	public UpdateTodo(TodoObject to){
 		super("Add Todo");

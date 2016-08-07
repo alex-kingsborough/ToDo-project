@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Vector;
 
 import client.TodoObject;
 import client.TodoUser;
@@ -85,6 +86,22 @@ public class ClientConnection extends Thread{
 					sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 				}
 			}
+		} else if(s.startsWith(Constants.GET_PUBLIC_TODOS)) {
+			Vector<TodoObject> todovec = Database.get().getLatestPublic();
+			try {
+				mOutputWriter.writeObject(todovec);
+			} catch (IOException e) {
+				System.out.println("IOE in getPublicTodos, string send: " + e.getMessage());
+				e.printStackTrace();
+			}
+		} else if (s.startsWith(Constants.GET_FRIENDS_TODOS)) {
+			Vector<TodoObject> todovec = Database.get().getFriendsTodos(userID);
+			try {
+				mOutputWriter.writeObject(todovec);
+			} catch (IOException e) {
+				System.out.println("IOE in GetFriendsTodos Write: " + e.getMessage());
+				e.printStackTrace();
+			}
 		}
 		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 		if(echo){
@@ -95,9 +112,8 @@ public class ClientConnection extends Thread{
 	private void handleRecievedTodoObject(TodoObject to) {
 		//TODO: make handleRecievedTodoObject as lit as handleRecievedUser
 		
-		//commented out for now
-		//db.addTodo(to,username);
-		//MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
+		Database.get().addTodo(to,username);
+		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + username);
 	}
 
 	private void handleRecievedUser(TodoUser tu){
@@ -124,7 +140,7 @@ public class ClientConnection extends Thread{
 				sendMessage(Constants.FAIL_MESSAGE);
 				return;
 			}
-		}
+		} else Database.get().updateAll(tu);
 		
 		//TODO Implement the update user part. This will also be done in the handleReceivedUser.
 		

@@ -86,6 +86,8 @@ public class TodoClientListener {
 				String line = (String) o;
 				if(line.startsWith(Constants.AUTHENTICATED_MESSAGE)) {
 					return line;
+				}else if (line.startsWith(Constants.SUCCESS_MESSAGE)) {
+					return line;
 				} else if(o instanceof TodoUser){
 					TodoUser tu = (TodoUser) o;
 					/*
