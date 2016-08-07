@@ -28,7 +28,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-			SwingUtilities.invokeLater(() -> { new TodoFrame("Todo: a CS201 project worth 100%s").setVisible(true); });
+			SwingUtilities.invokeLater(() -> { new TodoFrame("Todo: a CS201 project worth 100%").setVisible(true); });
 		}
 		
 	}
