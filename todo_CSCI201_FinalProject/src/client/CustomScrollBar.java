@@ -19,9 +19,11 @@ package client;
   static class MyScrollbarUI extends MetalScrollBarUI {
     private Image imageThumb = null;
     private Image imageTrack = null;
+
     MyScrollbarUI() {
-        try {
-        	System.out.println("in the try");
+    	UIManager.put("Button.background", Color.black);
+
+    	try {
              imageThumb = ImageIO.read(new File("img/ThumbColor.png"));
             imageTrack = ImageIO.read(new File("img/bgColor.png"));
        } catch (IOException e){
@@ -46,12 +48,12 @@ package client;
         g.translate( -trackBounds.x, -trackBounds.y );
     }
 
+
     
     
-    
-    @Override
+/*    @Override
     protected JButton createDecreaseButton(int orientation) {
-    	ImageIcon decreaseIcon = new ImageIcon(new ImageIcon("img/UpArrow.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+    	ImageIcon decreaseIcon = new ImageIcon(new ImageIcon("img/UpArrow.png").getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
     	JButton decreaseButton = new JButton(decreaseIcon){
         	private static final long serialVersionUID = -4649936833531540925L;
 
@@ -65,7 +67,7 @@ package client;
 
     @Override
     protected JButton createIncreaseButton(int orientation) {
-    	ImageIcon increaseIcon = new ImageIcon(new ImageIcon("img/downArrow.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+    	ImageIcon increaseIcon = new ImageIcon(new ImageIcon("img/downArrow.png").getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
         JButton increaseButton = new JButton(increaseIcon){
         	private static final long serialVersionUID = -464993683531540925L;
 
@@ -76,7 +78,7 @@ package client;
         };
         return increaseButton;
     }
-
+*/
   }
 }
 
