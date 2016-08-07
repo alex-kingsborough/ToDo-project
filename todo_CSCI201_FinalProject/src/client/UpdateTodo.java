@@ -96,6 +96,8 @@ public class UpdateTodo extends JFrame {
 		mDescriptionText.setFont(mFont.deriveFont(0, 10));
 		mDescriptionText.setWrapStyleWord(true);
 		mPriorityVector = new Vector<Integer>();
+		mListVector = new Vector<String>();
+		mListIDVector = new Vector<Integer>();
 		for(int i = 10; i > 0; i--){
 			mPriorityVector.addElement(i);
 		}
