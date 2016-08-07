@@ -112,7 +112,6 @@ public class SocialGUI extends JPanel implements Runnable {
 				//call update on selected tab
 				int selectedTab = tabbedPane.getSelectedIndex();
 				updateTab(selectedTab);
-				System.out.println("Updating " + selectedTab);
 				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
