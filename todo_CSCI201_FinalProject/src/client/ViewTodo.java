@@ -53,7 +53,7 @@ public class ViewTodo extends JFrame {
 	TodoUser mTU;
 	
 	public ViewTodo(TodoObject to){
-		super("Edit Todo");
+		super("View Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

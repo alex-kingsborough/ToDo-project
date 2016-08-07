@@ -76,10 +76,13 @@ public class MainPageGUI extends JPanel {
 		    				if(changeFinishedTodo.getCompleted()){
 		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(false);
+		    					System.out.println("mUser.getTotalPoints(): " + mUser.getTotalPoints());
+		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				else{
 		    					mUser.setTotalPoints(mUser.getTotalPoints()+changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(true);
+		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				updatePage();
 		    				//TODO call database update user function
