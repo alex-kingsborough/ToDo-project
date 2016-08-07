@@ -2,19 +2,13 @@ package client;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.KeyEvent;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -27,7 +21,6 @@ public class MainPageGUI extends JPanel {
 	//MEMBER VARIABLES
 	//Panes and Panels and GUI stuff
 	private JTabbedPane mMainTabbedPane;
-	private JButton mAddTodoButton;
 	private String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
 	
 	//Necessary user variables
@@ -70,7 +63,7 @@ public class MainPageGUI extends JPanel {
 				currTableData[j][5] = moveTodo.getPoints();
 			}
 			
-			JTable mTable = new JTable(new MainPageTableModel(currTableData, currTodos));
+			JTable mTable = new JTable(new MainPageTableModel(currTableData));
 			mTable.setCellSelectionEnabled(true);
 		    ListSelectionModel cellSelectionModel = mTable.getSelectionModel();
 		    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -78,6 +71,19 @@ public class MainPageGUI extends JPanel {
 		    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
 		    	public void valueChanged(ListSelectionEvent lse) {
 		    		if(!lse.getValueIsAdjusting()){
+		    			if(mTable.getSelectedColumn()==0){
+		    				TodoObject changeFinishedTodo = currTodos.get(mTable.getSelectedRow());
+		    				if(changeFinishedTodo.getCompleted()){
+		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
+		    					changeFinishedTodo.setCompleted(false);
+		    				}
+		    				else{
+		    					mUser.setTotalPoints(mUser.getTotalPoints()+changeFinishedTodo.getPoints());
+		    					changeFinishedTodo.setCompleted(true);
+		    				}
+		    				updatePage();
+		    				//TODO call database update user function
+		    			}
 		    			if(mTable.getSelectedColumn()==1){
 				    		new UpdateTodo(currTodos.get(mTable.getSelectedRow()));
 		    			}
@@ -112,12 +118,10 @@ public class MainPageGUI extends JPanel {
 		
 		private String[] mColumnHeaders = mTableHeaders;
 	    private Object[][] mData;
-	    private Vector<TodoObject> tableTodos;
 	    
-	    public MainPageTableModel(Object[][] inData, Vector<TodoObject> inTodos){
+	    public MainPageTableModel(Object[][] inData){
 	    	super();
 	    	mData = inData;
-	    	tableTodos = inTodos;
 	    }
 	    
 	    @Override
