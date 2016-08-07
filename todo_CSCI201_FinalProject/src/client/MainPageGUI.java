@@ -55,8 +55,8 @@ public class MainPageGUI extends JPanel {
 	
 	
 	//Constructor
-	public MainPageGUI(TodoUser inUser){
-		mUser = inUser;
+	public MainPageGUI(){
+		mUser = PortalManager.mUser;
 		
 		mMainTabbedPane = new JTabbedPane();
 

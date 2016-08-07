@@ -35,49 +35,47 @@ import javax.swing.UIManager;
 */
 public class AddTodoItem extends JFrame {
 	private static final long serialVersionUID = 1376543;
-	JLabel mTitleLabel;
-	JLabel mPriorityLabel;
-	JLabel mPointsLabel;
-	JLabel mPrivacyLabel;
-	JLabel mListLabel;
-	JLabel mDescriptionLabel;
-	JButton mSaveButton;
-	JTextField mTitleText;
-	JRadioButton mPublicRB;
-	JTextArea mDescriptionText;
-	JComboBox<Integer> mPriorityBox;
-	JComboBox<String> mListBox;
-	JRadioButton mPrivateRB;
-	JPanel mMainPanel;
-	JPanel mTitlePanel;
-	JPanel mPriorityPanel;
-	JPanel mPrivacyPanel;
-	JPanel mListPanel;
-	JPanel mDescriptionPanel;
-	Vector<Integer> mPriorityVector;
-	Vector<String> mListVector;
-	Vector<Integer> mListIDVector;
-	boolean isPrivate;
-	JTextField mPointsText;
-	Font mFont;
-	TodoUser mTU;
-	int listID = 0;
-	MainPageGUI mMainPage;
+	private JLabel mTitleLabel;
+	private JLabel mPriorityLabel;
+	private JLabel mPointsLabel;
+	private JLabel mPrivacyLabel;
+	private JLabel mListLabel;
+	private JLabel mDescriptionLabel;
+	private JButton mSaveButton;
+	private JTextField mTitleText;
+	private JRadioButton mPublicRB;
+	private JTextArea mDescriptionText;
+	private JComboBox<Integer> mPriorityBox;
+	private JComboBox<String> mListBox;
+	private JRadioButton mPrivateRB;
+	private JPanel mMainPanel;
+	private JPanel mTitlePanel;
+	private JPanel mPriorityPanel;
+	private JPanel mPrivacyPanel;
+	private JPanel mListPanel;
+	private JPanel mDescriptionPanel;
+	private Vector<Integer> mPriorityVector;
+	private Vector<String> mListVector;
+	private Vector<Integer> mListIDVector;
+	private boolean isPrivate;
+	private JTextField mPointsText;
+	private Font mFont;
+	private TodoUser mTU;
+	private int listID = 0;
+	private MainPageGUI mMainPage;
 	
-	public AddTodoItem(TodoUser tu, MainPageGUI mMPGUI){
+	public AddTodoItem(){
 		super("Add Todo");
+		mTU = PortalManager.mUser;
+		mMainPage = PortalManager.mMainPage;
 		setSize(400, 300);
 		setLocation(800, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo(tu);
+		AddTodo();
 		addPublicRBEvents();
 		addPrivateRBEvents();
-		mTU = tu;
-		mMainPage = mMPGUI;
-	
 	}
 	
-	private void AddTodo(TodoUser tu) {
+	private void AddTodo() {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mTitleLabel = new JLabel("Title: ");
@@ -103,15 +101,16 @@ public class AddTodoItem extends JFrame {
 		mDescriptionText = new JTextArea(5, 15);
 		mDescriptionText.setFont(mFont.deriveFont(0, 10));
 		mPriorityVector = new Vector<Integer>();
+		mListVector = new Vector<String>();
+		mListIDVector = new Vector<Integer>();
 		for(int i = 10; i > 0; i--){
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15);
-		
-		for(int i = 0; i < tu.getTodoLists().size(); i ++){
-			String name;
-			name = tu.getTodoLists().get(i).getName();
-			listID = tu.getTodoLists().get(i).getID();
+		String name;
+		for(int i = 0; i < mTU.getTodoLists().size(); i ++){
+			name = mTU.getTodoLists().get(i).getName();
+			listID = mTU.getTodoLists().get(i).getID();
 			mListVector.addElement(name);
 			mListIDVector.addElement(listID);
 		}
@@ -188,7 +187,6 @@ public class AddTodoItem extends JFrame {
 			public void actionPerformed(ActionEvent ae){
 				
 				if(!isInteger(mPointsText.getText())){
-					System.out.println("in if");
 					JOptionPane.showMessageDialog(
 							null,
 						    "Please Enter a Number in the Points Field",
@@ -216,6 +214,8 @@ public class AddTodoItem extends JFrame {
 				mTU.getTodoLists().get(currPlace).addTodo(mTodoObject);
 	
 				mMainPage.updatePage();
+				
+				setVisible(false);
 				
 				//need to send this to the client to add to user's todos
 			}
