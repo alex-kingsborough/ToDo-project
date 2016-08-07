@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -25,6 +23,7 @@ public class PortalManager extends JPanel {
 	private JMenuItem mSocialPageItem;
 	private JMenuItem mUserInfoItem;
 	private JMenuItem mNewTabItem;
+	private JMenuItem mNewTodoItem;
 	static MainPageGUI mMainPage;
 	static SocialGUI mSocialPage;
 	static UserInfoGUI mUserInfoPage;
@@ -83,6 +82,8 @@ public class PortalManager extends JPanel {
 	
 	public PortalManager(JMenuBar jmb) {
 		mJMenuBar = jmb;
+		setLayout(new CardLayout());
+
 		mUser = new TodoUser(Constants.GUEST_USER, Constants.GUEST_USER, " ", " ", " ");
 		mUser.addTodoList(new TodoList(0, "GUEST"));
 		
@@ -91,7 +92,7 @@ public class PortalManager extends JPanel {
 		mJMenuBar.add(mTestMenu);
 		mMainPageItem = new JMenuItem("Main Page");
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
-		mMainPageItem.addActionListener(new MenuItemActionListener(this, "main"));
+		mMainPageItem.addActionListener(new GuestMenuItemActionListener(this, "main"));
 		mTestMenu.add(mMainPageItem);
 		
 		mNewTabItem = new JMenuItem("New List Tab");
@@ -109,11 +110,20 @@ public class PortalManager extends JPanel {
 			    } //Else do nothing, user hit cancel
 			}
 		});
+		mNewTodoItem = new JMenuItem("Add a Todo");
+		mNewTodoItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent ae){
+				new AddTodoItem();
+			}
+		});
+		
 		mTestMenu.addSeparator();
 		mTestMenu.add(mNewTabItem);
+		mTestMenu.add(mNewTodoItem);
 		
 		mMainPage = new MainPageGUI();
-		add(mMainPage);
+		add(mMainPage, "main");
 	}
 	
 	private class MenuItemActionListener implements ActionListener {
@@ -141,6 +151,31 @@ public class PortalManager extends JPanel {
 				mTestMenu.addSeparator();
 				mTestMenu.add(mNewTabItem);
 			}
+		}
+	}
+	
+	private class GuestMenuItemActionListener implements ActionListener {
+		private JPanel mPortalManager;
+		private String mPanelName;
+		
+		public GuestMenuItemActionListener(JPanel portalManager, String panelName) {
+			mPortalManager = portalManager;
+			mPanelName = panelName;
+		}
+
+		public void actionPerformed(ActionEvent ae) {
+			System.out.println(ae.getActionCommand());
+			CardLayout cl = (CardLayout) mPortalManager.getLayout();
+			cl.show(mPortalManager, mPanelName);
+			updateMenuBar(mPanelName);
+		}
+
+		private void updateMenuBar(String inPanelName) {
+			mTestMenu.removeAll();
+			mTestMenu.add(mMainPageItem);
+			mTestMenu.addSeparator();
+			mTestMenu.add(mNewTabItem);
+			mTestMenu.add(mNewTodoItem);
 		}
 	}
 }

@@ -33,10 +33,8 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mAddTodoButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
-
 				System.out.println(mUser.getTodoLists().get(0).getName());
-				AddTodoItem mati = new AddTodoItem();
-				mati.setVisible(true);
+				new AddTodoItem();
 			}
 		});
 		
