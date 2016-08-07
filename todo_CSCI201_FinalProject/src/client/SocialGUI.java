@@ -109,12 +109,9 @@ public class SocialGUI extends JPanel implements Runnable {
 			TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
 			//wait for response from server
 			
-			Object[][] newTodos = {
-					{true, "This", "Was", "Updated"}
-			};
+			Object[][] newTodos = convertToObject(TodoClientListener.get().readTodoObjects());
 			
 			//send request to get new todos
-			Object[][] newTodos2 = convertToObject(getNewTodos());
 			friendsTodo.setModel(new TodoTableModel(newTodos));
 		}
 		
@@ -124,10 +121,8 @@ public class SocialGUI extends JPanel implements Runnable {
 			//send request to server
 			TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
 			//wait for response from server
+			Object[][] newTodos = convertToObject(TodoClientListener.get().readTodoObjects());
 			
-			Object[][] newTodos = {
-					{true, "This", "Was", "Updated"}
-			};
 			publicTodo.setModel(new TodoTableModel(newTodos));
 		}
 	}
