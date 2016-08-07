@@ -277,7 +277,7 @@ public class Database {
 	}
 
 	//returns a vector of all the todos of friends
-	public Vector<TodoObject> getFriendsTodos(TodoUser tu)
+	public Vector<TodoObject> getFriendsTodos(int _userId)
 	{
 		Vector<TodoObject> friendTodos = new Vector<TodoObject>();
 
@@ -285,7 +285,7 @@ public class Database {
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(getAllUserFriends);
-			ps.setInt(1, tu.getID());
+			ps.setInt(1, _userId);
 			ResultSet result = ps.executeQuery();
 
 			//now iterate through all friends
@@ -294,7 +294,7 @@ public class Database {
 				//get a friends todos
 				int userId = result.getInt(2);
 				ps = con.prepareStatement(getUserTodosById);
-				ps.setInt(1, tu.getID());
+				ps.setInt(1, userId);
 				ResultSet todoResult = ps.executeQuery();
 
 				//now iterate through all of that friends's todos
