@@ -140,7 +140,7 @@ public class ClientConnection extends Thread{
 				sendMessage(Constants.FAIL_MESSAGE);
 				return;
 			}
-		}
+		} else Database.get().updateAll(tu);
 		
 		//TODO Implement the update user part. This will also be done in the handleReceivedUser.
 		
