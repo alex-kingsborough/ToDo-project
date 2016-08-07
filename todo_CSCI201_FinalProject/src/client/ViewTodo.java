@@ -178,15 +178,11 @@ public class ViewTodo extends JFrame {
 		mListBox.setFont(mFont.deriveFont(2));
 		mListBox.setSelectedIndex(currList);
 */		
-		System.out.println(1);
-		System.out.println("currList: " + currList);
-		System.out.println("mListVector.size() = " + mListVector.size());
 		JTextField mListText = new JTextField(mListVector.get(currList)) {
 		    @Override public void setBorder(Border border) {
 		        // None
 		    }
 		};
-		System.out.println(2);
 		JTextField mPrivacyText;
 		if(isPrivate){
 			mPrivacyText = new JTextField("Private") {
@@ -238,14 +234,12 @@ public class ViewTodo extends JFrame {
 
 		mMainPanel.add(mDescriptionLabel);
 		mMainPanel.add(mDescriptionText);
-		System.out.println("near the end");
 		JPanel outsidePanel = new JPanel();
 		outsidePanel.setLayout(new BorderLayout());
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
 
 		add(outsidePanel);
-		System.out.println("right before setting visible");
 		setVisible(true);
 		addSaveEvents();
 	}
