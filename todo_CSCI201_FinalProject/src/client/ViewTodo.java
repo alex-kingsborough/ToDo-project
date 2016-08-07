@@ -106,7 +106,8 @@ public class ViewTodo extends JFrame {
 		mDescriptionText.setFont(mFont.deriveFont(0, 10));
 		mDescriptionText.setEditable(false);
 		mDescriptionText.setOpaque(false);
-		
+		mDescriptionText.setWrapStyleWord(true);
+
 		
 		mPriorityVector = new Vector<Integer>();
 		for(int i = 10; i > 0; i--){
