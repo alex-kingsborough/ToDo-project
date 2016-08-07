@@ -48,7 +48,7 @@ public class ViewTodo extends JFrame {
 	JPanel mPrivacyPanel;
 	JPanel mListPanel;
 	JPanel mDescriptionPanel;
-	Vector<Integer> mPriorityVector;
+	//Vector<Integer> mPriorityVector;
 	Vector<String> mListVector;
 	boolean isPrivate;
 	JTextField mPointsText;
@@ -59,11 +59,8 @@ public class ViewTodo extends JFrame {
 		super("View Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mTU = PortalManager.mUser;
 		AddTodo(to);
-		//addPublicRBEvents();
-		//addPrivateRBEvents();
 	
 	}
 	
@@ -125,11 +122,8 @@ public class ViewTodo extends JFrame {
 		mPrivateRB.setFont(mFont.deriveFont(20));
 		
 		
-		mTitleText = new JTextField(15) {
-		    @Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		mTitleText = new JTextField(15);
+		mTitleText.setBorder(null);
 		mTitleText.setText(to.getTitle());
 		mTitleText.setFont(mFont.deriveFont(20));
 		mTitleText.setEditable(false);
@@ -137,11 +131,8 @@ public class ViewTodo extends JFrame {
 		mTitleText.setForeground(Constants.redColor);
 		mTitleText.setBackground(Constants.lightGreyColor);		
 		
-		mDescriptionText = new JTextArea(5, 15) {
-		    @Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		mDescriptionText = new JTextArea(5, 15);
+		mDescriptionText.setBorder(null);
 		mDescriptionText.setText(to.getDescription());
 		mDescriptionText.setFont(mFont.deriveFont(0, 10));
 		mDescriptionText.setEditable(false);
@@ -150,14 +141,10 @@ public class ViewTodo extends JFrame {
 		mDescriptionText.setForeground(Constants.redColor);
 		mDescriptionText.setBackground(Constants.lightGreyColor);		
 		
-		
-		mPriorityVector = new Vector<Integer>();
-		
-		for(int i = 10; i > 0; i--){
-			mPriorityVector.addElement(i);
-		}
+
 		mPointsText = new JTextField(15);
 		mPointsText.setText(Integer.toString(to.getPoints()));
+		mPointsText.setEditable(false);
 		mPointsText.setForeground(Constants.redColor);
 		mPointsText.setBackground(Constants.lightGreyColor);
 		
@@ -180,39 +167,37 @@ public class ViewTodo extends JFrame {
 			}
 		}
 		
-		/*mPriorityBox = new JComboBox<Integer>(mPriorityVector);
-		mPriorityBox.setFont(mFont.deriveFont(20));
-		mPriorityBox.setSelectedIndex(10-to.getPriority());
-		*/
-		JTextField mPriorityText = new JTextField(10-to.getPriority()) {
-		    @Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
 		
-/*		mListBox = new JComboBox<String>(mListVector);
-		mListBox.setFont(mFont.deriveFont(2));
-		mListBox.setSelectedIndex(currList);
-*/		
-		JTextField mListText = new JTextField(mListVector.get(currList)) {
-		    @Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		JTextField mPriorityText = new JTextField(to.getPriority());
+		mPriorityText.setEditable(false);
+		mPriorityText.setBackground(Constants.lightGreyColor);
+		mPriorityText.setForeground(Constants.redColor);
+
+		JTextField mListText = new JTextField(mListVector.get(currList));
+		mListText.setBorder(null);
+		mListText.setEditable(false);
+		mListText.setBackground(Constants.lightGreyColor);
+		mListText.setForeground(Constants.redColor);
+		
 		JTextField mPrivacyText;
 		if(isPrivate){
 			mPrivacyText = new JTextField("Private") {
 			    @Override public void setBorder(Border border) {
-			        // No!
+			        // None
 			    }
 			};
 		}else{
 			mPrivacyText = new JTextField("Public") {
 			    @Override public void setBorder(Border border) {
-			        // No!
+			        // None
 			    }
 			};
 		}
+		
+		mPrivacyText.setEditable(false);
+		mPrivacyText.setBackground(Constants.lightGreyColor);
+		mPrivacyText.setForeground(Constants.redColor);
+		
 		mMainPanel =  new JPanel();
 		mMainPanel.setForeground(Constants.goldColor);
 		mMainPanel.setBackground(Constants.greyColor);		
@@ -225,8 +210,6 @@ public class ViewTodo extends JFrame {
 		mDescriptionPanel =  new JPanel();
 		mMainPanel.setLayout(new GridLayout(6, 2));
 		mPrivacyPanel.setLayout(new FlowLayout());
-		mPrivacyPanel.add(mPublicRB);
-		mPrivacyPanel.add(mPrivateRB);
 		mPrivacyPanel.setForeground(Constants.goldColor);
 		mPrivacyPanel.setBackground(Constants.greyColor);		
 		
@@ -247,12 +230,13 @@ public class ViewTodo extends JFrame {
 
 		mMainPanel.add(mDescriptionLabel);
 		mMainPanel.add(mDescriptionText);
-		
 		JPanel outsidePanel = new JPanel();
 		outsidePanel.setLayout(new BorderLayout());
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
+
 		add(outsidePanel);
+		setVisible(true);
 		addSaveEvents();
 	}
 	
@@ -284,7 +268,7 @@ public class ViewTodo extends JFrame {
 	private void addSaveEvents(){
 		mSaveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
-				
+				setVisible(false);
 			}
 		});
 	}

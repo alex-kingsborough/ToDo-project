@@ -73,6 +73,7 @@ public class TodoClientListener {
 	public void send(String line){
 		try {
 			oos.writeObject(line);
+			oos.flush();
 		} catch (IOException e) {
 			System.out.println("Exception thrown when sending message: " + line);
 			e.printStackTrace();
@@ -87,6 +88,7 @@ public class TodoClientListener {
 				if(line.startsWith(Constants.AUTHENTICATED_MESSAGE)) {
 					return line;
 				}else if (line.startsWith(Constants.SUCCESS_MESSAGE)) {
+					System.out.println("line: " + line);
 					return line;
 				} else if(o instanceof TodoUser){
 					TodoUser tu = (TodoUser) o;

@@ -95,6 +95,7 @@ public class UserInfoGUI extends JPanel {
 		mFriendsLabel.setFont(mFriendsLabel.getFont().deriveFont(20f));
 		mFriendsPanel.add(mFriendsLabel);
 		mListModel = new DefaultListModel();
+		/*
 		mListModel.addElement("Friend1");
 		mListModel.addElement("Friend2");
 		mListModel.addElement("Friend3");
@@ -124,7 +125,7 @@ public class UserInfoGUI extends JPanel {
 		mListModel.addElement("Friend27");
 		mListModel.addElement("Friend28");
 		mListModel.addElement("Friend29");
-
+		*/
 		mFriendsList = new JList<String>(mListModel);
 		mFriendsList.setFont(mFriendsList.getFont().deriveFont(14f));
 		mFriendsScrollPane = new JScrollPane(mFriendsList);
@@ -147,8 +148,9 @@ public class UserInfoGUI extends JPanel {
 					String request = Constants.ADD_FRIEND_REQUEST + " " + friendName;
 					System.out.println("Friend Name: " + friendName);
 					TodoClientListener.get().send(request);
+					System.out.println("request: " + request);
 					String response = TodoClientListener.get().readLine();
-					System.out.println(response);
+					System.out.println("response: " + response);
 					if(response.startsWith(Constants.FAIL_MESSAGE)) {
 						JOptionPane.showMessageDialog(mAddFriendButton, "Failed to add friend: " + friendName,
 													"Failure", JOptionPane.ERROR_MESSAGE);
@@ -158,6 +160,8 @@ public class UserInfoGUI extends JPanel {
 						System.out.println("userID: " + userID);
 						mTodoUser.addFriend(userID);
 						TodoClientListener.get().sendUser(mTodoUser);
+						TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
+						mListModel.addElement(friendName);
 					}
 				} 
 			}
