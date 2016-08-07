@@ -15,6 +15,8 @@ public class Constants {
 	public static final String LOGIN_USER_REQUEST = "LOGINUSERREQUEST";
 	public static final Color goldColor = new Color(255, 204, 0);
 	public static final Color redColor = new Color(153, 0, 0);
+	public static final Color greyColor = new Color(100, 100, 100);
+	public static final Color lightGreyColor = new Color(150, 150, 150);
 	public static final String GUEST_USER = "GUEST";
 	
 }
