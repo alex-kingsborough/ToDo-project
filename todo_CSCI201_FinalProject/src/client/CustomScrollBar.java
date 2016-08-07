@@ -61,7 +61,7 @@ package client;
 
     @Override
     protected JButton createIncreaseButton(int orientation) {
-    	ImageIcon increaseIcon = new ImageIcon(new ImageIcon("img/UpArrow").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+    	ImageIcon increaseIcon = new ImageIcon(new ImageIcon("img/downArrow").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         JButton increaseButton = new JButton(increaseIcon){
         	private static final long serialVersionUID = -464993683531540925L;
 
