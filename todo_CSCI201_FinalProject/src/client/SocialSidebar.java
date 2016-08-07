@@ -20,7 +20,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 	private TodoUser mUser;
 	private Vector<Integer> mFriendList;
 
-	public SocialSidebar(TodoUser inUser, TodoFrame inFrame){ //Creating and filling out the panel on the east holding the add button and Social Panel
+	public SocialSidebar(TodoUser inUser, TodoFrame inFrame, MainPageGUI inMainPage){ //Creating and filling out the panel on the east holding the add button and Social Panel
 		
 		mUser = inUser;
 		mFriendList = mUser.getFriendList();
@@ -30,7 +30,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mAddTodoButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
-				AddTodoItem mati = new AddTodoItem(mUser);
+				AddTodoItem mati = new AddTodoItem(mUser, inMainPage);
 				mati.setVisible(true);
 			}
 		});

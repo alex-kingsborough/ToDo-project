@@ -53,12 +53,11 @@ public class TodoFrame extends JFrame implements Navigator {
 		tempUser.setTodoLists(tempTodoListVec);
 		//END OF STUFF TO REMOVE
 		
-		getContentPane().add(new SocialSidebar(tempUser, this), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
-
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
 		
 		getContentPane().add(new PortalManager(tempUser, mTestBar), BorderLayout.CENTER);
+		getContentPane().add(new SocialSidebar(tempUser, this, PortalManager.mMainPage), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
 		revalidate();
 		repaint();
 	}

@@ -23,7 +23,7 @@ public class PortalManager extends JPanel {
 	JMenuItem mSocialPageItem;
 	JMenuItem mUserInfoItem;
 	JMenuItem mNewTabItem;
-	MainPageGUI mMainPage;
+	static MainPageGUI mMainPage;
 	SocialGUI mSocialPage;
 	UserInfoGUI mUserInfoPage;
 	private TodoUser mUser;
