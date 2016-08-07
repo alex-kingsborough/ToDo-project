@@ -41,23 +41,25 @@ public class PortalManager extends JPanel {
 		mTestMenu.setMnemonic('M');
 		mJMenuBar.add(mTestMenu);
 		mMainPageItem = new JMenuItem("Main Page");
+		mMainPageItem.setIcon(new ImageIcon(new ImageIcon("img/userinfoIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		mMainPageItem.addActionListener(new MenuItemActionListener(this, "main"));
 		mTestMenu.add(mMainPageItem);
 		
 		mSocialPageItem = new JMenuItem("Social Page");
-		mSocialPageItem.setIcon(new ImageIcon("img/socialIcon.png"));
+		mSocialPageItem.setIcon(new ImageIcon(new ImageIcon("img/socialIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mSocialPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		mSocialPageItem.addActionListener(new MenuItemActionListener(this, "social"));
 		mTestMenu.add(mSocialPageItem);
 		
 		mUserInfoItem = new JMenuItem("User Info");
+		mUserInfoItem.setIcon(new ImageIcon(new ImageIcon("img/userinfoIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mUserInfoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
 		mUserInfoItem.addActionListener(new MenuItemActionListener(this, "user"));
 		mTestMenu.add(mUserInfoItem);
 		
 		mNewTabItem = new JMenuItem("New List Tab");
-		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
+		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mNewTabItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		mNewTabItem.addActionListener(new ActionListener(){
 			@Override
@@ -77,7 +79,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.add(mNewTabItem);
 		
 		mMainPage = new MainPageGUI();
-		mSocialPage = new SocialGUI(this, mUser);
+		mSocialPage = new SocialGUI();
 		mUserInfoPage = new UserInfoGUI(mUser);
 		
 		add(mMainPage, "main");
@@ -101,7 +103,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.add(mMainPageItem);
 		
 		mNewTabItem = new JMenuItem("New List Tab");
-		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
+		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mNewTabItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		mNewTabItem.addActionListener(new ActionListener(){
 			@Override
@@ -117,7 +119,7 @@ public class PortalManager extends JPanel {
 			}
 		});
 		mNewTodoItem = new JMenuItem("Add a Todo");
-		mNewTodoItem.setIcon(new ImageIcon(new ImageIcon("img/todoProjectIcon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
+		mNewTodoItem.setIcon(new ImageIcon(new ImageIcon("img/todoProjectIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mNewTodoItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){

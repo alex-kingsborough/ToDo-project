@@ -83,14 +83,22 @@ public class ClientConnection extends Thread{
 			}
 		} else if(s.startsWith(Constants.GET_PUBLIC_TODOS)) {
 			Vector<TodoObject> todovec = Database.get().getLatestPublic();
+			Vector<TodoObject> todovec2 =  Database.get().getFriendsTodos(userID);
+			Vector<Vector<TodoObject>> todovecvec = new Vector<Vector<TodoObject>>();
+			todovecvec.add(todovec2);
+			todovecvec.add(todovec);
+			System.out.println(userID);
+			System.out.println(todovec.size());
+			System.out.println(todovecvec.size());
 			try {
-				mOutputWriter.writeObject(todovec);
+				mOutputWriter.writeObject(todovecvec);
 			} catch (IOException e) {
 				System.out.println("IOE in getPublicTodos, string send: " + e.getMessage());
 				e.printStackTrace();
 			}
 		} else if (s.startsWith(Constants.GET_FRIENDS_TODOS)) {
 			Vector<TodoObject> todovec = Database.get().getFriendsTodos(userID);
+			
 			try {
 				mOutputWriter.writeObject(todovec);
 			} catch (IOException e) {

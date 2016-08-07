@@ -328,6 +328,7 @@ public class AddTodoItem extends JFrame {
 				mMainPage.updatePage();
 				if(!mTU.getName().equals(Constants.GUEST_USER)){
 					TodoClientListener.get().sendUser(mTU);
+					mTU = TodoClientListener.get().readTodoUser();
 				}
 				
 				setVisible(false);
