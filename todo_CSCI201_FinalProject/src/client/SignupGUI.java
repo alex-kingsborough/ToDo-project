@@ -191,6 +191,7 @@ public class SignupGUI extends JPanel {
 		JPanel mAboutMePanel = new JPanel(new FlowLayout());
 		mAboutMePanel.setBackground(Constants.greyColor);
 		mAboutMeTextArea = new JTextArea(10,12);
+		mAboutMeTextArea.setWrapStyleWord(true);
 		mAboutMeTextArea.setForeground(Constants.redColor);
 		mAboutMeTextArea.setBackground(Constants.lightGreyColor);
 		mAboutMePanel.add(mAboutMeTextArea);
