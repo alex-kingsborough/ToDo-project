@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -276,7 +278,7 @@ public class AddTodoItem extends JFrame {
 				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
 				
-				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
+				int points = Integer.parseInt(mPointsText.getText()); ;
 				
 				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, currListID, list, description, points, mTU.getID(), false);
 				int currPlace = 0;
@@ -289,10 +291,18 @@ public class AddTodoItem extends JFrame {
 				mTU.getTodoLists().get(currPlace).addTodo(mTodoObject);
 	
 				mMainPage.updatePage();
+<<<<<<< HEAD
+				if(!mTU.getName().equals(Constants.GUEST_USER)){
+					TodoClientListener.get().sendUser(mTU);
+				}
+=======
 				
+				System.out.println("Adding todo: " + mTU.getUsername());
+				TodoClientListener.get().sendUser(mTU);
+				
+>>>>>>> 2971d15d52354dd2c6ab5200662b3a888f2c1114
 				setVisible(false);
 				
-				//need to send this to the client to add to user's todos
 			}
 		});
 	}

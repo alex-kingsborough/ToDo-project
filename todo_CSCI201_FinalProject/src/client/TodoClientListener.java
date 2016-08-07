@@ -101,6 +101,8 @@ public class TodoClientListener {
 					/*
 					 * TODO What do we do when we receive a TODOobject?
 					 */
+					
+					//this is probably deprecated at this point
 				}
 			}
 		} catch (ClassNotFoundException cnfe) {

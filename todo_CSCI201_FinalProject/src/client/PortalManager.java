@@ -29,7 +29,7 @@ public class PortalManager extends JPanel {
 	static UserInfoGUI mUserInfoPage;
 	static TodoUser mUser;
 	
-	public PortalManager(TodoUser inUser, JMenuBar jmb) {
+	public PortalManager(TodoUser inUser, JMenuBar jmb) { //FOR LOGIN USER
 		mUser = inUser;
 		
 		mJMenuBar = jmb;
@@ -65,6 +65,7 @@ public class PortalManager extends JPanel {
 			    	TodoList mNewTodoList = new TodoList(newTodoListIndex, mTabTitle);
 			    	mUser.addTodoList(mNewTodoList);
 			    	mMainPage.updatePage();
+			    	TodoClientListener.get().sendUser(mUser);
 			    } //Else do nothing, user hit cancel
 			}
 		});
@@ -80,7 +81,7 @@ public class PortalManager extends JPanel {
 		add(mUserInfoPage, "user");
 	}
 	
-	public PortalManager(JMenuBar jmb) {
+	public PortalManager(JMenuBar jmb) { //FOR GUEST USER
 		mJMenuBar = jmb;
 		setLayout(new CardLayout());
 

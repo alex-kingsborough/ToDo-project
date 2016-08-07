@@ -46,12 +46,13 @@ public class Database {
 	private final static String getUserTodosById = "SELECT * FROM TODOS WHERE userID=?";
 	private final static String getListNameByUserAndID = "SELECT l.listName FROM lists l, users u, todos t WHERE l.listID=? AND u.userID=?";
 	private final static String updateUserInfo = "UPDATE USERS SET actualname=?, email=?, points=?, aboutme=? WHERE userID=?";
-	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=?, WHERE userID=?";
+	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?";
 	private final static String updateUserTodos = "UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
-	private final static String updateUserFriends = "UPDATE FRIENDS SET ";
 	private final static String getUsernameByID = "SELECT ACTUALNAME FROM USERS WHERE USERID=?";
 	private final static String removeFriend = "DELETE FROM FRIENDSHIP WHERE fromID=? AND toID=?";
 	private final static String addFriend = "INSERT INTO FRIENDSHIP(fromID,toID,createdAt) VALUES(?,?,?)";
+	private final static String addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
+	private final static String todoExists = "SELECT * FROM TODOS WHERE userID=? AND todoTitle=?";
 	
 	
 	
@@ -163,7 +164,8 @@ public class Database {
 			PreparedStatement ps = con.prepareStatement(getListID);
 			ps.setString(1,list);
 			ResultSet result = ps.executeQuery();
-			return result.getInt("listID");
+			while (result.next())
+				return result.getInt("listID");
 		}	catch (SQLException e) {
 			System.out.println("SQLE: " + e.getMessage());
 		}
@@ -310,10 +312,7 @@ public class Database {
 	//returns a vector of all the todos of friends
 	public Vector<TodoObject> getFriendsTodos(int _userId)
 	{
-		Vector<TodoObject> friendTodos = new Vector<TodoObject>();
-		
-		System.out.println(_userId);
-		
+		Vector<TodoObject> friendTodos = new Vector<TodoObject>();		
 		//get all friends
 		PreparedStatement ps;
 		try {
@@ -425,16 +424,27 @@ public class Database {
 		
 	
 	
-	//updateUserLists = "UPDATE LISTS SET listName=?, isActive=?, WHERE userID=?"
+	//updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?"
+	//addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
 	private void updateUserLists(TodoUser tu) {
 		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
 		try{
 			ps = con.prepareStatement(updateUserLists);
-			ps.setInt(3, getUserID(tu.getUsername()));
+			ps2 = con.prepareStatement(addList);
+			int userID = getUserID(tu.getUsername());
+			ps.setInt(3, userID);
+			ps2.setInt(1, userID);
 			for(TodoList tl : tu.getTodoLists()){
-				ps.setString(1, tl.getName());
-				ps.setBoolean(2, tl.isActive());
-				ps.executeUpdate();
+				if(getListID(tl.getName()) != 0){
+					ps.setString(1, tl.getName());
+					ps.setBoolean(2, tl.isActive());
+					ps.executeUpdate();
+				} else {
+					ps2.setString(2, tl.getName());
+					ps2.setBoolean(3, tl.isActive());
+					ps2.executeUpdate();
+				}
 			}
 		} catch (SQLException e){
 			System.out.println("SQLE in updateUserLists: " + e.getMessage());
@@ -447,6 +457,13 @@ public class Database {
 					System.out.println("SQLE in Closing updateUserLists: " + e.getMessage());
 					e.printStackTrace();
 				}
+			if(ps2 != null)
+				try {
+					ps2.close();
+				} catch (SQLException e) {
+					System.out.println("SQLE in Closing updateUserLists: " + e.getMessage());
+					e.printStackTrace();
+				}
 		}
 		
 	}
@@ -455,17 +472,21 @@ public class Database {
 	private void updateUserTodos(TodoUser tu) {
 		PreparedStatement ps = null;
 		try{
-			ps = con.prepareStatement(updateUserTodos );
-			ps.setInt(7, getUserID(tu.getUsername()));
+			ps = con.prepareStatement(updateUserTodos);
+			int userID = getUserID(tu.getUsername());
+			ps.setInt(7, userID);
 			for(TodoList tl : tu.getTodoLists()){
 				for(TodoObject to : tl.getAllTodos()){
-					ps.setInt(1, to.getPoints());
-					ps.setInt(2, to.getPriority());
-					ps.setString(3, to.getDescription());
-					ps.setString(4, to.getTitle());
-					ps.setBoolean(5, to.getCompleted());
-					ps.setBoolean(6, to.getIsPrivate());
-					ps.executeUpdate();
+					if(todoExists(to, userID)){
+						ps.setInt(1, to.getPoints());
+						ps.setInt(2, to.getPriority());
+						ps.setString(3, to.getDescription());
+						ps.setString(4, to.getTitle());
+						ps.setBoolean(5, to.getCompleted());
+						ps.setBoolean(6, to.getIsPrivate());
+						ps.executeUpdate();
+					} else 
+						addTodo(to, tu.getUsername());
 				}
 			}
 		} catch (SQLException e){
@@ -483,6 +504,36 @@ public class Database {
 		
 	}
 	
+	private boolean todoExists(TodoObject to, int userID) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			ps = con.prepareStatement(todoExists);
+			ps.setInt(1, userID);
+			ps.setString(2, to.getTitle());
+			rs = ps.executeQuery();
+			if(rs.next()) return true;
+		} catch (SQLException e){
+			System.out.println("SQLE in todoExists: " + e.getMessage());
+		} finally {
+			if(ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					System.out.println("SQLE in Closing updateUserLists: " + e.getMessage());
+					e.printStackTrace();
+				}
+			if(rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					System.out.println("SQLE in Closing updateUserLists: " + e.getMessage());
+					e.printStackTrace();
+				}
+		}
+		return false;
+	}
+
 	private void updateUserFriends(TodoUser tu) {
 		Vector<Integer> exFriends = new Vector<Integer>();
 		Vector<Integer> tuFriends = tu.getFriendList();
