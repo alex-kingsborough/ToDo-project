@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.CardLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -56,7 +57,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.add(mUserInfoItem);
 		
 		mNewTabItem = new JMenuItem("New List Tab");
-		mNewTabItem.setIcon(new ImageIcon("img/addIcon.png"));
+		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
 		mNewTabItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		mNewTabItem.addActionListener(new ActionListener(){
 			@Override
@@ -100,7 +101,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.add(mMainPageItem);
 		
 		mNewTabItem = new JMenuItem("New List Tab");
-		mNewTabItem.setIcon(new ImageIcon("img/addIcon.png"));
+		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
 		mNewTabItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		mNewTabItem.addActionListener(new ActionListener(){
 			@Override
@@ -116,7 +117,7 @@ public class PortalManager extends JPanel {
 			}
 		});
 		mNewTodoItem = new JMenuItem("Add a Todo");
-		mNewTodoItem.setIcon(new ImageIcon("img/todoProjectIcon.png"));
+		mNewTodoItem.setIcon(new ImageIcon(new ImageIcon("img/todoProjectIcon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
 		mNewTodoItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
