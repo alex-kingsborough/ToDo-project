@@ -113,7 +113,7 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
-		//TODO: make handleRecievedTodoObject as lit as handleRecievedUser
+		//TODO: make handleRecievedTodoObject AS LIT as handleRecievedUser
 		
 		Database.get().addTodo(to,username);
 		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + username);

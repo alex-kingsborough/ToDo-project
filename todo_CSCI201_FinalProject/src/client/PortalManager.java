@@ -23,6 +23,7 @@ public class PortalManager extends JPanel {
 	private JMenuItem mSocialPageItem;
 	private JMenuItem mUserInfoItem;
 	private JMenuItem mNewTabItem;
+	private JMenuItem mNewTodoItem;
 	static MainPageGUI mMainPage;
 	static SocialGUI mSocialPage;
 	static UserInfoGUI mUserInfoPage;
@@ -109,8 +110,17 @@ public class PortalManager extends JPanel {
 			    } //Else do nothing, user hit cancel
 			}
 		});
+		mNewTodoItem = new JMenuItem("Add a Todo");
+		mNewTodoItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent ae){
+				new AddTodoItem();
+			}
+		});
+		
 		mTestMenu.addSeparator();
 		mTestMenu.add(mNewTabItem);
+		mTestMenu.add(mNewTodoItem);
 		
 		mMainPage = new MainPageGUI();
 		add(mMainPage, "main");
@@ -163,10 +173,9 @@ public class PortalManager extends JPanel {
 		private void updateMenuBar(String inPanelName) {
 			mTestMenu.removeAll();
 			mTestMenu.add(mMainPageItem);
-			if(inPanelName.equals("main")) {
-				mTestMenu.addSeparator();
-				mTestMenu.add(mNewTabItem);
-			}
+			mTestMenu.addSeparator();
+			mTestMenu.add(mNewTabItem);
+			mTestMenu.add(mNewTodoItem);
 		}
 	}
 }

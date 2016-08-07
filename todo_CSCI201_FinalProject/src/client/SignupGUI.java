@@ -32,10 +32,6 @@ public class SignupGUI extends JPanel {
 	private JTextField mNameField;
 	private JLabel mEmailLabel;
 	private JTextField mEmailField;
-	private JLabel mDOBLabel;
-	private JComboBox<String> mDOBMonth;
-	private JComboBox<Integer> mDOBDay;
-	private JComboBox<Integer> mDOBYear;
 	private JTextArea mAboutMeTextArea;
 	private JLabel mAboutMeLabel;
 	private Navigator mNav;
