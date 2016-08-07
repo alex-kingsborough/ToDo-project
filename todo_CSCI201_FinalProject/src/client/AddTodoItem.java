@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 import constants.Constants;
@@ -62,6 +64,25 @@ public class AddTodoItem extends JFrame {
 	
 	public AddTodoItem(){
 		super("Add Todo");
+		
+		
+		
+		
+		//making comboBox look good
+		UIManager.put("ComboBox.background", Constants.greyColor);
+		UIManager.put("ComboBox.buttonBackground", Constants.greyColor);
+		UIManager.put("ComboBox.buttonDarkShadow", Constants.greyColor);
+		UIManager.put("ComboBox.buttonHighlight", Constants.goldColor);
+		UIManager.put("ComboBox.controlForeground", Color.black);
+		UIManager.put("ComboBox.disabledBackground", Constants.greyColor);
+		UIManager.put("ComboBox.disabledForeground", Constants.greyColor);
+		UIManager.put("ComboBox.foreground", Constants.redColor);
+		UIManager.put("ComboBox.selectionForeground", Constants.redColor);
+		UIManager.put("ComboBox.selectionBackground", Constants.goldColor);
+		UIManager.put("ComboBox.border", BorderFactory.createLineBorder(Constants.redColor,0));
+		UIManager.put("ComboBox.borderPaintsFocus", false);
+		UIManager.put("Button.border", BorderFactory.createLineBorder(Constants.redColor,0));
+
 		mTU = PortalManager.mUser;
 		mMainPage = PortalManager.mMainPage;
 		setSize(400, 300);
@@ -69,10 +90,15 @@ public class AddTodoItem extends JFrame {
 		AddTodo();
 		addPublicRBEvents();
 		addPrivateRBEvents();
+		
+		
+		
 		setVisible(true);
 	}
 	
 	private void AddTodo() {
+		isPrivate = false;
+		
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mMainPanel.setBackground(Constants.greyColor);
@@ -123,11 +149,13 @@ public class AddTodoItem extends JFrame {
 		mPublicRB.setFont(mFont.deriveFont(20));
 		mPublicRB.setForeground(Constants.redColor);
 		mPublicRB.setBackground(Constants.greyColor);		
+		mPublicRB.setSelected(true);
 		
 		mPrivateRB = new JRadioButton("Private");
 		mPrivateRB.setFont(mFont.deriveFont(20));
 		mPrivateRB.setForeground(Constants.redColor);
-		mPrivateRB.setBackground(Constants.greyColor);		
+		mPrivateRB.setBackground(Constants.greyColor);
+		
 		
 		
 		mTitleText = new JTextField(15) {
@@ -179,13 +207,22 @@ public class AddTodoItem extends JFrame {
 		
 		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
-		mPriorityBox.setBorder(null);
-		mPriorityBox.setFont(mFont.deriveFont(20));
+		/*mPriorityBox.setRenderer(new DefaultListCellRenderer() {
+	        @Override
+	        public void paint(Graphics g) {
+	       setBorder(BorderFactory.createLineBorder(Constants.greyColor,1));
+	       super.paint(g);
+	        }
+	    });*/
+		
+		//mPriorityBox.setBorder(BorderFactory.createLineBorder(Constants.greyColor,0));
+		mPriorityBox.setFont(mFont.deriveFont(2));
 		mPriorityBox.setForeground(Constants.redColor);
 		mPriorityBox.setBackground(Constants.greyColor);		
 		
 		
 		mListBox = new JComboBox<String>(mListVector);
+		//mListBox.setBorder(BorderFactory.createLineBorder(Constants.greyColor,0));
 		mListBox.setFont(mFont.deriveFont(2));
 		mListBox.setForeground(Constants.redColor);
 		mListBox.setBackground(Constants.greyColor);		
@@ -232,10 +269,16 @@ public class AddTodoItem extends JFrame {
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
 		add(outsidePanel);
+		setBorder(BorderFactory.createLineBorder(Constants.greyColor,0));
 		addSaveEvents();
 	}
 	
 	
+	private void setBorder(Border createLineBorder) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void addPublicRBEvents(){
 		mPublicRB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
@@ -294,9 +337,6 @@ public class AddTodoItem extends JFrame {
 				if(!mTU.getName().equals(Constants.GUEST_USER)){
 					TodoClientListener.get().sendUser(mTU);
 				}
-				
-				System.out.println("Adding todo: " + mTU.getUsername());
-				TodoClientListener.get().sendUser(mTU);
 				
 				setVisible(false);
 				
