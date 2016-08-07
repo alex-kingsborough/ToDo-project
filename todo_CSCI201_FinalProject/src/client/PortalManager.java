@@ -84,6 +84,8 @@ public class PortalManager extends JPanel {
 	public PortalManager(JMenuBar jmb) {
 		mJMenuBar = jmb;
 		mUser = new TodoUser(Constants.GUEST_USER, Constants.GUEST_USER, " ", " ", " ");
+		mUser.addTodoList(new TodoList(0, "GUEST"));
+		
 		mTestMenu = new JMenu("Menu");
 		mTestMenu.setMnemonic('M');
 		mJMenuBar.add(mTestMenu);

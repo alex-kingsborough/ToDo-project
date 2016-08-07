@@ -81,6 +81,8 @@ public class TodoFrame extends JFrame implements Navigator {
 		setJMenuBar(mGuestBar);
 		getContentPane().add(new PortalManager(mGuestBar), BorderLayout.CENTER);
 		
+		revalidate();
+		repaint();
 	}
 	
 	@Override
