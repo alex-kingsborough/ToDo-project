@@ -41,7 +41,7 @@ public class SocialGUI extends JPanel implements Runnable {
 	//create the friends tab
 	public void createFriendsTab() {
 		
-		friendsTodo = new JTable(new TodoTableModel(new Object[0][6]));
+		friendsTodo = new JTable(new TodoTableModel(new Object[0][7]));
 		friendsTodo.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent evnt) {
 		        //TODO: open todo preview with selected row
@@ -59,7 +59,7 @@ public class SocialGUI extends JPanel implements Runnable {
 	
 	//creates the public tab
 	public void createPublicTab() {
-		publicTodo = new JTable(new TodoTableModel(new Object[0][6]));
+		publicTodo = new JTable(new TodoTableModel(new Object[0][7]));
 		publicTodo.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent evnt) {
 		        //TODO: open todo preview with selected row
@@ -130,7 +130,8 @@ public class SocialGUI extends JPanel implements Runnable {
                 "Description",
                 "Private",
                 "Priority",
-                "Points"};
+                "Points",
+                "Name"};
 	    private Object[][] data;
 	    
 	    public TodoTableModel(Object[][] data)
@@ -170,9 +171,9 @@ public class SocialGUI extends JPanel implements Runnable {
 	public Object[][] convertToObject(Vector<TodoObject> currTodoList)
 	{		
 		if (currTodoList == null || currTodoList.size() == 0)
-			return new Object[0][6];
+			return new Object[0][7];
 		
-		Object[][] todoArray = new Object[currTodoList.size()][6];
+		Object[][] todoArray = new Object[currTodoList.size()][7];
 		
 		//loop through the user's todo list and add it to a 2D array
 		for (int i=0; i < currTodoList.size(); i++)
@@ -184,6 +185,7 @@ public class SocialGUI extends JPanel implements Runnable {
 			todoArray[i][3] = currTodo.getIsPrivate();
 			todoArray[i][4] = currTodo.getPriority();
 			todoArray[i][5] = currTodo.getPoints();
+			todoArray[i][6] = currTodo.getUsername();
 		}
 		
 		return todoArray;

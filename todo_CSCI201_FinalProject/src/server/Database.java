@@ -47,6 +47,7 @@ public class Database {
 	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=?, WHERE userID=?";
 	private final static String updateUserTodos = "UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
 	private final static String updateUserFriends = "UPDATE FRIENDS SET ";
+	private final static String getUsernameByID = "SELECT ACTUALNAME FROM USERS WHERE USERID=?";
 	
 	
 	
@@ -134,6 +135,23 @@ public class Database {
 		}
 
 		return 0;
+	}
+	
+	public String getUsernameByID(int id)
+	{
+		String username = "";
+		try{
+			PreparedStatement ps = con.prepareStatement(getUsernameByID);
+			ps.setInt(1,id);
+			ResultSet result = ps.executeQuery();
+			while(result.next()){
+				username = result.getString("actualname");
+			}
+			return username;
+		}	catch (SQLException e) {
+			System.out.println("SQLE: " + e.getMessage());
+		}
+		return username;
 	}
 
 	public int getListID(String list){
@@ -328,6 +346,7 @@ public class Database {
 					int points = todoResult.getInt("todoPoints");
 					int listId = todoResult.getInt("listID");
 					TodoObject to = new TodoObject(name, priority, isPrivate, listId, getListName(userId, listId), description, points, userId, isComplete);
+					to.setUsername(getUsernameByID(userId));
 					friendTodos.add(to);
 				}
 			}
@@ -358,6 +377,7 @@ public class Database {
 				int listId = todoResult.getInt("listID");
 				int userId = todoResult.getInt("userID");
 				TodoObject to = new TodoObject(name, priority, isPrivate, listId, getListName(userId, listId), description, points, userId, isComplete);
+				to.setUsername(getUsernameByID(userId));
 				retvec.add(to);
 			}
 		} catch (SQLException e) {
