@@ -106,6 +106,21 @@ public class TodoClientListener {
 		}
 		return " ";
 	}
+	
+	public Vector<TodoObject> readTodoObjects() {
+		try {
+			Object o = ois.readObject();
+			if(o instanceof Vector<?>) {
+				Vector<TodoObject> todoVec = (Vector<TodoObject>) o;
+				return todoVec;
+			}
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+		return null;
+	}
 	/*
 	public void run() {
 		try {
