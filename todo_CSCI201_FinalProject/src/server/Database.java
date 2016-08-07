@@ -40,7 +40,7 @@ public class Database {
 	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=?";
 	private final static String getLatestPublicTodos = "Select * FROM todos WHERE isPrivate=0 LIMIT 50 ORDER BY createdAt DESC";
 	private final static String getAllUserFriends = "SELECT * FROM friendship WHERE fromID=?";
-	private final static String getUserTodosById = "SELECT * FROM todos WHERE userID=?";
+	private final static String getUserTodosById = "SELECT T.TODONAME, T.TODOPRIORITY, T.TODOPRIVATE, T.TODODESC, T.TODOPOINTS, T.TODOFINISHED FROM TODOS T WHERE userID=?";
 	
 	
 	public void stop() {
