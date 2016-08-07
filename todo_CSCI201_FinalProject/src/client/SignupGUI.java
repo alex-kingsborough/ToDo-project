@@ -72,7 +72,8 @@ public class SignupGUI extends JPanel {
 						//case: SIGNUP SUCCESS
 						if(response.equals(Constants.SUCCESS_MESSAGE)) {
 							//signup user and go to editor
-							mNav.toPortal();
+							TodoClientListener.get().setUsername(username);
+							mNav.toPortal(newTodoUser);
 						}
 						//case: SIGNUP FAILURE
 						else {

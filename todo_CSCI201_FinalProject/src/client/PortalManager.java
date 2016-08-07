@@ -72,7 +72,7 @@ public class PortalManager extends JPanel {
 		
 		mMainPage = new MainPageGUI();
 		mSocialPage = new SocialGUI(this, mUser);
-		mUserInfoPage = new UserInfoGUI();
+		mUserInfoPage = new UserInfoGUI(mUser);
 		
 		add(mMainPage, "main");
 		add(mSocialPage, "social");

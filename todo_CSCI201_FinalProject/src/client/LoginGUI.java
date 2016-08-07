@@ -45,7 +45,12 @@ private static final long serialVersionUID = 456789212311L;
 					if(response.equals(Constants.AUTHENTICATED_MESSAGE)) {
 						System.out.println("Login success!");
 						TodoClientListener.get().setUsername(username);
-						mNav.toPortal();
+						//get todo user to pass into portal
+						request = Constants.LOGIN_USER_REQUEST;
+						TodoClientListener.get().send(request);
+						TodoUser loggedInUser = TodoClientListener.get().readTodoUser();
+						System.out.println("loggedInUser: " + loggedInUser.getName());
+						mNav.toPortal(loggedInUser);
 					}
 					//case: FAILURE
 					else {
