@@ -66,6 +66,7 @@ public class SignupGUI extends JPanel {
 					if(validPasswordFormat) {
 						//build todo user
 						TodoUser newTodoUser = new TodoUser(username, name, Encrypt.SHA1(password), email, aboutMe);
+						newTodoUser.addTodoList(new TodoList(0, "My 1st List"));
 						//send signup request
 						TodoClientListener.get().sendUser(newTodoUser);
 						//read response from server

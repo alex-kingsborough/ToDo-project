@@ -52,19 +52,19 @@ public class ViewTodo extends JFrame {
 	Font mFont;
 	TodoUser mTU;
 	
-	public ViewTodo(TodoObject to, TodoUser tu){
-		super("Edit Todo");
+	public ViewTodo(TodoObject to){
+		super("View Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo(to, tu);
+		mTU = PortalManager.mUser;
+		AddTodo(to);
 		//addPublicRBEvents();
 		//addPrivateRBEvents();
-		mTU = tu;
 	
 	}
 	
-	private void AddTodo(TodoObject to, TodoUser tu) {
+	private void AddTodo(TodoObject to) {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mTitleLabel = new JLabel("Title: ");
@@ -116,13 +116,14 @@ public class ViewTodo extends JFrame {
 		mPointsText = new JTextField(15);
 		mPointsText.setText(Integer.toString(to.getPoints()));
 		mListVector = new Vector<String>();
-
-		for(int i = 0; i < tu.getTodoLists().size(); i ++){
-			String name;
-			name = tu.getTodoLists().get(i).getName();
-			mListVector.addElement(name);
-		}
 		
+		if(mTU.getTodoLists() != null){
+			for(int i = 0; i < mTU.getTodoLists().size(); i ++){
+				String name;
+				name = mTU.getTodoLists().get(i).getName();
+				mListVector.addElement(name);
+			}
+		}
 		int currList = 0;
 		for(int i = 0; i < mListVector.size(); i ++){
 			if(mListVector.get(i).equals(to.getListName())){

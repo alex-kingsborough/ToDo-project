@@ -67,13 +67,18 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialInfo.setEditable(false);
 			mSocialInfo.setLineWrap(true);
 			mSocialInfo.setText("New todo named " + newTodos.get(i).getTitle() + " in " + newTodos.get(i).getListName() + " : " + newTodos.get(i).getDescription());
+			mSocialInfo.setBackground(Constants.lightGreyColor);
+			
 			
 			JButton mSocialButton = new JButton();
 			mSocialButton.setText("View " + newTodos.get(i).getTitle());
 			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
+			mSocialButton.setBackground(Constants.greyColor);
+			mSocialButton.setForeground(Constants.redColor);
 			
 			JLabel mSpaceLabel = new JLabel();
 			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 9));
+			mSpaceLabel.setForeground(Constants.redColor);
 			
 			mSocialItemPanel.add(mSocialInfo, BorderLayout.CENTER);
 			mSocialItemPanel.add(mSpaceLabel, BorderLayout.NORTH);
@@ -106,13 +111,18 @@ public class SocialSidebar extends JPanel implements Runnable {
 					" made a new todo named " + newTodos.get(i).getTitle() + 
 					" in " + newTodos.get(i).getListName() + " : " 
 					+ newTodos.get(i).getDescription());
+			mSocialInfo.setBackground(Constants.lightGreyColor);
+			mSocialInfo.setForeground(Constants.redColor);
 			
 			JButton mSocialButton = new JButton();
 			mSocialButton.setText("View " + newTodos.get(i).getTitle());
 			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
+			mSocialButton.setBackground(Constants.greyColor);
+			mSocialButton.setForeground(Constants.goldColor);
 			
 			JLabel mSpaceLabel = new JLabel();
 			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 9));
+			mSpaceLabel.setForeground(Constants.redColor);
 			
 			mSocialItemPanel.add(mSocialInfo, BorderLayout.CENTER);
 			mSocialItemPanel.add(mSpaceLabel, BorderLayout.NORTH);
