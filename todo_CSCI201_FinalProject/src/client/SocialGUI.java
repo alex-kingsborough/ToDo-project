@@ -24,6 +24,7 @@ public class SocialGUI extends JPanel implements Runnable {
 	private JScrollPane friendSP, pubSP, popSP;
 	private PortalManager pm;
 	private TodoUser currUser;
+	private Vector<TodoObject> publicTodos, friendsTodos;
 	
 	
 	public SocialGUI(PortalManager pm, TodoUser currUser) {
@@ -46,7 +47,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		    public void mouseClicked(MouseEvent evnt) {
 		        //TODO: open todo preview with selected row
 		    	int row = friendsTodo.getSelectedRow();
-		    	System.out.println("Selected this: " + friendsTodo.getValueAt(row, 1));
+		    	new ViewTodo(friendsTodos.get(row));
 		     }
 		});
 		friendSP = new JScrollPane(friendsTodo);
@@ -64,7 +65,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		    public void mouseClicked(MouseEvent evnt) {
 		        //TODO: open todo preview with selected row
 		    	int row = publicTodo.getSelectedRow();
-		    	System.out.println("Selected this: " + publicTodo.getValueAt(row, 1));
+		    	new ViewTodo(publicTodos.get(row));
 		     }
 		});
 		pubSP = new JScrollPane(publicTodo);
@@ -82,8 +83,8 @@ public class SocialGUI extends JPanel implements Runnable {
 			//send request to server
 			TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
 			//wait for response from server
-			
-			Object[][] newTodos = convertToObject(TodoClientListener.get().readTodoObjects());
+			friendsTodos = TodoClientListener.get().readTodoObjects();
+			Object[][] newTodos = convertToObject(friendsTodos);
 			
 			//send request to get new todos
 			friendsTodo.setModel(new TodoTableModel(newTodos));
@@ -95,7 +96,8 @@ public class SocialGUI extends JPanel implements Runnable {
 			//send request to server
 			TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
 			//wait for response from server
-			Object[][] newTodos = convertToObject(TodoClientListener.get().readTodoObjects());
+			publicTodos = TodoClientListener.get().readTodoObjects();
+			Object[][] newTodos = convertToObject(publicTodos);
 			publicTodo.setModel(new TodoTableModel(newTodos));
 		}
 	}
