@@ -48,7 +48,7 @@ public class ViewTodo extends JFrame {
 	JPanel mPrivacyPanel;
 	JPanel mListPanel;
 	JPanel mDescriptionPanel;
-	Vector<Integer> mPriorityVector;
+	//Vector<Integer> mPriorityVector;
 	Vector<String> mListVector;
 	boolean isPrivate;
 	JTextField mPointsText;
@@ -62,8 +62,6 @@ public class ViewTodo extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mTU = PortalManager.mUser;
 		AddTodo(to);
-		//addPublicRBEvents();
-		//addPrivateRBEvents();
 	
 	}
 	
@@ -151,11 +149,11 @@ public class ViewTodo extends JFrame {
 		mDescriptionText.setBackground(Constants.lightGreyColor);		
 		
 		
-		mPriorityVector = new Vector<Integer>();
+/*		mPriorityVector = new Vector<Integer>();
 		
 		for(int i = 10; i > 0; i--){
 			mPriorityVector.addElement(i);
-		}
+		}*/
 		mPointsText = new JTextField(15);
 		mPointsText.setText(Integer.toString(to.getPoints()));
 		mPointsText.setForeground(Constants.redColor);
@@ -184,7 +182,7 @@ public class ViewTodo extends JFrame {
 		mPriorityBox.setFont(mFont.deriveFont(20));
 		mPriorityBox.setSelectedIndex(10-to.getPriority());
 		*/
-		JTextField mPriorityText = new JTextField(10-to.getPriority()) {
+		JTextField mPriorityText = new JTextField(to.getPriority()) {
 		    @Override public void setBorder(Border border) {
 		        // None
 		    }
@@ -194,11 +192,13 @@ public class ViewTodo extends JFrame {
 		mListBox.setFont(mFont.deriveFont(2));
 		mListBox.setSelectedIndex(currList);
 */		
+		System.out.println(1);
 		JTextField mListText = new JTextField(mListVector.get(currList)) {
 		    @Override public void setBorder(Border border) {
 		        // None
 		    }
 		};
+		System.out.println(2);
 		JTextField mPrivacyText;
 		if(isPrivate){
 			mPrivacyText = new JTextField("Private") {
