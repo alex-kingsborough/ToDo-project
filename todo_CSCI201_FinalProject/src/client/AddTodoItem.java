@@ -66,18 +66,19 @@ public class AddTodoItem extends JFrame {
 	
 	public AddTodoItem(TodoUser tu, MainPageGUI mMPGUI){
 		super("Add Todo");
+		mTU = tu;
+		mMainPage = mMPGUI;
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo(tu);
+		AddTodo();
 		addPublicRBEvents();
 		addPrivateRBEvents();
-		mTU = tu;
-		mMainPage = mMPGUI;
+
 	
 	}
 	
-	private void AddTodo(TodoUser tu) {
+	private void AddTodo() {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mTitleLabel = new JLabel("Title: ");
@@ -107,11 +108,10 @@ public class AddTodoItem extends JFrame {
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15);
-		
-		for(int i = 0; i < tu.getTodoLists().size(); i ++){
-			String name;
-			name = tu.getTodoLists().get(i).getName();
-			listID = tu.getTodoLists().get(i).getID();
+		String name;
+		for(int i = 0; i < mTU.getTodoLists().size(); i ++){
+			name = mTU.getTodoLists().get(i).getName();
+			listID = mTU.getTodoLists().get(i).getID();
 			mListVector.addElement(name);
 			mListIDVector.addElement(listID);
 		}
