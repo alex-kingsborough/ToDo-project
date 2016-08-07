@@ -131,6 +131,7 @@ public class MainPageGUI extends JPanel {
 	    
 	    @Override public Object getValueAt(int row, int col) {
             /*Adding components*/
+	    	/*
 	    	if(col == 0){
 	    		JRadioButton currRadButton = new JRadioButton();
 	    		currRadButton.setSelected(tableTodos.get(row).getCompleted());
@@ -147,6 +148,9 @@ public class MainPageGUI extends JPanel {
 	    	else{
 	    		return mData[row][col];
 	    	}
+	    	*/
+	    	
+	    	return mData[row][col];
 /*
 	    	switch (col) {
 	    	case 0: return row;
