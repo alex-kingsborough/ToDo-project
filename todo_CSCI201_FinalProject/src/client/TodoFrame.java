@@ -100,8 +100,8 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		//Buttons
 		UIManager.put("Button.border", BorderFactory.createLineBorder(Color.black,8));
+		UIManager.put("Button.foreground", Constants.goldColor);
 		UIManager.put("Button.select", Color.WHITE);
-		
 		
 		add(new SignInGUI(this));
 	}
