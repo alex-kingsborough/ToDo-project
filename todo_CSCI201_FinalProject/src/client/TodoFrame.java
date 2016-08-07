@@ -6,13 +6,10 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-<<<<<<< HEAD
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-=======
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
->>>>>>> 2d055a31f366b0cbcf466a154776cd60f97846d4
 
 import constants.Constants;
 
@@ -24,7 +21,7 @@ public class TodoFrame extends JFrame implements Navigator {
 	private TodoUser mTodoUser;
 	
 	public static void main(String[] args) {
-<<<<<<< HEAD
+
 		//new TodoFrame("Todo: a CS201 project worth 100%");
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -33,25 +30,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		} finally {
 			SwingUtilities.invokeLater(() -> { new TodoFrame("Todo: a CS201 project worth 100%s").setVisible(true); });
 		}
-=======
-		try {
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		new TodoFrame("Todo: a CS201 project worth 100%");
->>>>>>> 2d055a31f366b0cbcf466a154776cd60f97846d4
+		
 	}
 	
 	public TodoFrame(String string) {
