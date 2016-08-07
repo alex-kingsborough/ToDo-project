@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -12,11 +14,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import constants.Constants;
 
 public class UserInfoGUI extends JPanel {
 	
@@ -135,6 +140,28 @@ public class UserInfoGUI extends JPanel {
 		mAddFriendLabel = new JLabel("Add Friend: ");
 		mAddFriendTextField = new JTextField(8);
 		mAddFriendButton = new JButton("Add");
+		mAddFriendButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				String friendName = mAddFriendTextField.getText();
+				if(!friendName.isEmpty()) {
+					String request = Constants.ADD_FRIEND_REQUEST + " " + friendName;
+					System.out.println("Friend Name: " + friendName);
+					TodoClientListener.get().send(request);
+					String response = TodoClientListener.get().readLine();
+					System.out.println(response);
+					if(response.startsWith(Constants.FAIL_MESSAGE)) {
+						JOptionPane.showMessageDialog(mAddFriendButton, "Failed to add friend: " + friendName,
+													"Failure", JOptionPane.ERROR_MESSAGE);
+					} else {
+						String [] parameters = response.split(" ");
+						int userID = Integer.parseInt(parameters[1]);
+						System.out.println("userID: " + userID);
+						mTodoUser.addFriend(userID);
+						TodoClientListener.get().sendUser(mTodoUser);
+					}
+				} 
+			}
+		});
 		mAddFriendPanel.add(mAddFriendLabel);
 		mAddFriendPanel.add(mAddFriendTextField);
 		mAddFriendPanel.add(mAddFriendButton);
@@ -145,6 +172,11 @@ public class UserInfoGUI extends JPanel {
 		mRemoveFriendLabel = new JLabel("Remove Friend: ");
 		mRemoveFriendTextField = new JTextField(8);
 		mRemoveFriendButton = new JButton("Remove");
+		mRemoveFriendButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
 		mRemoveFriendPanel.add(mRemoveFriendLabel);
 		mRemoveFriendPanel.add(mRemoveFriendTextField);
 		mRemoveFriendPanel.add(mRemoveFriendButton);
