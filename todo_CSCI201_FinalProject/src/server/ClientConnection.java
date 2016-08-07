@@ -88,10 +88,20 @@ public class ClientConnection extends Thread{
 			}
 		} else if(s.startsWith(Constants.GET_PUBLIC_TODOS)) {
 			Vector<TodoObject> todovec = Database.get().getLatestPublic();
-			mOutputWriter.writeObject(todovec);
+			try {
+				mOutputWriter.writeObject(todovec);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if (s.startsWith(Constants.GET_FRIENDS_TODOS)) {
 			Vector<TodoObject> todovec = Database.get().getFriendsTodos(userID);
-			mOutputWriter.writeObject(todovec);
+			try {
+				mOutputWriter.writeObject(todovec);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 		if(echo){
