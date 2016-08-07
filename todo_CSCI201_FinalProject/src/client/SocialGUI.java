@@ -1,6 +1,7 @@
 package client;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -106,6 +107,9 @@ public class SocialGUI extends JPanel implements Runnable {
 			Object[][] newTodos = {
 					{true, "This", "Was", "Updated"}
 			};
+			
+			//send request to get new todos
+			Object[][] newTodos2 = getNewTodos()
 			friendsTodo.setModel(new TodoTableModel(newTodos));
 		}
 		
@@ -117,16 +121,6 @@ public class SocialGUI extends JPanel implements Runnable {
 					{true, "This", "Was", "Updated"}
 			};
 			publicTodo.setModel(new TodoTableModel(newTodos));
-		}
-		
-		//tabId = 2 then update popular tab
-		else if (tabId == 2)
-		{
-			//TODO: add method to get newest todos for popular
-			Object[][] newTodos = {
-					{true, "This", "Was", "Updated"}
-			};
-			popularTodo.setModel(new TodoTableModel(newTodos));
 		}
 	}
 	
@@ -192,7 +186,27 @@ public class SocialGUI extends JPanel implements Runnable {
 	    {
 	    	return false;
 	    }
+	    
 
+	}
+	
+	public Object[][] convertToObject(Vector<TodoObject> currTodoList)
+	{		
+		Object[][] todoArray = new Object[currTodoList.size()][6];
+		
+		//loop through the user's todo list and add it to a 2D array
+		for (int i=0; i < currTodoList.size(); i++)
+		{
+			TodoObject currTodo = currTodoList.get(i);
+			todoArray[i][0] = currTodo.getCompleted();
+			todoArray[i][1] = currTodo.getTitle();
+			todoArray[i][2] = currTodo.getDescription();
+			todoArray[i][3] = currTodo.getIsPrivate();
+			todoArray[i][4] = currTodo.getPriority();
+			todoArray[i][5] = currTodo.getPoints();
+		}
+		
+		return todoArray;
 	}
 	
 	
