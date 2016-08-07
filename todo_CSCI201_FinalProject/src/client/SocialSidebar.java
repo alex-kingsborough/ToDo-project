@@ -13,12 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import constants.Constants;
+
 public class SocialSidebar extends JPanel implements Runnable {
 	private static final long serialVersionUID = 4325615311L;
 	
 	private JScrollPane mSocialPanel;
 	private TodoUser mUser;
 	private Vector<Integer> mFriendList;
+	private JPanel mSocialGrid;
 
 	public SocialSidebar(TodoUser inUser, TodoFrame inFrame, MainPageGUI inMainPage){ //Creating and filling out the panel on the east holding the add button and Social Panel
 		
@@ -30,10 +33,8 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mAddTodoButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
-
 				System.out.println(mUser.getTodoLists().get(0).getName());
-				AddTodoItem mati = new AddTodoItem();
-				mati.setVisible(true);
+				new AddTodoItem();
 			}
 		});
 		
@@ -51,10 +52,14 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mSocialPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		mSocialPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		JPanel mSocialGrid = new JPanel();
+		mSocialGrid = new JPanel();
 		mSocialGrid.setLayout(new GridLayout(100,1));
+		TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
+		//wait for response from server
 		
-		for(int i=0; i<15; i++){
+		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects();
+		
+		for(int i=0; i< newTodos.size(); i++){
 			JPanel mSocialItemPanel = new JPanel();
 			mSocialItemPanel.setLayout(new BorderLayout());
 			
@@ -62,10 +67,10 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialInfo.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 36));
 			mSocialInfo.setEditable(false);
 			mSocialInfo.setLineWrap(true);
-			mSocialInfo.setText("USER made a new todo named TITLE: begin description");
+			mSocialInfo.setText("New todo named " + newTodos.get(i).getTitle() + " in " + newTodos.get(i).getListName() + " : " + newTodos.get(i).getDescription());
 			
 			JButton mSocialButton = new JButton();
-			mSocialButton.setText("View TITLE");
+			mSocialButton.setText("View " + newTodos.get(i).getTitle());
 			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
 			
 			JLabel mSpaceLabel = new JLabel();
@@ -83,8 +88,37 @@ public class SocialSidebar extends JPanel implements Runnable {
 	//will update the table with the new todos
 	public void updateBar() {
 		
-		//TODO: add method to get newest todos for friends
+		TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
+		//wait for response from server
 		
+		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects();
+		
+		mSocialGrid.removeAll();
+		
+		for(int i=0; i< newTodos.size(); i++){
+			JPanel mSocialItemPanel = new JPanel();
+			mSocialItemPanel.setLayout(new BorderLayout());
+			
+			JTextArea mSocialInfo = new JTextArea();
+			mSocialInfo.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 36));
+			mSocialInfo.setEditable(false);
+			mSocialInfo.setLineWrap(true);
+			mSocialInfo.setText("New todo named " + newTodos.get(i).getTitle() + " in " + newTodos.get(i).getListName() + " : " + newTodos.get(i).getDescription());
+			
+			JButton mSocialButton = new JButton();
+			mSocialButton.setText("View " + newTodos.get(i).getTitle());
+			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
+			
+			JLabel mSpaceLabel = new JLabel();
+			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 9));
+			
+			mSocialItemPanel.add(mSocialInfo, BorderLayout.CENTER);
+			mSocialItemPanel.add(mSpaceLabel, BorderLayout.NORTH);
+			mSocialItemPanel.add(mSocialButton, BorderLayout.SOUTH);
+			mSocialGrid.add(mSocialItemPanel);
+		}
+		
+		mSocialPanel.getViewport().repaint();
 		
 	}
 	

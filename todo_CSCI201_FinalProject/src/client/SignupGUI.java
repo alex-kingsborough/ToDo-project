@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import constants.Constants;
 
@@ -40,7 +42,10 @@ public class SignupGUI extends JPanel {
 	
 	{
 		setLayout(new GridBagLayout());
+		setBackground(Constants.greyColor);
 		loginButton = new JButton("SIGNUP");
+		loginButton.setBackground(Color.BLACK);
+		loginButton.setForeground(Constants.goldColor);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				boolean validPasswordFormat;
@@ -102,95 +107,96 @@ public class SignupGUI extends JPanel {
 		gbc.gridy = 0;
 		
 		JPanel usernamePanel = new JPanel(new FlowLayout());
-		usernameLabel = new JLabel("USERNAME: ");
+		usernameLabel = new JLabel(" USERNAME: ");
+		usernameLabel.setForeground(Constants.goldColor);
+		usernameLabel.setBackground(Constants.greyColor);
 		usernamePanel.add(usernameLabel);
 		usernameField = new JTextField();
+		usernameField.setBorder(null);
 		usernameField.setColumns(10);
+		usernameField.setForeground(Constants.redColor);
+		usernameField.setBackground(Constants.lightGreyColor);
 		usernamePanel.add(usernameField);
+		usernamePanel.setBackground(Constants.greyColor);
 		add(usernamePanel, gbc);
 		
 		JPanel passwordPanel = new JPanel(new FlowLayout());
 		passwordLabel = new JLabel("PASSWORD: ");
+		passwordLabel.setForeground(Constants.goldColor);
+		passwordLabel.setBackground(Constants.greyColor);
 		passwordPanel.add(passwordLabel);
 		passwordField = new JPasswordField();
+		passwordField.setBorder(null);
 		passwordField.setColumns(10);
+		passwordField.setForeground(Constants.redColor);
+		passwordField.setBackground(Constants.lightGreyColor);
 		passwordPanel.add(passwordField);
+		passwordPanel.setBackground(Constants.greyColor);
 		gbc.gridy = 1;
 		add(passwordPanel, gbc);
 		
 		JPanel repeatPanel = new JPanel(new FlowLayout());
-		repeatLabel = new JLabel("     REPEAT:  ");
+		repeatLabel = new JLabel("       REPEAT:  ");
+		repeatLabel.setForeground(Constants.goldColor);
+		repeatLabel.setBackground(Constants.greyColor);
 		repeatPanel.add(repeatLabel);
 		repeatPasswordField = new JPasswordField();
+		repeatPasswordField.setBorder(null);
 		repeatPasswordField.setColumns(10);
+		repeatPasswordField.setForeground(Constants.redColor);
+		repeatPasswordField.setBackground(Constants.lightGreyColor);
 		repeatPanel.add(repeatPasswordField);
+		repeatPanel.setBackground(Constants.greyColor);
 		gbc.gridy = 2;
 		add(repeatPanel, gbc);
 		
 		JPanel mNamePanel = new JPanel(new FlowLayout());
-		mNameLabel = new JLabel("       NAME:   ");
+		mNameLabel = new JLabel("         NAME:   ");
+		mNameLabel.setForeground(Constants.goldColor);
+		mNameLabel.setBackground(Constants.greyColor);
 		mNamePanel.add(mNameLabel);
 		mNameField = new JTextField();
+		mNameField.setBorder(null);
 		mNameField.setColumns(10);
+		mNameField.setForeground(Constants.redColor);
+		mNameField.setBackground(Constants.lightGreyColor);
 		mNamePanel.add(mNameField);
+		mNamePanel.setBackground(Constants.greyColor);
 		
 		gbc.gridy = 3;
 		add(mNamePanel, gbc);
 		
 		JPanel mEmailPanel = new JPanel(new FlowLayout());
-		mEmailLabel = new JLabel("       EMAIL:   ");
+		mEmailLabel = new JLabel("         EMAIL:   ");
+		mEmailLabel.setForeground(Constants.goldColor);
+		mEmailLabel.setBackground(Constants.greyColor);
 		mEmailPanel.add(mEmailLabel);
 		mEmailField = new JTextField();
+		mEmailField.setBorder(null);
 		mEmailField.setColumns(10);
+		mEmailField.setForeground(Constants.redColor);
+		mEmailField.setBackground(Constants.lightGreyColor);
 		mEmailPanel.add(mEmailField);
+		mEmailPanel.setBackground(Constants.greyColor);
 		
 		gbc.gridy = 4;
 		add(mEmailPanel, gbc);
 		
-		/*
-		JPanel mDOBPanel = new JPanel(new FlowLayout());
-		mDOBLabel = new JLabel("DOB: ");
-		mDOBPanel.add(mDOBLabel);
-		
-		mDOBMonth = new JComboBox<String>();
-		mDOBMonth.addItem("January");
-		mDOBMonth.addItem("February");
-		mDOBMonth.addItem("March");
-		mDOBMonth.addItem("April");
-		mDOBMonth.addItem("May");
-		mDOBMonth.addItem("June");
-		mDOBMonth.addItem("July");
-		mDOBMonth.addItem("August");
-		mDOBMonth.addItem("September");
-		mDOBMonth.addItem("October");
-		mDOBMonth.addItem("November");
-		mDOBMonth.addItem("December");
-		mDOBPanel.add(mDOBMonth);
-
-		mDOBDay = new JComboBox<Integer>();
-		for(int i=1; i < 32; i++) {
-			mDOBDay.addItem(new Integer(i));
-		}
-		mDOBPanel.add(mDOBDay);
-
-		mDOBYear = new JComboBox<Integer>();
-		for(int i=2004; i > 1804; i--) {
-			mDOBYear.addItem(new Integer(i));
-		}
-		mDOBPanel.add(mDOBYear);
-		
-		gbc.gridy = 5;
-		add(mDOBPanel, gbc);
-		*/
 		JPanel mAboutMeLabelPanel = new JPanel(new FlowLayout());
 		mAboutMeLabel = new JLabel("About Me");
+		mAboutMeLabel.setForeground(Constants.goldColor);
+		mAboutMeLabel.setBackground(Constants.greyColor);
 		mAboutMeLabelPanel.add(mAboutMeLabel);
+		mAboutMeLabelPanel.setBackground(Constants.greyColor);
 		
 		gbc.gridy = 5;
 		add(mAboutMeLabelPanel, gbc);
 		
 		JPanel mAboutMePanel = new JPanel(new FlowLayout());
+		mAboutMePanel.setBackground(Constants.greyColor);
 		mAboutMeTextArea = new JTextArea(10,12);
+		mAboutMeTextArea.setForeground(Constants.redColor);
+		mAboutMeTextArea.setBackground(Constants.lightGreyColor);
 		mAboutMePanel.add(mAboutMeTextArea);
 		
 		gbc.gridy = 6;

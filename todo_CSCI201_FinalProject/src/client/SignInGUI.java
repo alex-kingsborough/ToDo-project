@@ -1,6 +1,7 @@
 package client;
 
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -26,6 +27,8 @@ public class SignInGUI extends JPanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		loginButton = new JButton("LOGIN");
+		loginButton.setBackground(Constants.redColor);
+		loginButton.setForeground(Constants.goldColor);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to login page
@@ -33,6 +36,8 @@ public class SignInGUI extends JPanel {
 			}
 		});
 		signupButton = new JButton("SIGNUP");
+		signupButton.setBackground(Constants.redColor);
+		signupButton.setForeground(Constants.goldColor);
 		signupButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to signup page
@@ -42,12 +47,14 @@ public class SignInGUI extends JPanel {
 		JPanel topButtonPanel = new JPanel(new FlowLayout());
 		topButtonPanel.add(loginButton);
 		topButtonPanel.add(signupButton);
-		
+		topButtonPanel.setBackground(Constants.greyColor);
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		add(topButtonPanel, gbc);
 		
 		offlineButton = new JButton("GUEST");
+		offlineButton.setBackground(Color.DARK_GRAY);
+		offlineButton.setForeground(Constants.goldColor);
 		offlineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to main page in Guest Mode
@@ -55,7 +62,7 @@ public class SignInGUI extends JPanel {
 				mNav.toPortal();
 			}
 		});
-
+		setBackground(Constants.greyColor);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		gbc.weightx = 2;
