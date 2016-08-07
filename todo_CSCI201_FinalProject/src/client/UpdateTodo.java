@@ -53,7 +53,7 @@ public class UpdateTodo extends JFrame {
 	private TodoObject mTO;
 	
 	public UpdateTodo(TodoObject to){
-		super("Add Todo");
+		super("Edit Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		mTU = PortalManager.mUser;
@@ -102,7 +102,7 @@ public class UpdateTodo extends JFrame {
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15);
-		
+		mPointsText.setText(Integer.toString(to.getPoints()));
 		for(int i = 0; i < mTU.getTodoLists().size(); i ++){
 			String name;
 			name = mTU.getTodoLists().get(i).getName();
@@ -110,16 +110,14 @@ public class UpdateTodo extends JFrame {
 			mListVector.addElement(name);
 			mListIDVector.addElement(listID);
 		}
-		
 		int currList = 0;
 		for(int i = 0; i < mListVector.size(); i ++){
+			System.out.println("in for");
 			if(mListVector.get(i).equals(to.getListName())){
 				currList = i;
-				return;
 			}
 		}
 
-		
 		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
 		mPriorityBox.setFont(mFont.deriveFont(20));
@@ -138,16 +136,12 @@ public class UpdateTodo extends JFrame {
 		mPrivacyPanel.setLayout(new FlowLayout());
 		mPrivacyPanel.add(mPublicRB);
 		mPrivacyPanel.add(mPrivateRB);
-		
 		mMainPanel.add(mTitleLabel);
 		mMainPanel.add(mTitleText);
-		
 		mMainPanel.add(mPriorityLabel);
 		mMainPanel.add(mPriorityBox);
-		
 		mMainPanel.add(mPointsLabel);
 		mMainPanel.add(mPointsText);
-		
 		mMainPanel.add(mPrivacyLabel);
 		mMainPanel.add(mPrivacyPanel);
 		
