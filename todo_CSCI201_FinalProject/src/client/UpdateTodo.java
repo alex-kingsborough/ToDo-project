@@ -185,7 +185,6 @@ public class UpdateTodo extends JFrame {
 	private void addSaveEvents(){
 		mSaveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
-				
 				if(!isInteger(mPointsText.getText())){
 					JOptionPane.showMessageDialog(
 							null,
@@ -196,7 +195,7 @@ public class UpdateTodo extends JFrame {
 				}
 				
 				String title = mTitleText.getText();
-				int priority = Integer.parseInt(mPriorityBox.getSelectedItem().toString());
+				int priority = 10 - Integer.parseInt(mPriorityBox.getSelectedItem().toString());
 				String list = mListBox.getSelectedItem().toString();
 				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
@@ -218,7 +217,7 @@ public class UpdateTodo extends JFrame {
 						currPlace = i;
 					}
 				}
-				
+				//we need to change the list it is in and remove it from the old list
 				//mTU.getTodoLists().get(currPlace).addTodo(mTodoObject);
 	
 				mMainPage.updatePage();
