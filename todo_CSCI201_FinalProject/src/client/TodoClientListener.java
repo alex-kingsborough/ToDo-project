@@ -90,7 +90,7 @@ public class TodoClientListener {
 				}else if (line.startsWith(Constants.SUCCESS_MESSAGE)) {
 					System.out.println("line: " + line);
 					return line;
-				} else if(o instanceof TodoUser){
+				}else if(o instanceof TodoUser){
 					TodoUser tu = (TodoUser) o;
 					/*
 				 	* set global user to received TodoUser
@@ -114,6 +114,7 @@ public class TodoClientListener {
 	}
 	
 	public Vector<TodoObject> readTodoObjects() {
+		
 		try {
 			Object o = ois.readObject();
 			if(o instanceof Vector<?>) {

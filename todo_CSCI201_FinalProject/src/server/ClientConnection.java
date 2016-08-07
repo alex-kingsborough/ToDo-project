@@ -126,7 +126,7 @@ public class ClientConnection extends Thread{
 			if(s.split(" ").length == 2){
 				uID = Integer.parseInt(s.split(" ")[1]);
 				String retName = Database.get().getUsernameByID(uID);
-				sendMessage(retName);
+				sendMessage(Constants.SUCCESS_MESSAGE + " " + retName);
 			} else {
 				sendMessage(Constants.FAIL_MESSAGE);
 			}
