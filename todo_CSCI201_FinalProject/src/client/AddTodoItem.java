@@ -292,6 +292,7 @@ public class AddTodoItem extends JFrame {
 	
 				mMainPage.updatePage();
 				
+				System.out.println("Adding todo: " + mTU.getUsername());
 				TodoClientListener.get().sendUser(mTU);
 				
 				setVisible(false);
