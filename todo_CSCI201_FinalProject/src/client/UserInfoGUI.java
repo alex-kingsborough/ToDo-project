@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -142,10 +143,23 @@ public class UserInfoGUI extends JPanel {
 		mAddFriendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				String friendName = mAddFriendTextField.getText();
-				if(!friendName.equals(null)) {
+				if(!friendName.isEmpty()) {
 					String request = Constants.ADD_FRIEND_REQUEST + " " + friendName;
-					System.out.println("Friend Name");
-				}
+					System.out.println("Friend Name: " + friendName);
+					TodoClientListener.get().send(request);
+					String response = TodoClientListener.get().readLine();
+					System.out.println(response);
+					if(response.startsWith(Constants.FAIL_MESSAGE)) {
+						JOptionPane.showMessageDialog(mAddFriendButton, "Failed to add friend: " + friendName,
+													"Failure", JOptionPane.ERROR_MESSAGE);
+					} else {
+						String [] parameters = response.split(" ");
+						int userID = Integer.parseInt(parameters[1]);
+						System.out.println("userID: " + userID);
+						mTodoUser.addFriend(userID);
+						TodoClientListener.get().sendUser(mTodoUser);
+					}
+				} 
 			}
 		});
 		mAddFriendPanel.add(mAddFriendLabel);
