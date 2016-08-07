@@ -139,7 +139,11 @@ public class TodoUser implements Serializable {
 	}
 	
 	public void removeFriend(int f) {
-		mFriendList.remove(f);
+		for(int i=0; i< mFriendList.size(); i++) {
+			if(mFriendList.get(i) == f) {
+				mFriendList.remove(i);
+			}
+		}
 	}
 	
 	public Vector<Integer> getFriendList(){

@@ -142,6 +142,22 @@ public class ClientConnection extends Thread{
 			} else {
 				sendMessage(Constants.FAIL_MESSAGE);
 			}
+		} else if (s.startsWith(Constants.REMOVE_FRIEND_REQUEST)) {
+			String username = "";
+			if(s.split(" ").length == 2){
+				username = s.split(" ")[1];
+				System.out.println("username: " + username);
+				int uID = Database.get().getUserID(username);
+				System.out.println("uID: " + uID);
+				if(uID != 0) {
+					System.out.println(Constants.SUCCESS_MESSAGE + " " + uID);
+					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
+				} else {
+					sendMessage(Constants.FAIL_MESSAGE);
+				}
+			} else {
+				sendMessage(Constants.FAIL_MESSAGE);
+			}
 		}
 		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 		if(echo){
