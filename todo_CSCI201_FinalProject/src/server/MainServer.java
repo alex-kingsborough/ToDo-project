@@ -5,8 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
-import client.Encrypt;
-
 public class MainServer {
 
 	static ServerGUI gui = null;
