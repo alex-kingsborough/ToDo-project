@@ -296,6 +296,31 @@ public class Database {
 			return friendTodos;
 		}
 		
-		//get all public todos
+		//get latest 50 public todos
+		public Vector<TodoObject> getLatestPublic()
+		{
+			Vector<TodoObject> retvec = new Vector<TodoObject>();
+			
+			try {
+				PreparedStatement ps = con.prepareStatement(getLatestPublicTodos);
+				ResultSet result = ps.executeQuery();
+				while(result.next()) {
+					String name = result.getString("TODONAME");
+					int priority = result.getInt("TODOPRIORITY");
+					boolean isPrivate = result.getBoolean("TODOPRIVATE");
+					String list = result.getString("LISTNAME");
+					String desc = result.getString("TODODESC");
+					int points = result.getInt("TODOPOINTS");
+					boolean isFinished = result.getBoolean("TODOFINISHED");
+					TodoObject to = new TodoObject(name, priority, isPrivate, list, desc, points);
+					if(isFinished) to.setCompleted(isFinished);
+					retvec.add(to);
+				}
+			} catch (SQLException e) {
+				System.out.println("SQLE: " + e.getMessage());
+			}
+			
+			return retvec;
+		}
 		
 }

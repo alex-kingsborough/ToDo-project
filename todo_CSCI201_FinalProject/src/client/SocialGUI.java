@@ -102,7 +102,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		//tabId = 0 then update friends tab
 		if (tabId == 0)
 		{
-			//TODO: add method to get newest todos for friends
+			//TODO: add method to get newest todos for public
 			Object[][] newTodos = {
 					{true, "This", "Was", "Updated"}
 			};
@@ -135,8 +135,8 @@ public class SocialGUI extends JPanel implements Runnable {
 		while (true)
 		{
 			try {
-				//wait for 5 seconds //TODO: Alex, I noticed this was updating even if the social panel wasn't at the front.
-				//I think we'd only want it to update when it is at the front, could just pass in the cardlayout panel to check when it's at the front here or so. -Luc
+				//wait for 5 seconds
+				//TODO: only update tab if at front
 				Thread.sleep(5000);
 				
 				//call update on selected tab
