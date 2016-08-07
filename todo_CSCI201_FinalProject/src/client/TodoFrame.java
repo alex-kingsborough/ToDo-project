@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
 
@@ -43,6 +44,21 @@ public class TodoFrame extends JFrame implements Navigator {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+
+		UIManager.put("TabbedPane.shadow",Constants.goldColor);
+		UIManager.put("TabbedPane.darkShadow",Constants.goldColor);
+		UIManager.put("TabbedPane.light",Constants.goldColor);
+		UIManager.put("TabbedPane.highlight",Constants.goldColor);
+		UIManager.put("TabbedPane.tabAreaBackground",Constants.goldColor);
+		UIManager.put("TabbedPane.unselectedBackground",Constants.goldColor);
+		UIManager.put("TabbedPane.background",Constants.redColor);
+		UIManager.put("TabbedPane.foreground",Color.BLACK);
+		UIManager.put("TabbedPane.focus",Constants.goldColor);
+		UIManager.put("TabbedPane.contentAreaColor",Constants.goldColor);
+		UIManager.put("TabbedPane.selected",Constants.goldColor);
+		UIManager.put("TabbedPane.selectHighlight",Constants.goldColor);
+		UIManager.put("TabbedPane.borderHightlightColor",Constants.goldColor);
 	}
 	
 	@Override
@@ -51,7 +67,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		getContentPane().removeAll();
 		
-		//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
+/*		//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
 		//tempUser = new TodoUser(1,"Jeff","pass","email");
 		TodoList playList = new TodoList(0,"Play");
 		for(int i =0;i<6;i++){
@@ -71,7 +87,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		tempTodoListVec.add(workList);
 		mTodoUser.setTodoLists(tempTodoListVec);
 		//END OF STUFF TO REMOVE
-
+*/
 		
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
