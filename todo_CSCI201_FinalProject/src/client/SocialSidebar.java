@@ -130,7 +130,8 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialGrid.add(mSocialItemPanel);
 		}
 		
-		mSocialPanel.getViewport().repaint();
+		mSocialGrid.setVisible(true);
+		mSocialPanel.getViewport().setVisible(true);
 		
 	}
 	
