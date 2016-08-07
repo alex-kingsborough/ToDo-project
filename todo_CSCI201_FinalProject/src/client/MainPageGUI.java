@@ -86,16 +86,17 @@ public class MainPageGUI extends JPanel {
 		    				if(changeFinishedTodo.getCompleted()){
 		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(false);
-		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				else{
 		    					mUser.setTotalPoints(mUser.getTotalPoints()+changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(true);
-		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				updatePage();
-		    				TodoClientListener.get().sendUser(mUser);
-		    				mUser = TodoClientListener.get().readTodoUser();
+		    				if(mUser.getUsername()!=Constants.GUEST_USER){
+		    					PortalManager.mUserInfoPage.updatePoints();
+		    					TodoClientListener.get().sendUser(mUser);
+		    					mUser = TodoClientListener.get().readTodoUser();
+		    				}
 		    			}
 		    			if(mTable.getSelectedColumn()==1){
 				    		new UpdateTodo(currTodos.get(mTable.getSelectedRow()));
