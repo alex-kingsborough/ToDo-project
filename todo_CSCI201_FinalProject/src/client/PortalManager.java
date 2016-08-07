@@ -71,7 +71,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.add(mNewTabItem);
 		
 		mMainPage = new MainPageGUI(mUser);
-		mSocialPage = new SocialGUI();
+		mSocialPage = new SocialGUI(this, mUser);
 		mUserInfoPage = new UserInfoGUI();
 		
 		add(mMainPage, "main");
