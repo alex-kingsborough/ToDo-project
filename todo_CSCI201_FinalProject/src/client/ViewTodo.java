@@ -193,6 +193,8 @@ public class ViewTodo extends JFrame {
 		mListBox.setSelectedIndex(currList);
 */		
 		System.out.println(1);
+		System.out.println("currList: " + currList);
+		System.out.println("mListVector.size() = " + mListVector.size());
 		JTextField mListText = new JTextField(mListVector.get(currList)) {
 		    @Override public void setBorder(Border border) {
 		        // None
@@ -203,13 +205,13 @@ public class ViewTodo extends JFrame {
 		if(isPrivate){
 			mPrivacyText = new JTextField("Private") {
 			    @Override public void setBorder(Border border) {
-			        // No!
+			        // None
 			    }
 			};
 		}else{
 			mPrivacyText = new JTextField("Public") {
 			    @Override public void setBorder(Border border) {
-			        // No!
+			        // None
 			    }
 			};
 		}
@@ -284,7 +286,7 @@ public class ViewTodo extends JFrame {
 	private void addSaveEvents(){
 		mSaveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
-				
+				setVisible(false);
 			}
 		});
 	}
