@@ -1,7 +1,6 @@
 package client;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -32,6 +31,7 @@ public class UserInfoGUI extends JPanel {
 	private JLabel mNameLabel;
 	private JLabel mEmailLabel;
 	private JLabel mPointsLabel;
+	@SuppressWarnings("unused")
 	private JLabel mAboutMeLabel;
 	private JTextArea mAboutMeTextArea;
 	JLabel mAddFriendLabel;
@@ -42,7 +42,7 @@ public class UserInfoGUI extends JPanel {
 	JButton mRemoveFriendButton;
 	JLabel mFriendsLabel;
 	JList<String> mFriendsList;
-	DefaultListModel mListModel;
+	DefaultListModel<String> mListModel;
 	JScrollPane mFriendsScrollPane;
 	
 	//public UserInfoGUI(TodoUser tu) {
@@ -94,7 +94,7 @@ public class UserInfoGUI extends JPanel {
 		mFriendsLabel = new JLabel("Friends");
 		mFriendsLabel.setFont(mFriendsLabel.getFont().deriveFont(20f));
 		mFriendsPanel.add(mFriendsLabel);
-		mListModel = new DefaultListModel();
+		mListModel = new DefaultListModel<String>();
 		
 		System.out.println("mTodoUser.getFriendList().size(): " + mTodoUser.getFriendList().size());
 		for(Integer i: mTodoUser.getFriendList()) {
