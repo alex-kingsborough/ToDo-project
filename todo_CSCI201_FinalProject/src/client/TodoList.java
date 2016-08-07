@@ -7,12 +7,14 @@ public class TodoList {
 	private int todolistID;
 	private String name;
 	private Vector<TodoObject> todos;
+	private boolean isActive;
 	
 	public TodoList(int ID, String name)
 	{
 		this.todolistID = ID;
 		this.name = name;
 		
+		isActive = true;
 		todos = new Vector<TodoObject>();
 	}
 	
@@ -29,6 +31,14 @@ public class TodoList {
 	public int getID()
 	{
 		return todolistID;
+	}
+	
+	public boolean isActive(){
+		return isActive;
+	}
+	
+	public void setActive(boolean b){
+		isActive = b;
 	}
 	
 	public String getName() 

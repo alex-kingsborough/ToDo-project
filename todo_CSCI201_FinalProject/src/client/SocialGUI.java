@@ -34,7 +34,9 @@ public class SocialGUI extends JPanel implements Runnable {
 		
 		createFriendsTab();
 		createPublicTab();
-		createPopularTab();
+		
+		int selectedTab = tabbedPane.getSelectedIndex();
+		updateTab(selectedTab);
 		
 		(new Thread(this)).start();	
 	}
@@ -80,25 +82,6 @@ public class SocialGUI extends JPanel implements Runnable {
 		
 	}
 	
-	//creates the user tab
-	public void createPopularTab() {
-		//TODO: Implement get popular todos function
-		Object[][] todos = {
-				{false, "Finish project", "The project is due", "alex"}
-		};
-		popularTodo = new JTable(new TodoTableModel(todos));
-		popularTodo.addMouseListener(new MouseAdapter(){
-		    public void mouseClicked(MouseEvent evnt) {
-		        //TODO: open todo preview with selected row
-		    	int row = popularTodo.getSelectedRow();
-		    	System.out.println("Selected this: " + popularTodo.getValueAt(row, 1));
-		     }
-		});
-		popSP = new JScrollPane(popularTodo);
-		tabbedPane.add(popSP, "Popular");
-
-	}
-	
 	//will update the table with the new todos
 	public void updateTab( int tabId) {
 		
@@ -109,12 +92,9 @@ public class SocialGUI extends JPanel implements Runnable {
 			TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
 			//wait for response from server
 			
-			Object[][] newTodos = {
-					{true, "This", "Was", "Updated"}
-			};
+			Object[][] newTodos = convertToObject(TodoClientListener.get().readTodoObjects());
 			
 			//send request to get new todos
-			Object[][] newTodos2 = convertToObject(getNewTodos());
 			friendsTodo.setModel(new TodoTableModel(newTodos));
 		}
 		
@@ -124,10 +104,8 @@ public class SocialGUI extends JPanel implements Runnable {
 			//send request to server
 			TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
 			//wait for response from server
+			Object[][] newTodos = convertToObject(TodoClientListener.get().readTodoObjects());
 			
-			Object[][] newTodos = {
-					{true, "This", "Was", "Updated"}
-			};
 			publicTodo.setModel(new TodoTableModel(newTodos));
 		}
 	}
@@ -161,6 +139,9 @@ public class SocialGUI extends JPanel implements Runnable {
 		private String[] columnNames = {"Status",
                 "Title",
                 "Description",
+                "Private",
+                "Priority",
+                "Points",
                 "Username"};
 	    private Object[][] data;
 	    
