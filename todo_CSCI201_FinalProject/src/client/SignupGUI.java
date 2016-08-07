@@ -68,14 +68,18 @@ public class SignupGUI extends JPanel {
 						//send signup request
 						TodoClientListener.get().sendUser(newTodoUser);
 						//read response from server
-						
+						String response = TodoClientListener.get().readLine();
 						//case: SIGNUP SUCCESS
+						if(response.equals(Constants.SUCCESS_MESSAGE)) {
 							//signup user and go to editor
-							mNav.toPortal();
+							TodoClientListener.get().setUsername(username);
+							mNav.toPortal(newTodoUser);
+						}
 						//case: SIGNUP FAILURE
-							//JOptionPane.showMessageDialog(loginButton, "Username or password is \ninvalid.",
-							//							"Sign-up Failed", JOptionPane.ERROR_MESSAGE);
-			
+						else {
+							JOptionPane.showMessageDialog(loginButton, "Username or password is \ninvalid.",
+														"Sign-up Failed", JOptionPane.ERROR_MESSAGE);
+						}
 					
 					} else if (!validPasswordFormat) {
 						JOptionPane.showMessageDialog(SignupGUI.this, 

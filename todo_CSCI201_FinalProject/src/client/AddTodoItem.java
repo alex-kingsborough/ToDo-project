@@ -1,19 +1,14 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.util.Vector;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,8 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.border.Border;
 
 import constants.Constants;
 
@@ -53,10 +47,7 @@ public class AddTodoItem extends JFrame {
 	private JRadioButton mPrivateRB;
 	private JPanel mMainPanel;
 	private JPanel mTitlePanel;
-	private JPanel mPriorityPanel;
 	private JPanel mPrivacyPanel;
-	private JPanel mListPanel;
-	private JPanel mDescriptionPanel;
 	private Vector<Integer> mPriorityVector;
 	private Vector<String> mListVector;
 	private Vector<Integer> mListIDVector;
@@ -81,36 +72,100 @@ public class AddTodoItem extends JFrame {
 	private void AddTodo() {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
+		mMainPanel.setBackground(Constants.greyColor);
+		setBackground(Constants.goldColor);
+		
 		mTitleLabel = new JLabel("Title: ");
 		mTitleLabel.setFont(mFont);
+		mTitleLabel.setForeground(Constants.goldColor);
+		mTitleLabel.setBackground(Constants.greyColor);		
+		
+		
 		mPriorityLabel = new JLabel("Priority: ");
 		mPriorityLabel.setFont(mFont);
+		mPriorityLabel.setForeground(Constants.goldColor);
+		mPriorityLabel.setBackground(Constants.greyColor);		
+		
+		
 		mPointsLabel = new JLabel ("Points: ");
 		mPointsLabel.setFont(mFont);
+		mPointsLabel.setForeground(Constants.goldColor);
+		mPointsLabel.setBackground(Constants.greyColor);		
+		
+		
 		mPrivacyLabel = new JLabel("Privacy: ");
 		mPrivacyLabel.setFont(mFont);
+		mPrivacyLabel.setForeground(Constants.goldColor);
+		mPrivacyLabel.setBackground(Constants.greyColor);		
+		
+		
 		mListLabel = new JLabel("List: ");
 		mListLabel.setFont(mFont);
+		mListLabel.setForeground(Constants.goldColor);
+		mListLabel.setBackground(Constants.greyColor);		
+		
 		mDescriptionLabel = new JLabel("Description: ");
 		mDescriptionLabel.setFont(mFont);
+		mDescriptionLabel.setForeground(Constants.goldColor);
+		mDescriptionLabel.setBackground(Constants.greyColor);
+		
+		
 		mSaveButton = new JButton("Save");
 		mSaveButton.setFont(mFont.deriveFont(20));
+		mSaveButton.setForeground(Constants.goldColor);
+		mSaveButton.setBackground(Color.black);
+		
+		
 		mPublicRB = new JRadioButton("Public");
 		mPublicRB.setFont(mFont.deriveFont(20));
+		mPublicRB.setForeground(Constants.redColor);
+		mPublicRB.setBackground(Constants.greyColor);		
+		
 		mPrivateRB = new JRadioButton("Private");
 		mPrivateRB.setFont(mFont.deriveFont(20));
-		mTitleText = new JTextField(15);
+		mPrivateRB.setForeground(Constants.redColor);
+		mPrivateRB.setBackground(Constants.greyColor);		
+		
+		
+		mTitleText = new JTextField(15) {
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
 		mTitleText.setFont(mFont.deriveFont(20));
-		mDescriptionText = new JTextArea(5, 15);
-		mDescriptionText.setFont(mFont.deriveFont(0, 10));
+		mTitleText.setForeground(Constants.redColor);
+		mTitleText.setBackground(Constants.lightGreyColor);		
+		
+		
+		mDescriptionText = new JTextArea(5, 15) {
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
+		mDescriptionText.setFont(mFont.deriveFont(0, 14));
+		mDescriptionText.setLineWrap(true);
 		mDescriptionText.setWrapStyleWord(true);
+		mDescriptionText.setForeground(Constants.redColor);
+		mDescriptionText.setBackground(Constants.lightGreyColor);		
+		
+		
 		mPriorityVector = new Vector<Integer>();
 		mListVector = new Vector<String>();
 		mListIDVector = new Vector<Integer>();
+		
+		
 		for(int i = 10; i > 0; i--){
 			mPriorityVector.addElement(i);
 		}
-		mPointsText = new JTextField(15);
+		mPointsText = new JTextField(15) {
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
+		mPointsText.setForeground(Constants.redColor);
+		mPointsText.setBackground(Constants.lightGreyColor);
+		mPointsText.setFont(mFont);
+		
 		String name;
 		for(int i = 0; i < mTU.getTodoLists().size(); i ++){
 			name = mTU.getTodoLists().get(i).getName();
@@ -120,21 +175,36 @@ public class AddTodoItem extends JFrame {
 		}
 		
 		
-		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
+		mPriorityBox = new JComboBox<Integer>(mPriorityVector) {
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
 		mPriorityBox.setFont(mFont.deriveFont(20));
+		mPriorityBox.setForeground(Constants.redColor);
+		mPriorityBox.setBackground(Constants.greyColor);		
+		
+		
 		mListBox = new JComboBox<String>(mListVector);
 		mListBox.setFont(mFont.deriveFont(2));
+		mListBox.setForeground(Constants.redColor);
+		mListBox.setBackground(Constants.greyColor);		
+		
+		
 		mMainPanel =  new JPanel();
-		mTitlePanel =  new JPanel();
-		mPriorityPanel =  new JPanel();
 		mPrivacyPanel =  new JPanel();
-		mListPanel =  new JPanel();
-		mDescriptionPanel =  new JPanel();
+		
+		
 		mMainPanel.setLayout(new GridLayout(6, 2));
-		mTitlePanel.setLayout(new FlowLayout());
+		mMainPanel.setForeground(Constants.goldColor);
+		mMainPanel.setBackground(Constants.greyColor);		
+		
+		
 		mPrivacyPanel.setLayout(new FlowLayout());
 		mPrivacyPanel.add(mPublicRB);
 		mPrivacyPanel.add(mPrivateRB);
+		mPrivacyPanel.setForeground(Constants.goldColor);
+		mPrivacyPanel.setBackground(Constants.greyColor);		
 		
 		mMainPanel.add(mTitleLabel);
 		mMainPanel.add(mTitleText);
@@ -156,6 +226,7 @@ public class AddTodoItem extends JFrame {
 		
 		JPanel outsidePanel = new JPanel();
 		outsidePanel.setLayout(new BorderLayout());
+		
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
 		add(outsidePanel);

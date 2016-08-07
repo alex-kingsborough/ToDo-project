@@ -22,6 +22,7 @@ public class UserInfoGUI extends JPanel {
 	
 	
 	private static final long serialVersionUID = 676767676761L;
+	private TodoUser mTodoUser;
 	private JLabel mUsernameLabel;
 	private JLabel mNameLabel;
 	private JLabel mEmailLabel;
@@ -40,7 +41,12 @@ public class UserInfoGUI extends JPanel {
 	DefaultListModel mListModel;
 	JScrollPane mFriendsScrollPane;
 	
-	{
+	//public UserInfoGUI(TodoUser tu) {
+	//	mTodoUser = tu;
+	//}
+	
+	public UserInfoGUI(TodoUser tu) {
+		mTodoUser = tu;
 		setLayout(new BorderLayout());
 		mUsernameLabel = new JLabel("Username: username213");
 		mUsernameLabel.setFont(mUsernameLabel.getFont().deriveFont(24f));
@@ -53,7 +59,7 @@ public class UserInfoGUI extends JPanel {
 		JPanel mInfoPanel = new JPanel();
 		//mInfoPanel.setLayout(new BoxLayout(mInfoPanel, BoxLayout.Y_AXIS));
 		mInfoPanel.setLayout(new GridLayout(7,1));
-		mNameLabel = new JLabel("Name: Marshall                         sa");
+		mNameLabel = new JLabel("Name: " + mTodoUser.getName() + "                         ");
 		mNameLabel.setFont(mNameLabel.getFont().deriveFont(15f));
 		
 		mEmailLabel = new JLabel("Email: Marshall.jacobs12@gmail.com");
@@ -153,9 +159,10 @@ public class UserInfoGUI extends JPanel {
 		add(mBottomPanel, BorderLayout.SOUTH);
 	}
 	
+
 	public static void main(String [] args) {
 		JFrame mFrame = new JFrame();
-		mFrame.add(new UserInfoGUI());
+		//mFrame.add(new UserInfoGUI());
 		mFrame.setSize(400, 400);
 		mFrame.setVisible(true);
 	}

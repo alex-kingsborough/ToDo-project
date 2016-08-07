@@ -81,6 +81,7 @@ public class ClientConnection extends Thread{
 				sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 			} else {
 				if(Database.get().login(elements[1], elements[2])){
+					username = elements[1];
 					sendMessage(Constants.AUTHENTICATED_MESSAGE);
 				} else {
 					sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
@@ -91,7 +92,7 @@ public class ClientConnection extends Thread{
 			try {
 				mOutputWriter.writeObject(todovec);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.out.println("IOE in getPublicTodos, string send: " + e.getMessage());
 				e.printStackTrace();
 			}
 		} else if (s.startsWith(Constants.GET_FRIENDS_TODOS)) {
@@ -99,8 +100,16 @@ public class ClientConnection extends Thread{
 			try {
 				mOutputWriter.writeObject(todovec);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.out.println("IOE in GetFriendsTodos Write: " + e.getMessage());
 				e.printStackTrace();
+			}
+		} else if(s.startsWith(Constants.LOGIN_USER_REQUEST)) {
+			TodoUser tu = Database.get().getUserInfo(username);
+			try {
+				mOutputWriter.writeObject(tu);
+			} catch (IOException ioe) {
+				System.out.println("IOE in LoginUserRequest Write: " + ioe.getMessage());
+				ioe.printStackTrace();
 			}
 		}
 		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
@@ -112,9 +121,8 @@ public class ClientConnection extends Thread{
 	private void handleRecievedTodoObject(TodoObject to) {
 		//TODO: make handleRecievedTodoObject as lit as handleRecievedUser
 		
-		//commented out for now
-		//db.addTodo(to,username);
-		//MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
+		Database.get().addTodo(to,username);
+		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + username);
 	}
 
 	private void handleRecievedUser(TodoUser tu){
@@ -141,7 +149,7 @@ public class ClientConnection extends Thread{
 				sendMessage(Constants.FAIL_MESSAGE);
 				return;
 			}
-		}
+		} else Database.get().updateAll(tu);
 		
 		//TODO Implement the update user part. This will also be done in the handleReceivedUser.
 		
