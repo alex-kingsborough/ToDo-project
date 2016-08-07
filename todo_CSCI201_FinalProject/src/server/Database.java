@@ -26,7 +26,7 @@ public class Database {
 		sDatabase = new Database();
 		try{
 			new Driver();
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=rootpassword&useSSL=false");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=root&useSSL=false");
 		} catch(SQLException sqle){
 			System.out.println("SQL:"+sqle.getMessage());
 		}
