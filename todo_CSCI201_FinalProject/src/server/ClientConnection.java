@@ -35,7 +35,7 @@ public class ClientConnection extends Thread{
 			mOutputWriter.writeObject(line);
 			mOutputWriter.flush();
 		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			System.out.println("ioe in sendMessage: " + ioe.getMessage());
 		}
 	}
 
@@ -109,8 +109,11 @@ public class ClientConnection extends Thread{
 			String username = "";
 			if(s.split(" ").length == 2){
 				username = s.split(" ")[1];
+				System.out.println("username: " + username);
 				int uID = Database.get().getUserID(username);
+				System.out.println("uID:  " + uID);
 				if(uID != 0){
+					System.out.println(Constants.SUCCESS_MESSAGE + " " + uID);
 					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
 				} else {
 					sendMessage(Constants.FAIL_MESSAGE);

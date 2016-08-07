@@ -569,6 +569,7 @@ public class Database {
 							ps.executeUpdate();
 							ps.setInt(1, friend);
 							ps.setInt(2, tu.getID());
+							ps.executeUpdate();
 						}
 					}
 					
@@ -586,16 +587,17 @@ public class Database {
 				
 				try{
 					ps = con.prepareStatement(addFriend);
-					
+
+					Timestamp ts = getCurrentTimeStamp();
+					ps.setDate(3, new Date(ts.getTime()));
 					for(Integer friend : tuFriends){
 						if(!exFriends.contains(friend)){
-							Timestamp ts = getCurrentTimeStamp();
-							ps.setDate(3, new Date(ts.getTime()));
 							ps.setInt(1, tu.getID());
 							ps.setInt(2, friend);
 							ps.executeUpdate();
 							ps.setInt(1, friend);
 							ps.setInt(2, tu.getID());
+							ps.executeUpdate();
 						}
 					}
 					
