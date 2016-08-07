@@ -64,6 +64,15 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		//Making scrollpane look nice
 		UIManager.put("ScrollPane.background",Constants.lightGreyColor);
+		UIManager.put("ScrollPane.foreground",Constants.greyColor);
+		UIManager.put("ScrollBar.background",Constants.goldColor);
+		UIManager.put("ScrollBar.darkShadow",Constants.greyColor);
+		UIManager.put("ScrollBar.foreground",Constants.redColor);
+		UIManager.put("ScrollBar.highlight",Constants.greyColor);
+		UIManager.put("ScrollBar.shadow",Constants.greyColor);
+		UIManager.put("ScrollBar.thumb",Constants.redColor);
+		UIManager.put("ScrollBar.thumbDarkShadow",Constants.greyColor);
+		
 		
 		//Making tables look nice
 		UIManager.put("Table.background",Constants.lightGreyColor);
@@ -89,7 +98,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		getContentPane().removeAll();
 		
-		//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
+		/*//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
 		//tempUser = new TodoUser(1,"Jeff","pass","email");
 		/*
 		TodoList playList = new TodoList(0,"Play");
@@ -112,7 +121,6 @@ public class TodoFrame extends JFrame implements Navigator {
 		//END OF STUFF TO REMOVE
 		 * 
 		 */
-
 		
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);

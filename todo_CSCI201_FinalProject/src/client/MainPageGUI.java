@@ -69,11 +69,7 @@ public class MainPageGUI extends JPanel {
 			}
 			
 			JTable mTable = new JTable(new MainPageTableModel(currTableData));
-			/*mTable.getTableHeader().setBackground(Constants.lightGreyColor);
-			mTable.getTableHeader().setOpaque(true);
-			mTable.setBackground(Constants.lightGreyColor);
-			mTable.setGridColor(Constants.goldColor);
-			*/
+			
 			//Setting "buttons" for the table
 			mTable.setCellSelectionEnabled(true);
 		    ListSelectionModel cellSelectionModel = mTable.getSelectionModel();
@@ -106,8 +102,9 @@ public class MainPageGUI extends JPanel {
 		    });
 	        
 			JScrollPane mScrollPane = new JScrollPane(mTable);
+			mScrollPane.getViewport().setBackground(Constants.greyColor);
 			mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			mScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			mScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 			
 			mMainTabbedPane.add(currTodoList.getName(),mScrollPane);
 		}
