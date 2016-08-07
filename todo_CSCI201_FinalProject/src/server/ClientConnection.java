@@ -108,13 +108,13 @@ public class ClientConnection extends Thread{
 		} else if (s.startsWith(Constants.ADD_FRIEND_REQUEST)){
 			String username = "";
 			if(s.split(" ").length == 2){
-			username = s.split(" ")[1];
-			int uID = Database.get().getUserID(username);
-			if(uID != 0){
-				sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
-			} else {
-				sendMessage(Constants.FAIL_MESSAGE);
-			}
+				username = s.split(" ")[1];
+				int uID = Database.get().getUserID(username);
+				if(uID != 0){
+					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
+				} else {
+					sendMessage(Constants.FAIL_MESSAGE);
+				}
 			} else {
 				sendMessage(Constants.FAIL_MESSAGE);
 			}

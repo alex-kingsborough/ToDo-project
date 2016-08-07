@@ -48,7 +48,8 @@ public class SocialGUI extends JPanel implements Runnable {
 		        //TODO: open todo preview with selected row
 		    	int row = friendsTodo.getSelectedRow();
 		    	System.out.println(row);
-		    	//new ViewTodo(friendsTodos.get(row));
+		    	if (row < friendsTodos.size() && row != -1)
+		    		new ViewTodo(friendsTodos.get(row));
 		     }
 		});
 		friendSP = new JScrollPane(friendsTodo);
@@ -67,7 +68,8 @@ public class SocialGUI extends JPanel implements Runnable {
 		        //TODO: open todo preview with selected row
 		    	int row = publicTodo.getSelectedRow();
 		    	System.out.println(row);
-		    	//new ViewTodo(publicTodos.get(row));
+		    	//if (row < publicTodos.size() && row != -1)
+		    	new ViewTodo(new TodoObject("test", 1, true, 1, "alskdfj", "laksdjf", 1, 1, false));
 		     }
 		});
 		pubSP = new JScrollPane(publicTodo);
@@ -110,7 +112,6 @@ public class SocialGUI extends JPanel implements Runnable {
 		{
 			try {
 				//wait for 5 seconds
-				//TODO: only update tab if at front
 				Thread.sleep(5000);
 				
 				//call update on selected tab
