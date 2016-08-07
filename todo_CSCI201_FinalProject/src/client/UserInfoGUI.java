@@ -100,9 +100,10 @@ public class UserInfoGUI extends JPanel {
 		for(Integer i: mTodoUser.getFriendList()) {
 			TodoClientListener.get().send(Constants.REQUEST_USERNAME_BY_ID + " " + i);
 			String response = TodoClientListener.get().readLine();
-			System.out.println(response);
+			System.out.println("response: " + response);
 			if(!response.equals(Constants.FAIL_MESSAGE)) {
-				mListModel.addElement(response);
+				String username = response.split(" ")[1];
+				mListModel.addElement(username);
 			}
 		}
 		/*
