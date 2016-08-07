@@ -312,10 +312,7 @@ public class Database {
 	//returns a vector of all the todos of friends
 	public Vector<TodoObject> getFriendsTodos(int _userId)
 	{
-		Vector<TodoObject> friendTodos = new Vector<TodoObject>();
-		
-		System.out.println(_userId);
-		
+		Vector<TodoObject> friendTodos = new Vector<TodoObject>();		
 		//get all friends
 		PreparedStatement ps;
 		try {
