@@ -193,6 +193,8 @@ public class ViewTodo extends JFrame {
 		mListBox.setSelectedIndex(currList);
 */		
 		System.out.println(1);
+		System.out.println("currList: " + currList);
+		System.out.println("mListVector.size() = " + mListVector.size());
 		JTextField mListText = new JTextField(mListVector.get(currList)) {
 		    @Override public void setBorder(Border border) {
 		        // None
@@ -203,13 +205,13 @@ public class ViewTodo extends JFrame {
 		if(isPrivate){
 			mPrivacyText = new JTextField("Private") {
 			    @Override public void setBorder(Border border) {
-			        // No!
+			        // None
 			    }
 			};
 		}else{
 			mPrivacyText = new JTextField("Public") {
 			    @Override public void setBorder(Border border) {
-			        // No!
+			        // None
 			    }
 			};
 		}
@@ -225,8 +227,8 @@ public class ViewTodo extends JFrame {
 		mDescriptionPanel =  new JPanel();
 		mMainPanel.setLayout(new GridLayout(6, 2));
 		mPrivacyPanel.setLayout(new FlowLayout());
-		mPrivacyPanel.add(mPublicRB);
-		mPrivacyPanel.add(mPrivateRB);
+		/*mPrivacyPanel.add(mPublicRB);
+		mPrivacyPanel.add(mPrivateRB);*/
 		mPrivacyPanel.setForeground(Constants.goldColor);
 		mPrivacyPanel.setBackground(Constants.greyColor);		
 		
@@ -247,12 +249,15 @@ public class ViewTodo extends JFrame {
 
 		mMainPanel.add(mDescriptionLabel);
 		mMainPanel.add(mDescriptionText);
-		
+		System.out.println("near the end");
 		JPanel outsidePanel = new JPanel();
 		outsidePanel.setLayout(new BorderLayout());
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
+
 		add(outsidePanel);
+		System.out.println("right before setting visible");
+		setVisible(true);
 		addSaveEvents();
 	}
 	
@@ -284,7 +289,7 @@ public class ViewTodo extends JFrame {
 	private void addSaveEvents(){
 		mSaveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
-				
+				setVisible(false);
 			}
 		});
 	}
