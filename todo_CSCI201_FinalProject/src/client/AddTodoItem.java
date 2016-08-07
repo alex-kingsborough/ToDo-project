@@ -64,16 +64,15 @@ public class AddTodoItem extends JFrame {
 	private int listID = 0;
 	private MainPageGUI mMainPage;
 	
-	public AddTodoItem(TodoUser tu, MainPageGUI mMPGUI){
+	public AddTodoItem(){
 		super("Add Todo");
-		mTU = tu;
-		mMainPage = mMPGUI;
+		mTU = PortalManager.mUser;
+		mMainPage = PortalManager.mMainPage;
 		setSize(400, 300);
 		setLocation(800, 400);
 		AddTodo();
 		addPublicRBEvents();
 		addPrivateRBEvents();
-	
 	}
 	
 	private void AddTodo() {
