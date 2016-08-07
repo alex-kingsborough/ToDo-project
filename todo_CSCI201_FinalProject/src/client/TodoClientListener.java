@@ -6,10 +6,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Vector;
 
+import constants.Constants;
 
 
-public class TodoClientListener extends Thread {
+
+public class TodoClientListener {
 	
+	private static TodoClientListener mInstance;
+
 	private Vector<String> recievedStrings = null;
 	Socket s;
 	
@@ -17,19 +21,28 @@ public class TodoClientListener extends Thread {
 	private ObjectOutputStream oos;
 	private TodoUser tuGlobal;
 	
-	public TodoClientListener(String hostname, int port) {
+	private String username;
+	
+	private TodoClientListener(String hostname, int port) {
 		s = null;
 		recievedStrings = new Vector<String>();
 		try {
 			s = new Socket(hostname, port);
 			oos = new ObjectOutputStream(s.getOutputStream());
 			ois = new ObjectInputStream(s.getInputStream());
-			this.start();
 		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
 		}
 	}
 	
+	static {
+		mInstance = new TodoClientListener("localhost", 6789);
+	}
+	
+	public static TodoClientListener get() {
+		return mInstance;
+	}
+
 	public void close(){
 		if(s != null){
 			try {
@@ -66,7 +79,33 @@ public class TodoClientListener extends Thread {
 		}
 	}
 	
-	
+	public void read() {
+		try {
+			Object o = ois.readObject();
+			if(o instanceof String) {
+				String line = (String) o;
+				if(line.startsWith(Constants.SUCCESS_MESSAGE)) {
+					System.out.println("Successfully signed up user: " + username);
+				} else if(o instanceof TodoUser){
+					TodoUser tu = (TodoUser) o;
+					/*
+				 	* set global user to received TodoUser
+				 	*/
+					tuGlobal = tu;
+				} else if(o instanceof TodoObject[]){
+					TodoObject [] todoArr = (TodoObject[]) o ;
+					/*
+					 * TODO What do we do when we receive a TODOobject?
+					 */
+				}
+			}
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+	}
+	/*
 	public void run() {
 		try {
 			while(true) {
@@ -76,21 +115,14 @@ public class TodoClientListener extends Thread {
 				if(o instanceof String){
 					String line = (String) o;
 					if(line.startsWith("SOME PREFIX: ")){
-						/*
-						 * TODO the thing associated with the prefix.
-						 */
+				
 					}
 				} else if(o instanceof TodoUser){
 					TodoUser tu = (TodoUser) o;
-					/*
-					 * set global user to received TodoUser
-					 */
+				
 					tuGlobal = tu;
 				} else if(o instanceof TodoObject[]){
 					TodoObject [] todoArr = (TodoObject[]) o ;
-					/*
-					 * TODO What do we do when we receive a TODOobject?
-					 */
 				} 
 			}
 		} catch (ClassNotFoundException cnfe) {
@@ -98,6 +130,20 @@ public class TodoClientListener extends Thread {
 		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
 		}
+	}
+	*/
+	
+	public void sendUser(TodoUser todoUser) {
+		try {
+			oos.writeObject(todoUser);
+			oos.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public boolean authenticateUser(String username, String password){

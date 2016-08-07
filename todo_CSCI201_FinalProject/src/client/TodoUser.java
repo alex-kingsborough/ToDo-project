@@ -1,8 +1,11 @@
 package client;
 
 import java.util.Vector;
+import java.io.Serializable;
 
-public class TodoUser {
+public class TodoUser implements Serializable {
+	
+	private static final long serialVersionUID = 7564829241L;
 	
 	//All Member variables:
 	//General User info:
@@ -29,6 +32,14 @@ public class TodoUser {
 		mUsername = username;
 		mPassword = password;
 		mEmail = email;
+	}
+	
+	public TodoUser(String username, String name, String password, String email, String aboutMe) {
+		mUsername = username;
+		mName = name;
+		mPassword = password;
+		mEmail = email;
+		mAboutMe = aboutMe;
 	}
 	
 	public void setTodoLists(Vector<TodoList> tlv)

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class SignupGUI extends JPanel {
@@ -31,6 +32,8 @@ public class SignupGUI extends JPanel {
 	private JComboBox<String> mDOBMonth;
 	private JComboBox<Integer> mDOBDay;
 	private JComboBox<Integer> mDOBYear;
+	private JTextArea mAboutMeTextArea;
+	private JLabel mAboutMeLabel;
 	private Navigator mNav;
 	
 	{
@@ -46,15 +49,23 @@ public class SignupGUI extends JPanel {
 				String repeatPassword = new String(passwordField.getPassword());
 				if(repeatPassword.isEmpty()) { return; }
 				if(!password.equals(repeatPassword)) { return; } //password fields must match
+				String name = mNameField.getText();
+				if(name.isEmpty()) { return; } //name field empty is invalid so return 
+				String email = mEmailField.getText();
+				if(email.isEmpty()) { return; } //email field empty is invalid so return
+				String aboutMe = mAboutMeTextArea.getText();
+				if(aboutMe.isEmpty()) { aboutMe = ""; } //about me can be empty
 				//If client is online
 					//CITE: http://stackoverflow.com/questions/1559751/regex-to-make-sure-that-the-string-contains-at-least-one-lower-case-char-upper
 					//using regex to determine 1 number and 1 uppercase letter
 					validPasswordFormat = password.matches("^(?=.*[A-Z])(?=.*\\d).+$");//need two \\ before d not one \ like stackoverflow example
 					if(validPasswordFormat) {
-						//build signup request to send to server
+						//build todo user
+						TodoUser newTodoUser = new TodoUser(username, name, Encrypt.SHA1(password), email, aboutMe);
 						//send signup request
-						//flush signup request
+						TodoClientListener.get().sendUser(newTodoUser);
 						//read response from server
+						
 						//case: SIGNUP SUCCESS
 							//signup user and go to editor
 							mNav.toPortal();
@@ -69,8 +80,9 @@ public class SignupGUI extends JPanel {
 								"Sign-up Failed", JOptionPane.WARNING_MESSAGE);
 					}
 				//CLIENT IS NOT ONLINE
-					JOptionPane.showMessageDialog(loginButton, "Server cannot be reached.\nProgram in offline mode.",
-							"Log-in Failed", JOptionPane.WARNING_MESSAGE);
+					
+					//JOptionPane.showMessageDialog(loginButton, "Server cannot be reached.\nProgram in offline mode.",
+					//		"Log-in Failed", JOptionPane.WARNING_MESSAGE);
 					//set client to GUEST
 					//mNav.toPortal();
 					
@@ -127,6 +139,7 @@ public class SignupGUI extends JPanel {
 		gbc.gridy = 4;
 		add(mEmailPanel, gbc);
 		
+		/*
 		JPanel mDOBPanel = new JPanel(new FlowLayout());
 		mDOBLabel = new JLabel("DOB: ");
 		mDOBPanel.add(mDOBLabel);
@@ -160,9 +173,22 @@ public class SignupGUI extends JPanel {
 		
 		gbc.gridy = 5;
 		add(mDOBPanel, gbc);
-
+		*/
+		JPanel mAboutMeLabelPanel = new JPanel(new FlowLayout());
+		mAboutMeLabel = new JLabel("About Me");
+		mAboutMeLabelPanel.add(mAboutMeLabel);
+		
+		gbc.gridy = 5;
+		add(mAboutMeLabelPanel, gbc);
+		
+		JPanel mAboutMePanel = new JPanel(new FlowLayout());
+		mAboutMeTextArea = new JTextArea(10,12);
+		mAboutMePanel.add(mAboutMeTextArea);
 		
 		gbc.gridy = 6;
+		add(mAboutMePanel, gbc);
+		
+		gbc.gridy = 7;
 		add(loginButton, gbc);
 		
 		
