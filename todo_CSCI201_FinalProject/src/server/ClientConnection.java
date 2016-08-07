@@ -121,6 +121,15 @@ public class ClientConnection extends Thread{
 			} else {
 				sendMessage(Constants.FAIL_MESSAGE);
 			}
+		} else if (s.startsWith(Constants.REQUEST_USERNAME_BY_ID)){
+			int uID;
+			if(s.split(" ").length == 2){
+				uID = Integer.parseInt(s.split(" ")[1]);
+				String retName = Database.get().getUsernameByID(uID);
+				sendMessage(retName);
+			} else {
+				sendMessage(Constants.FAIL_MESSAGE);
+			}
 		}
 		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 		if(echo){
