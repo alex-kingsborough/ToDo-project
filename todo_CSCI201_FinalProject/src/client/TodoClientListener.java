@@ -114,6 +114,7 @@ public class TodoClientListener {
 	}
 	
 	public Vector<TodoObject> readTodoObjects() {
+		
 		try {
 			Object o = ois.readObject();
 			if(o instanceof Vector<?>) {
