@@ -238,7 +238,9 @@ public class Database {
 				newUser = new TodoUser(username,actualname,password,email,aboutme);
 				newUser.setID(id);
 				//get all todos
-				newUser.setTodoLists(getUserTodoLists(newUser));				
+				newUser.setTodoLists(getUserTodoLists(newUser));
+				return newUser;
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
