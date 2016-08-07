@@ -37,10 +37,7 @@ public class UpdateTodo extends JFrame {
 	private JRadioButton mPrivateRB;
 	private JPanel mMainPanel;
 	private JPanel mTitlePanel;
-	private JPanel mPriorityPanel;
 	private JPanel mPrivacyPanel;
-	private JPanel mListPanel;
-	private JPanel mDescriptionPanel;
 	private Vector<Integer> mPriorityVector;
 	private Vector<String> mListVector;
 	private Vector<Integer> mListIDVector;
@@ -120,16 +117,13 @@ public class UpdateTodo extends JFrame {
 		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
 		mPriorityBox.setFont(mFont.deriveFont(20));
-		mPriorityBox.setSelectedItem(10-to.getPriority());
+		mPriorityBox.setSelectedItem(to.getPriority());
 		mListBox = new JComboBox<String>(mListVector);
 		mListBox.setFont(mFont.deriveFont(2));
 		mListBox.setSelectedIndex(currList);
 		mMainPanel =  new JPanel();
 		mTitlePanel =  new JPanel();
-		mPriorityPanel =  new JPanel();
 		mPrivacyPanel =  new JPanel();
-		mListPanel =  new JPanel();
-		mDescriptionPanel =  new JPanel();
 		mMainPanel.setLayout(new GridLayout(6, 2));
 		mTitlePanel.setLayout(new FlowLayout());
 		mPrivacyPanel.setLayout(new FlowLayout());
@@ -195,7 +189,7 @@ public class UpdateTodo extends JFrame {
 				}
 				
 				String title = mTitleText.getText();
-				int priority = 10 - Integer.parseInt(mPriorityBox.getSelectedItem().toString());
+				int priority = Integer.parseInt(mPriorityBox.getSelectedItem().toString());
 				String list = mListBox.getSelectedItem().toString();
 				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
@@ -218,11 +212,21 @@ public class UpdateTodo extends JFrame {
 					}
 				}
 				//we need to change the list it is in and remove it from the old list
-				//mTU.getTodoLists().get(currPlace).addTodo(mTodoObject);
-	
-				mMainPage.updatePage();
 				
-				//need to send this to the client to add to user's todos
+				for(int i = 0; i < mTU.getTodoLists().size(); i++){
+					for(int j = 0; j < mTU.getTodoLists().get(i).getAllTodos().size();j++){
+						if(mTU.getTodoLists().get(i).getAllTodos().get(j).equals(mTO)){
+							mTU.getTodoLists().get(i).getAllTodos().remove(j);
+						}
+					}
+				}
+				
+				mTU.getTodoLists().get(currPlace).addTodo(mTO);
+	
+				
+				mMainPage.updatePage();
+				setVisible(false);
+
 			}
 		});
 	}
