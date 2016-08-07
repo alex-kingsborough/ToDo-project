@@ -86,7 +86,6 @@ public class MainPageGUI extends JPanel {
 		    				if(changeFinishedTodo.getCompleted()){
 		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(false);
-		    					System.out.println("mUser.getTotalPoints(): " + mUser.getTotalPoints());
 		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				else{
