@@ -146,7 +146,6 @@ public class SocialSidebar extends JPanel implements Runnable {
 				//call update on sidebar
 				updateBar();
 				mSocialPanel.getVerticalScrollBar().setValue(0);
-				System.out.println("Updating");
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();

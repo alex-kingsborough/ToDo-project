@@ -48,19 +48,19 @@ public class TodoFrame extends JFrame implements Navigator {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Making tabbedpane look nice
+		UIManager.put("TabbedPane.background",Constants.lightGreyColor);
+		UIManager.put("TabbedPane.borderHightlightColor",Constants.goldColor);
 		UIManager.put("TabbedPane.shadow",Constants.goldColor);
 		UIManager.put("TabbedPane.darkShadow",Constants.goldColor);
 		UIManager.put("TabbedPane.light",Constants.goldColor);
 		UIManager.put("TabbedPane.highlight",Constants.goldColor);
 		UIManager.put("TabbedPane.tabAreaBackground",Constants.redColor);
 		UIManager.put("TabbedPane.unselectedBackground",Constants.redColor);
-		UIManager.put("TabbedPane.background",Constants.lightGreyColor);
 		UIManager.put("TabbedPane.foreground",Constants.goldColor);
 		UIManager.put("TabbedPane.focus",Constants.redColor);
 		UIManager.put("TabbedPane.contentAreaColor",Constants.redColor);
 		UIManager.put("TabbedPane.selected",Constants.redColor);
 		UIManager.put("TabbedPane.selectHighlight",Constants.goldColor);
-		UIManager.put("TabbedPane.borderHightlightColor",Constants.goldColor);
 		
 		//Making scrollpane look nice
 		UIManager.put("ScrollPane.background",Constants.lightGreyColor);
