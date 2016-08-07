@@ -272,14 +272,16 @@ public class UpdateTodo extends JFrame {
 				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
 				
-				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
+				System.out.println(description);
 				
-				//TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, currListID, list, description, points, mTU.getID(), false);
+				int points = Integer.parseInt(mPointsText.getText());
+				
 				mTO.setTitle(title);
 				mTO.setPriority(priority);
 				mTO.setIsPrivate(isPrivate);
 				mTO.setListName(list);
 				mTO.setListID(currListID);
+				mTO.setPoints(points);
 				mTO.setDescription(description);
 				
 				
@@ -289,7 +291,6 @@ public class UpdateTodo extends JFrame {
 						currPlace = i;
 					}
 				}
-				//we need to change the list it is in and remove it from the old list
 				
 				for(int i = 0; i < mTU.getTodoLists().size(); i++){
 					for(int j = 0; j < mTU.getTodoLists().get(i).getAllTodos().size();j++){
@@ -301,7 +302,9 @@ public class UpdateTodo extends JFrame {
 				
 				mTU.getTodoLists().get(currPlace).addTodo(mTO);
 	
-				TodoClientListener.get().sendUser(mTU);
+				if(!mTU.getName().equals(Constants.GUEST_USER)){
+					TodoClientListener.get().sendUser(mTU);
+				}
 				
 				mMainPage.updatePage();
 				setVisible(false);

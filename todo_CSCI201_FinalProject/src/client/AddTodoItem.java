@@ -278,7 +278,7 @@ public class AddTodoItem extends JFrame {
 				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
 				
-				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
+				int points = Integer.parseInt(mPointsText.getText()); ;
 				
 				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, currListID, list, description, points, mTU.getID(), false);
 				int currPlace = 0;
@@ -291,12 +291,11 @@ public class AddTodoItem extends JFrame {
 				mTU.getTodoLists().get(currPlace).addTodo(mTodoObject);
 	
 				mMainPage.updatePage();
-				
-				TodoClientListener.get().sendUser(mTU);
-				
+				if(!mTU.getName().equals(Constants.GUEST_USER)){
+					TodoClientListener.get().sendUser(mTU);
+				}
 				setVisible(false);
 				
-				//need to send this to the client to add to user's todos
 			}
 		});
 	}
