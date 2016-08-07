@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -30,6 +31,8 @@ public class SocialSidebar extends JPanel implements Runnable {
 		
 		JButton mAddTodoButton = new JButton("Add Todo");
 		mAddTodoButton.setPreferredSize(new Dimension(this.getWidth(),21));
+		mAddTodoButton.setForeground(Constants.goldColor);
+		mAddTodoButton.setBackground(Constants.redColor);
 		mAddTodoButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
@@ -39,6 +42,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 		
 		createSocialPanel();
 
+		setBackground(Constants.greyColor);
 		setPreferredSize(new Dimension(175, inFrame.getContentPane().getHeight()));
 		setLayout(new BorderLayout());
 		add(mAddTodoButton, BorderLayout.NORTH);
@@ -52,6 +56,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mSocialPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		mSocialGrid = new JPanel();
+		mSocialGrid.setBackground(Constants.greyColor);
 		mSocialGrid.setLayout(new GridLayout(100,1));
 		TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
 		//wait for response from server
@@ -94,7 +99,6 @@ public class SocialSidebar extends JPanel implements Runnable {
 		
 		TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
 		//wait for response from server
-		
 		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects();
 		
 		mSocialGrid.removeAll();

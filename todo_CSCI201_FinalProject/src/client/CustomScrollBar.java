@@ -17,37 +17,37 @@ package client;
 	  http://stackoverflow.com/questions/19577893/custom-scrollbar-arrows	
 	*/	
   static class MyScrollbarUI extends MetalScrollBarUI {
-    /*private Image imageThumb, imageTrack;
+    private Image imageThumb, imageTrack;
     MyScrollbarUI() {
         try {
-            imageThumb = ImageIO.read(new File("src/Assignment3Resources/img/scrollbar/red_button05.png"));
-            imageTrack = ImageIO.read(new File("src/Assignment3Resources/img/scrollbar/red_button03.png"));
-        } catch (IOException e){}
-    }*/
+             imageThumb = ImageIO.read(new File("img/ThumbColor"));
+            imageTrack = ImageIO.read(new File("img/bgColor"));
+       } catch (IOException e){}
+    }
 
     @Override
     protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {        
         g.translate(thumbBounds.x, thumbBounds.y);
         g.setColor( Color.red );
         g.drawRect( 0, 0, thumbBounds.width - 2, thumbBounds.height - 1 );
-/*        AffineTransform transform = AffineTransform.getScaleInstance((double)thumbBounds.width/imageThumb.getWidth(null),(double)thumbBounds.height/imageThumb.getHeight(null));
+        AffineTransform transform = AffineTransform.getScaleInstance((double)thumbBounds.width/imageThumb.getWidth(null),(double)thumbBounds.height/imageThumb.getHeight(null));
         ((Graphics2D)g).drawImage(imageThumb, transform, null);
-        g.translate( -thumbBounds.x, -thumbBounds.y );*/
+        g.translate( -thumbBounds.x, -thumbBounds.y );
     }
 
- /*   @Override
+   @Override
     protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {        
         g.translate(trackBounds.x, trackBounds.y);
         ((Graphics2D)g).drawImage(imageTrack,AffineTransform.getScaleInstance(1,(double)trackBounds.height/imageTrack.getHeight(null)),null);
         g.translate( -trackBounds.x, -trackBounds.y );
     }
-*/
+
     
     
     
-/*    @Override
+    @Override
     protected JButton createDecreaseButton(int orientation) {
-    	ImageIcon decreaseIcon = new ImageIcon(new ImageIcon("src/Assignment3Resources/img/scrollbar/red_sliderUp.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+    	ImageIcon decreaseIcon = new ImageIcon(new ImageIcon("img/downArrow").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
     	JButton decreaseButton = new JButton(decreaseIcon){
         	private static final long serialVersionUID = -4649936833531540925L;
 
@@ -58,10 +58,10 @@ package client;
         };
         return decreaseButton;
     }
-*/
-/*    @Override
+
+    @Override
     protected JButton createIncreaseButton(int orientation) {
-    	ImageIcon increaseIcon = new ImageIcon(new ImageIcon("src/Assignment3Resources/img/scrollbar/red_sliderDown.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+    	ImageIcon increaseIcon = new ImageIcon(new ImageIcon("img/UpArrow").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         JButton increaseButton = new JButton(increaseIcon){
         	private static final long serialVersionUID = -464993683531540925L;
 
@@ -72,7 +72,7 @@ package client;
         };
         return increaseButton;
     }
-*/
+
   }
 }
 
