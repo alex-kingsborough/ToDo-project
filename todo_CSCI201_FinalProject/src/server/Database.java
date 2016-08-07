@@ -144,6 +144,8 @@ public class Database {
 
 
 	//(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate)
+	//TodoObject Construtor: public TodoObject(String _title, int _priority, boolean _isPrivate, int _listID, 
+	//String _listName, String _desc, int _points, int _userID, boolean _isCompleted)
 	public void addTodo(TodoObject to, String username){
 		try{
 			PreparedStatement ps = con.prepareStatement(addTodo);

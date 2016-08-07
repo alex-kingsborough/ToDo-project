@@ -91,7 +91,7 @@ public class ClientConnection extends Thread{
 			try {
 				mOutputWriter.writeObject(todovec);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.out.println("IOE in getPublicTodos, string send: " + e.getMessage());
 				e.printStackTrace();
 			}
 		} else if (s.startsWith(Constants.GET_FRIENDS_TODOS)) {
@@ -99,7 +99,7 @@ public class ClientConnection extends Thread{
 			try {
 				mOutputWriter.writeObject(todovec);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.out.println("IOE in GetFriendsTodos Write: " + e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -112,9 +112,8 @@ public class ClientConnection extends Thread{
 	private void handleRecievedTodoObject(TodoObject to) {
 		//TODO: make handleRecievedTodoObject as lit as handleRecievedUser
 		
-		//commented out for now
-		//db.addTodo(to,username);
-		//MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + to.getOwner());
+		Database.get().addTodo(to,username);
+		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + username);
 	}
 
 	private void handleRecievedUser(TodoUser tu){
