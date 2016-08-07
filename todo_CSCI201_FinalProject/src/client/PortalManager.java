@@ -17,16 +17,16 @@ import javax.swing.KeyStroke;
 public class PortalManager extends JPanel {
 	private static final long serialVersionUID = 123901585432L;
 	
-	JMenuBar mJMenuBar;
-	JMenu mTestMenu;
-	JMenuItem mMainPageItem;
-	JMenuItem mSocialPageItem;
-	JMenuItem mUserInfoItem;
-	JMenuItem mNewTabItem;
+	private JMenuBar mJMenuBar;
+	private JMenu mTestMenu;
+	private JMenuItem mMainPageItem;
+	private JMenuItem mSocialPageItem;
+	private JMenuItem mUserInfoItem;
+	private JMenuItem mNewTabItem;
 	static MainPageGUI mMainPage;
-	SocialGUI mSocialPage;
-	UserInfoGUI mUserInfoPage;
-	private TodoUser mUser;
+	static SocialGUI mSocialPage;
+	static UserInfoGUI mUserInfoPage;
+	static TodoUser mUser;
 	
 	public PortalManager(TodoUser inUser, JMenuBar jmb) {
 		mUser = inUser;
@@ -70,7 +70,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.addSeparator();
 		mTestMenu.add(mNewTabItem);
 		
-		mMainPage = new MainPageGUI(mUser);
+		mMainPage = new MainPageGUI();
 		mSocialPage = new SocialGUI(this, mUser);
 		mUserInfoPage = new UserInfoGUI();
 		

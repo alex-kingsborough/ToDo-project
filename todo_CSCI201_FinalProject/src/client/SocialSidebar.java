@@ -32,7 +32,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 			public void actionPerformed(ActionEvent ae){
 
 				System.out.println(mUser.getTodoLists().get(0).getName());
-				AddTodoItem mati = new AddTodoItem(mUser, inMainPage);
+				AddTodoItem mati = new AddTodoItem();
 				mati.setVisible(true);
 			}
 		});
