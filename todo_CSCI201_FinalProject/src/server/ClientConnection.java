@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Vector;
 
 import client.TodoObject;
 import client.TodoUser;
@@ -84,6 +85,22 @@ public class ClientConnection extends Thread{
 				} else {
 					sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 				}
+			}
+		} else if(s.startsWith(Constants.GET_PUBLIC_TODOS)) {
+			Vector<TodoObject> todovec = Database.get().getLatestPublic();
+			try {
+				mOutputWriter.writeObject(todovec);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (s.startsWith(Constants.GET_FRIENDS_TODOS)) {
+			Vector<TodoObject> todovec = Database.get().getFriendsTodos(userID);
+			try {
+				mOutputWriter.writeObject(todovec);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
