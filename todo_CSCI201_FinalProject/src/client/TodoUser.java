@@ -18,10 +18,7 @@ public class TodoUser implements Serializable {
 	
 	//Objects of the User:
 	Vector<TodoList> allTodoLists;
-	Vector<TodoObject> mTodoList; //deprecated
 	Vector<Integer> mFriendList;
-	Vector<String> mTabTitles;
-	
 	
 	private int mTotalPoints;
 	
@@ -87,16 +84,6 @@ public class TodoUser implements Serializable {
 		return mName;
 	}
 	
-	/*
-	public void setBirthday(String inBirthday){
-		mBirthday=inBirthday;
-	}
-	
-	public String getBirthday(){
-		return mBirthday;
-	}
-	*/
-	
 	public void setEmail(String inEmail){
 		mEmail=inEmail;
 	}
@@ -111,14 +98,6 @@ public class TodoUser implements Serializable {
 	
 	public String getAboutMe(){
 		return mAboutMe;
-	}
-	
-	public void setTodoList(Vector<TodoObject> inTodoList){
-		mTodoList=inTodoList;
-	}
-	
-	public Vector<TodoObject> getTodoList(){
-		return mTodoList;
 	}
 	
 	public Vector<Object[][]> getTodoArray() {//Returns a 2D array of todo objects
@@ -155,14 +134,6 @@ public class TodoUser implements Serializable {
 	
 	public Vector<Integer> getFriendList(){
 		return mFriendList;
-	}
-	
-	public void setTabTitles(Vector<String> inTabTitles){
-		mTabTitles=inTabTitles;
-	}
-	
-	public Vector<String> getTabTitles(){
-		return mTabTitles;
 	}
 	
 	public void setTotalPoints(int inTotalPoints){

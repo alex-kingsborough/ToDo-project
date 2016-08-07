@@ -255,7 +255,7 @@ public class Database {
 			return todolistVector;
 		}
 		
-		//get all friends toodos
+		//returns a vector of all the todos of friends
 		public Vector<TodoObject> getFriendsTodos(TodoUser tu)
 		{
 			Vector<TodoObject> friendTodos = new Vector<TodoObject>();
@@ -296,6 +296,9 @@ public class Database {
 				e.printStackTrace();
 			}
 			
-			return friendsTodos;
+			return friendTodos;
 		}
+		
+		//get all public todos
+		
 }

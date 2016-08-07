@@ -12,7 +12,9 @@ public class TodoObject {
 	private int mPoints;
 	private int userID;
 	
-	public TodoObject(String _title, int _priority, boolean _isPrivate, int _listID, String _listName, String _desc, int _points, int _userID){
+	public TodoObject(String _title, int _priority, boolean _isPrivate, int _listID, 
+			String _listName, String _desc, int _points, int _userID, boolean _isCompleted)
+	{
 		title = _title;
 		priority = _priority;
 		isPrivate = _isPrivate;
@@ -21,12 +23,13 @@ public class TodoObject {
 		desc = _desc;
 		mPoints = _points;
 		userID = _userID;
+		isCompleted = _isCompleted;
 	}
+
 	
 	public int getUserID(){
 		return userID;
 	}
-	
 	
 	public String getTitle(){
 		return title;
@@ -50,19 +53,17 @@ public class TodoObject {
 		return isPrivate;
 	}
 	
-	public void setIsPrivate(boolean _isPrivate){
+	public void setIsPrivate(boolean _isPrivate)
+	{
 		isPrivate = _isPrivate;
-		return;
 	}
 	
-	
-	public String getList(){
+	public String getListName(){
 		return listName;
 	}
 	
-	public void setList(String _list){
+	public void setListName(String _list){
 		listName = _list;
-		return;
 	}
 	
 	public String getDescription(){
@@ -71,7 +72,16 @@ public class TodoObject {
 	
 	public void setDescription(String _desc){
 		desc = _desc;
-		return;
+	}
+	
+	public int getListID()
+	{
+		return listID;
+	}
+	
+	public void setListID(int _listID)
+	{
+		listID = _listID;
 	}
 	
 	public boolean getCompleted() {
