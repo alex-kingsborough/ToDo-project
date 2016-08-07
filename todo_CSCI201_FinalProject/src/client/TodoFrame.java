@@ -39,8 +39,6 @@ public class TodoFrame extends JFrame implements Navigator {
 	
 	public TodoFrame(String string) {
 		super(string);
-
-		add(new SignInGUI(this));
 		
 		setSize(800, 500);
 		setMinimumSize(new Dimension(800, 500));
@@ -72,7 +70,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("ScrollBar.foreground",Constants.redColor);
 		UIManager.put("ScrollBar.highlight",Constants.greyColor);
 		UIManager.put("ScrollBar.shadow",Constants.greyColor);
-		UIManager.put("ScrollBar.thumb", new ColorUIResource(Constants.redColor));
+		UIManager.put("ScrollBar.thumb", Constants.redColor);
 		UIManager.put("ScrollBar.thumbDarkShadow",Constants.greyColor);
 		UIManager.put("ScrollBar.thumbHighlight",Constants.greyColor);
 		UIManager.put("ScrollBar.thumbShadow",Constants.greyColor);
@@ -95,6 +93,13 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("TableHeader.background", Constants.lightGreyColor);
 		UIManager.put("TableHeader.foreground", Constants.redColor);
 		UIManager.put("TableHeader.cellBorder", BorderFactory.createLineBorder(Constants.greyColor));
+		
+		//Buttons
+		UIManager.put("Button.border", BorderFactory.createLineBorder(Color.BLACK,2));
+		UIManager.put("Button.select", Color.WHITE);
+		
+		
+		add(new SignInGUI(this));
 	}
 	
 	@Override

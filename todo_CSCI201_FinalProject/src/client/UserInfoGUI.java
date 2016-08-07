@@ -210,11 +210,11 @@ public class UserInfoGUI extends JPanel {
 						int userID = Integer.parseInt(parameters[1]);
 						System.out.println("userID: " + userID);
 						if(!friendName.equals(mTodoUser.getUsername())) {
-							
+							mTodoUser.removeFriend(userID);
 							TodoClientListener.get().sendUser(mTodoUser);
 							mTodoUser = TodoClientListener.get().readTodoUser();
-							mListModel.addElement(friendName);
-						//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
+							mListModel.removeElement(friendName);
+							//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
 						}
 					}
 				} 

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import constants.Constants;
 
@@ -52,6 +54,23 @@ public class UpdateTodo extends JFrame {
 	
 	public UpdateTodo(TodoObject to){
 		super("Edit Todo");
+		
+		
+		//making comboBox look good
+		UIManager.put("ComboBox.background", Constants.greyColor);
+		UIManager.put("ComboBox.buttonBackground", Constants.greyColor);
+		UIManager.put("ComboBox.buttonDarkShadow", Constants.greyColor);
+		UIManager.put("ComboBox.buttonHighlight", Constants.goldColor);
+		UIManager.put("ComboBox.controlForeground", Color.black);
+		UIManager.put("ComboBox.disabledBackground", Constants.greyColor);
+		UIManager.put("ComboBox.disabledForeground", Constants.greyColor);
+		UIManager.put("ComboBox.foreground", Constants.redColor);
+		UIManager.put("ComboBox.selectionForeground", Constants.redColor);
+		UIManager.put("ComboBox.selectionBackground", Constants.goldColor);
+		UIManager.put("ComboBox.border", BorderFactory.createLineBorder(Constants.redColor,1));
+
+		
+		
 		setSize(400, 300);
 		setLocation(800, 400);
 		mTU = PortalManager.mUser;
