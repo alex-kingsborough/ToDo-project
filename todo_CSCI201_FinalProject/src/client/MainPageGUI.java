@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -22,7 +21,6 @@ public class MainPageGUI extends JPanel {
 	//MEMBER VARIABLES
 	//Panes and Panels and GUI stuff
 	private JTabbedPane mMainTabbedPane;
-	private JButton mAddTodoButton;
 	private String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
 	
 	//Necessary user variables
@@ -65,7 +63,7 @@ public class MainPageGUI extends JPanel {
 				currTableData[j][5] = moveTodo.getPoints();
 			}
 			
-			JTable mTable = new JTable(new MainPageTableModel(currTableData, currTodos));
+			JTable mTable = new JTable(new MainPageTableModel(currTableData));
 			mTable.setCellSelectionEnabled(true);
 		    ListSelectionModel cellSelectionModel = mTable.getSelectionModel();
 		    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -120,12 +118,10 @@ public class MainPageGUI extends JPanel {
 		
 		private String[] mColumnHeaders = mTableHeaders;
 	    private Object[][] mData;
-	    private Vector<TodoObject> tableTodos;
 	    
-	    public MainPageTableModel(Object[][] inData, Vector<TodoObject> inTodos){
+	    public MainPageTableModel(Object[][] inData){
 	    	super();
 	    	mData = inData;
-	    	tableTodos = inTodos;
 	    }
 	    
 	    @Override
