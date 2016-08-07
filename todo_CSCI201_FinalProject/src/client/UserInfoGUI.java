@@ -95,6 +95,16 @@ public class UserInfoGUI extends JPanel {
 		mFriendsLabel.setFont(mFriendsLabel.getFont().deriveFont(20f));
 		mFriendsPanel.add(mFriendsLabel);
 		mListModel = new DefaultListModel();
+		
+		System.out.println("mTodoUser.getFriendList().size(): " + mTodoUser.getFriendList().size());
+		for(Integer i: mTodoUser.getFriendList()) {
+			TodoClientListener.get().send(Constants.REQUEST_USERNAME_BY_ID + " " + i);
+			String response = TodoClientListener.get().readLine();
+			System.out.println(response);
+			if(!response.equals(Constants.FAIL_MESSAGE)) {
+				mListModel.addElement(response);
+			}
+		}
 		/*
 		mListModel.addElement("Friend1");
 		mListModel.addElement("Friend2");
@@ -160,7 +170,8 @@ public class UserInfoGUI extends JPanel {
 						System.out.println("userID: " + userID);
 						mTodoUser.addFriend(userID);
 						TodoClientListener.get().sendUser(mTodoUser);
-						TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
+						//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
+						mTodoUser = TodoClientListener.get().readTodoUser();
 						mListModel.addElement(friendName);
 					}
 				} 
