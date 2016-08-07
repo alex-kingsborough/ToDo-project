@@ -38,6 +38,7 @@ public class TodoUser implements Serializable {
 		mEmail = email;
 		mAboutMe = aboutMe;
 		allTodoLists = new Vector<TodoList>();
+		mFriendList = new Vector<Integer>();
 	}
 	
 	public void setTodoLists(Vector<TodoList> tlv)
@@ -131,6 +132,10 @@ public class TodoUser implements Serializable {
 	
 	public void setFriendList(Vector<Integer> inFriendList){
 		mFriendList=inFriendList;
+	}
+	
+	public void addFriend(int f){
+		mFriendList.add(f);
 	}
 	
 	public Vector<Integer> getFriendList(){

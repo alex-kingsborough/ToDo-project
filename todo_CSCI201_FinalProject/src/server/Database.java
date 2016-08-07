@@ -265,8 +265,8 @@ public class Database {
 			ResultSet result = ps.executeQuery();
 			while(result.next())
 			{
-				int id = result.getInt("userID");
-				String name = result.getString("actualname");
+				int id = result.getInt("listID");
+				String name = result.getString("listName");
 				TodoList tl = new TodoList(id, name);
 				todolistVector.add(tl);
 			}
