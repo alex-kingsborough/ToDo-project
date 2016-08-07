@@ -67,6 +67,7 @@ public class AddTodoItem extends JFrame {
 		AddTodo();
 		addPublicRBEvents();
 		addPrivateRBEvents();
+		setVisible(true);
 	}
 	
 	private void AddTodo() {

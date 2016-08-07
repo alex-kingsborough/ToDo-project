@@ -6,6 +6,8 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import constants.Constants;
 
@@ -17,6 +19,22 @@ public class TodoFrame extends JFrame implements Navigator {
 	private TodoUser mTodoUser;
 	
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		new TodoFrame("Todo: a CS201 project worth 100%");
 	}
 	
