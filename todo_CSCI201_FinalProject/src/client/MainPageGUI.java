@@ -10,10 +10,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
+
+import constants.Constants;
 
 public class MainPageGUI extends JPanel {
 	private static final long serialVersionUID = 1293859318L;
@@ -36,6 +39,8 @@ public class MainPageGUI extends JPanel {
 		mUser = PortalManager.mUser;
 		
 		mMainTabbedPane = new JTabbedPane();
+		
+		setBackground(Constants.greyColor);
 
 		//Fill user variables from user
 		//TODO make sure all necessary is here
@@ -64,6 +69,8 @@ public class MainPageGUI extends JPanel {
 			}
 			
 			JTable mTable = new JTable(new MainPageTableModel(currTableData));
+			
+			//Setting "buttons" for the 
 			mTable.setCellSelectionEnabled(true);
 		    ListSelectionModel cellSelectionModel = mTable.getSelectionModel();
 		    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -76,10 +83,13 @@ public class MainPageGUI extends JPanel {
 		    				if(changeFinishedTodo.getCompleted()){
 		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(false);
+		    					System.out.println("mUser.getTotalPoints(): " + mUser.getTotalPoints());
+		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				else{
 		    					mUser.setTotalPoints(mUser.getTotalPoints()+changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(true);
+		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				updatePage();
 		    				//TODO call database update user function

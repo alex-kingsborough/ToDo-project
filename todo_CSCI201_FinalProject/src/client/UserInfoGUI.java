@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,6 +20,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import constants.Constants;
+
 public class UserInfoGUI extends JPanel {
 	
 	
@@ -26,7 +30,6 @@ public class UserInfoGUI extends JPanel {
 	private JLabel mUsernameLabel;
 	private JLabel mNameLabel;
 	private JLabel mEmailLabel;
-	private JLabel mDOBLabel;
 	private JLabel mPointsLabel;
 	private JLabel mAboutMeLabel;
 	private JTextArea mAboutMeTextArea;
@@ -46,9 +49,9 @@ public class UserInfoGUI extends JPanel {
 	//}
 	
 	public UserInfoGUI(TodoUser tu) {
-		mTodoUser = tu;
+		mTodoUser = PortalManager.mUser;
 		setLayout(new BorderLayout());
-		mUsernameLabel = new JLabel("Username: username213");
+		mUsernameLabel = new JLabel("Username: " + mTodoUser.getUsername());
 		mUsernameLabel.setFont(mUsernameLabel.getFont().deriveFont(24f));
 		JPanel mTopPanel = new JPanel();
 		mTopPanel.add(mUsernameLabel);
@@ -62,18 +65,14 @@ public class UserInfoGUI extends JPanel {
 		mNameLabel = new JLabel("Name: " + mTodoUser.getName() + "                         ");
 		mNameLabel.setFont(mNameLabel.getFont().deriveFont(15f));
 		
-		mEmailLabel = new JLabel("Email: Marshall.jacobs12@gmail.com");
+		mEmailLabel = new JLabel("Email: " + mTodoUser.getEmail());
 		mEmailLabel.setFont(mEmailLabel.getFont().deriveFont(15f));
 		
-		mDOBLabel = new JLabel("DOB: 06/14/93");
-		mDOBLabel.setFont(mDOBLabel.getFont().deriveFont(15f));
-		
-		mPointsLabel = new JLabel("Total Points: 30000");
+		mPointsLabel = new JLabel("Total Points: " + mTodoUser.getTotalPoints());
 		mPointsLabel.setFont(mPointsLabel.getFont().deriveFont(15f));
 		
 		mInfoPanel.add(mNameLabel);
 		mInfoPanel.add(mEmailLabel);
-		mInfoPanel.add(mDOBLabel);
 		mInfoPanel.add(mPointsLabel);
 		mInfoPanel.add(Box.createGlue());
 		
@@ -81,7 +80,7 @@ public class UserInfoGUI extends JPanel {
 		mAboutMeTextArea = new JTextArea();
 		mAboutMeTextArea.setLineWrap(true); //TODO Marshall, you'll probably want to add this, but I noticed it fucks with the alignment
 		//of the other things. I didn't want to mess with stuff much so just leaving it here commented out. -Luc
-		mAboutMeTextArea.setText("Here is some text blah blah blah blah blah");
+		mAboutMeTextArea.setText(mTodoUser.getAboutMe());
 		mAboutMeTextArea.setEditable(false);
 		mAboutMePanel.add(mAboutMeTextArea);
 		mAboutMePanel.setBorder(new TitledBorder("About Me")); //give about me new titled border
@@ -140,6 +139,15 @@ public class UserInfoGUI extends JPanel {
 		mAddFriendLabel = new JLabel("Add Friend: ");
 		mAddFriendTextField = new JTextField(8);
 		mAddFriendButton = new JButton("Add");
+		mAddFriendButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				String friendName = mAddFriendTextField.getText();
+				if(!friendName.equals(null)) {
+					String request = Constants.ADD_FRIEND_REQUEST + " " + friendName;
+					System.out.println("Friend Name");
+				}
+			}
+		});
 		mAddFriendPanel.add(mAddFriendLabel);
 		mAddFriendPanel.add(mAddFriendTextField);
 		mAddFriendPanel.add(mAddFriendButton);
@@ -150,6 +158,11 @@ public class UserInfoGUI extends JPanel {
 		mRemoveFriendLabel = new JLabel("Remove Friend: ");
 		mRemoveFriendTextField = new JTextField(8);
 		mRemoveFriendButton = new JButton("Remove");
+		mRemoveFriendButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
 		mRemoveFriendPanel.add(mRemoveFriendLabel);
 		mRemoveFriendPanel.add(mRemoveFriendTextField);
 		mRemoveFriendPanel.add(mRemoveFriendButton);
@@ -159,7 +172,13 @@ public class UserInfoGUI extends JPanel {
 		add(mBottomPanel, BorderLayout.SOUTH);
 	}
 	
+	public void updatePoints() {
+		mPointsLabel.setText("Total points: " + mTodoUser.getTotalPoints());
+		revalidate();
+		repaint();
+	}
 
+	
 	public static void main(String [] args) {
 		JFrame mFrame = new JFrame();
 		//mFrame.add(new UserInfoGUI());

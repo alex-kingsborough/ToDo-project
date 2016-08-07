@@ -13,6 +13,7 @@ public class Constants {
 	public static final String GET_PUBLIC_TODOS = "GETPUBLICTODOS";
 	public static final String GET_FRIENDS_TODOS = "GETFRIENDTODOS";
 	public static final String LOGIN_USER_REQUEST = "LOGINUSERREQUEST";
+	public static final String ADD_FRIEND_REQUEST = "ADDFRIENDREQUEST";
 	public static final Color goldColor = new Color(255, 204, 0);
 	public static final Color redColor = new Color(153, 0, 0);
 	public static final Color greyColor = new Color(100, 100, 100);
