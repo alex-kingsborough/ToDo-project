@@ -213,9 +213,11 @@ public class AddTodoItem extends JFrame {
 		mMainPanel.add(mPointsLabel);
 		mMainPanel.add(mPointsText);
 		
-		mMainPanel.add(mPrivacyLabel);
-		mMainPanel.add(mPrivacyPanel);
-
+		if(!mTU.getName().equals(Constants.GUEST_USER)){
+			mMainPanel.add(mPrivacyLabel);
+			mMainPanel.add(mPrivacyPanel);
+		}
+		
 		mMainPanel.add(mListLabel);
 		mMainPanel.add(mListBox);
 

@@ -116,13 +116,14 @@ public class ViewTodo extends JFrame {
 		mPointsText = new JTextField(15);
 		mPointsText.setText(Integer.toString(to.getPoints()));
 		mListVector = new Vector<String>();
-
-		for(int i = 0; i < mTU.getTodoLists().size(); i ++){
-			String name;
-			name = mTU.getTodoLists().get(i).getName();
-			mListVector.addElement(name);
-		}
 		
+		if(mTU.getTodoLists() != null){
+			for(int i = 0; i < mTU.getTodoLists().size(); i ++){
+				String name;
+				name = mTU.getTodoLists().get(i).getName();
+				mListVector.addElement(name);
+			}
+		}
 		int currList = 0;
 		for(int i = 0; i < mListVector.size(); i ++){
 			if(mListVector.get(i).equals(to.getListName())){

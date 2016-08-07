@@ -146,10 +146,9 @@ public class UpdateTodo extends JFrame {
 		mMainPanel.add(mPointsLabel);
 		mMainPanel.add(mPointsText);
 		
-		if(!mTU.getName().equals(Constants.GUEST_USER)){
-			mMainPanel.add(mPrivacyLabel);
-			mMainPanel.add(mPrivacyPanel);
-		}
+		mMainPanel.add(mPrivacyLabel);
+		mMainPanel.add(mPrivacyPanel);
+		
 		mMainPanel.add(mListLabel);
 		mMainPanel.add(mListBox);
 
