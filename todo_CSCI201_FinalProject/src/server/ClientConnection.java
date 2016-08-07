@@ -15,7 +15,7 @@ public class ClientConnection extends Thread{
 	private ObjectInputStream mInputReader;
 	private Socket sSocket;
 	boolean echo = false;
-	private Database db = Database.get();
+//	private Database db = Database.get();
 	private String username = "";
 
 	public ClientConnection(Socket s, MainServer mainServer) {
@@ -61,7 +61,7 @@ public class ClientConnection extends Thread{
 						if(elements.length != 3){
 							sendMessage(Constants.FAIL_MESSAGE);
 						} else {
-							if(db.login(elements[1], elements[2])){
+							if(Database.get().login(elements[1], elements[2])){
 								sendMessage(Constants.SUCCESS_MESSAGE);
 							} else {
 								sendMessage(Constants.FAIL_MESSAGE);
@@ -98,15 +98,15 @@ public class ClientConnection extends Thread{
 	private void handleRecievedUser(TodoUser tu){
 		
 		// check if user exists
-		if (db.getUserID(tu.getUsername()) == 0)
+		if (Database.get().getUserID(tu.getUsername()) == 0)
 		{
 			//if not try to sign them up 
 			//and return the authenticated user
-			if (db.signup(tu))
+			if (Database.get().signup(tu))
 			{
 				//we signed up user
 				//so let's return a populated todo object
-				tu = db.getUserInfo(tu.getUsername());
+				tu = Database.get().getUserInfo(tu.getUsername());
 				sendMessage(Constants.SUCCESS_MESSAGE);
 			}
 			else
@@ -121,12 +121,12 @@ public class ClientConnection extends Thread{
 		else 
 		{
 			//user exists, make sure their information is right
-			if (db.login(tu.getUsername(), tu.getPassword()))
+			if (Database.get().login(tu.getUsername(), tu.getPassword()))
 			{
 				//their information is all good 
 				//update that shiz
 				sendMessage(Constants.AUTHENTICATED_MESSAGE);
-				tu = db.getUserInfo(tu.getUsername());
+				tu = Database.get().getUserInfo(tu.getUsername());
 			}
 			else
 			{

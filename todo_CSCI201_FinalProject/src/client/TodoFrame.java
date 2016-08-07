@@ -40,6 +40,7 @@ public class TodoFrame extends JFrame implements Navigator {
 			String tempTitle = "TITLE "+i;
 			TodoObject tempTodo = new TodoObject(tempTitle, 1, true, 0, playList.getName(), "I LIKE TO HAVE FUN", i, 1, false);
 			playList.addTodo(tempTodo);
+			
 		}
 		TodoList workList = new TodoList(1,"Work");
 		for(int i =0;i<10;i++){
@@ -52,6 +53,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		tempTodoListVec.add(workList);
 		tempUser.setTodoLists(tempTodoListVec);
 		//END OF STUFF TO REMOVE
+
 		
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
