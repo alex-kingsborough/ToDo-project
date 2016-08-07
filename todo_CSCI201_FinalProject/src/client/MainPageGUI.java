@@ -2,10 +2,12 @@ package client;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -17,6 +19,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import constants.Constants;
+import client.CustomScrollBar.MyScrollbarUI;
 
 public class MainPageGUI extends JPanel {
 	private static final long serialVersionUID = 1293859318L;
@@ -83,7 +86,6 @@ public class MainPageGUI extends JPanel {
 		    				if(changeFinishedTodo.getCompleted()){
 		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(false);
-		    					System.out.println("mUser.getTotalPoints(): " + mUser.getTotalPoints());
 		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				else{
@@ -102,6 +104,11 @@ public class MainPageGUI extends JPanel {
 		    });
 	        
 			JScrollPane mScrollPane = new JScrollPane(mTable);
+
+			JScrollBar sb= mScrollPane.getVerticalScrollBar();
+			sb.setPreferredSize(new Dimension(25, Integer.MAX_VALUE));
+			sb.setUI(new MyScrollbarUI());
+			
 			mScrollPane.getViewport().setBackground(Constants.greyColor);
 			mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			mScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

@@ -1,10 +1,12 @@
 package client;
 
 import java.awt.CardLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -39,21 +41,25 @@ public class PortalManager extends JPanel {
 		mTestMenu.setMnemonic('M');
 		mJMenuBar.add(mTestMenu);
 		mMainPageItem = new JMenuItem("Main Page");
+		mMainPageItem.setIcon(new ImageIcon(new ImageIcon("img/userinfoIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		mMainPageItem.addActionListener(new MenuItemActionListener(this, "main"));
 		mTestMenu.add(mMainPageItem);
 		
 		mSocialPageItem = new JMenuItem("Social Page");
+		mSocialPageItem.setIcon(new ImageIcon(new ImageIcon("img/socialIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mSocialPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		mSocialPageItem.addActionListener(new MenuItemActionListener(this, "social"));
 		mTestMenu.add(mSocialPageItem);
 		
 		mUserInfoItem = new JMenuItem("User Info");
+		mUserInfoItem.setIcon(new ImageIcon(new ImageIcon("img/userinfoIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mUserInfoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
 		mUserInfoItem.addActionListener(new MenuItemActionListener(this, "user"));
 		mTestMenu.add(mUserInfoItem);
 		
 		mNewTabItem = new JMenuItem("New List Tab");
+		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mNewTabItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		mNewTabItem.addActionListener(new ActionListener(){
 			@Override
@@ -97,6 +103,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.add(mMainPageItem);
 		
 		mNewTabItem = new JMenuItem("New List Tab");
+		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mNewTabItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		mNewTabItem.addActionListener(new ActionListener(){
 			@Override
@@ -112,6 +119,7 @@ public class PortalManager extends JPanel {
 			}
 		});
 		mNewTodoItem = new JMenuItem("Add a Todo");
+		mNewTodoItem.setIcon(new ImageIcon(new ImageIcon("img/todoProjectIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mNewTodoItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
@@ -137,7 +145,6 @@ public class PortalManager extends JPanel {
 		}
 
 		public void actionPerformed(ActionEvent ae) {
-			System.out.println(ae.getActionCommand());
 			CardLayout cl = (CardLayout) mPortalManager.getLayout();
 			cl.show(mPortalManager, mPanelName);
 			updateMenuBar(mPanelName);
@@ -165,7 +172,6 @@ public class PortalManager extends JPanel {
 		}
 
 		public void actionPerformed(ActionEvent ae) {
-			System.out.println(ae.getActionCommand());
 			CardLayout cl = (CardLayout) mPortalManager.getLayout();
 			cl.show(mPortalManager, mPanelName);
 			updateMenuBar(mPanelName);

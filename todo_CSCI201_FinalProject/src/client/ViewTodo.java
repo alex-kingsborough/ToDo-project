@@ -113,14 +113,6 @@ public class ViewTodo extends JFrame {
 		mSaveButton.setBackground(Color.black);
 		
 		
-		mPublicRB = new JRadioButton("Public");
-		mPublicRB.setSelected(!to.getIsPrivate());
-		mPublicRB.setFont(mFont.deriveFont(20));
-		
-		mPrivateRB = new JRadioButton("Private");
-		mPrivateRB.setSelected(to.getIsPrivate());
-		mPrivateRB.setFont(mFont.deriveFont(20));
-		
 		
 		mTitleText = new JTextField(15);
 		mTitleText.setBorder(null);
@@ -129,24 +121,25 @@ public class ViewTodo extends JFrame {
 		mTitleText.setEditable(false);
 		mTitleText.setOpaque(false);
 		mTitleText.setForeground(Constants.redColor);
-		mTitleText.setBackground(Constants.lightGreyColor);		
+		mTitleText.setBackground(Constants.greyColor);		
 		
 		mDescriptionText = new JTextArea(5, 15);
 		mDescriptionText.setBorder(null);
 		mDescriptionText.setText(to.getDescription());
-		mDescriptionText.setFont(mFont.deriveFont(0, 10));
+		mDescriptionText.setFont(mFont.deriveFont(0, 14));
 		mDescriptionText.setEditable(false);
 		mDescriptionText.setOpaque(false);
 		mDescriptionText.setWrapStyleWord(true);
 		mDescriptionText.setForeground(Constants.redColor);
-		mDescriptionText.setBackground(Constants.lightGreyColor);		
+		mDescriptionText.setBackground(Constants.greyColor);		
 		
 
 		mPointsText = new JTextField(15);
 		mPointsText.setText(Integer.toString(to.getPoints()));
 		mPointsText.setEditable(false);
 		mPointsText.setForeground(Constants.redColor);
-		mPointsText.setBackground(Constants.lightGreyColor);
+		mPointsText.setBackground(Constants.greyColor);
+		mPointsText.setFont(mFont);
 		
 		
 		mListVector = new Vector<String>();
@@ -170,32 +163,28 @@ public class ViewTodo extends JFrame {
 		
 		JTextField mPriorityText = new JTextField(to.getPriority());
 		mPriorityText.setEditable(false);
-		mPriorityText.setBackground(Constants.lightGreyColor);
+		mPriorityText.setBackground(Constants.greyColor);
 		mPriorityText.setForeground(Constants.redColor);
-
+		mPriorityText.setFont(mFont);
+		
 		JTextField mListText = new JTextField(mListVector.get(currList));
 		mListText.setBorder(null);
 		mListText.setEditable(false);
-		mListText.setBackground(Constants.lightGreyColor);
+		mListText.setBackground(Constants.greyColor);
 		mListText.setForeground(Constants.redColor);
+		mListText.setFont(mFont);
 		
 		JTextField mPrivacyText;
 		if(isPrivate){
-			mPrivacyText = new JTextField("Private") {
-			    @Override public void setBorder(Border border) {
-			        // None
-			    }
-			};
+			mPrivacyText = new JTextField("Private");
 		}else{
-			mPrivacyText = new JTextField("Public") {
-			    @Override public void setBorder(Border border) {
-			        // None
-			    }
-			};
+			mPrivacyText = new JTextField("Public");
 		}
 		
+		mPrivacyText.setBorder(null);
+		
 		mPrivacyText.setEditable(false);
-		mPrivacyText.setBackground(Constants.lightGreyColor);
+		mPrivacyText.setBackground(Constants.greyColor);
 		mPrivacyText.setForeground(Constants.redColor);
 		
 		mMainPanel =  new JPanel();
@@ -242,29 +231,6 @@ public class ViewTodo extends JFrame {
 	
 	
 	
-	/*private void addPublicRBEvents(){
-		mPublicRB.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-			    if (mPublicRB.isSelected()) {
-			    	mPrivateRB.setSelected(false);
-			    	isPrivate = false;
-			    }
-			
-			}
-		});
-	}
-
-	private void addPrivateRBEvents(){
-		mPrivateRB.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				if (mPrivateRB.isSelected()) {
-			    	mPublicRB.setSelected(false);
-			    	isPrivate = true;
-			    }
-			}
-		});
-	}
-*/	
 	private void addSaveEvents(){
 		mSaveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
@@ -273,16 +239,4 @@ public class ViewTodo extends JFrame {
 		});
 	}
 
-	
-/*	public static boolean isInteger(String s) {
-	    try { 
-	        Integer.parseInt(s); 
-	    } catch(NumberFormatException e) { 
-	        return false; 
-	    } catch(NullPointerException e) {
-	        return false;
-	    }
-	    // only got here if we didn't return false
-	    return true;
-	}*/
 }

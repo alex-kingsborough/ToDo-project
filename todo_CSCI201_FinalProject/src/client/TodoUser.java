@@ -138,6 +138,14 @@ public class TodoUser implements Serializable {
 		mFriendList.add(f);
 	}
 	
+	public void removeFriend(int f) {
+		for(int i=0; i< mFriendList.size(); i++) {
+			if(mFriendList.get(i) == f) {
+				mFriendList.remove(i);
+			}
+		}
+	}
+	
 	public Vector<Integer> getFriendList(){
 		return mFriendList;
 	}

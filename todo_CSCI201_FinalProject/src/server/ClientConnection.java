@@ -117,10 +117,47 @@ public class ClientConnection extends Thread{
 			String username = "";
 			if(s.split(" ").length == 2){
 				username = s.split(" ")[1];
+				int uID = Database.get().getUserID(username);
+				if(uID != 0){
+					System.out.println(Constants.SUCCESS_MESSAGE + " " + uID);
+					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
+				} else {
+					sendMessage(Constants.FAIL_MESSAGE);
+				}
+			} else {
+				sendMessage(Constants.FAIL_MESSAGE);
+			}
+		}else if(s.startsWith(Constants.REMOVE_FRIEND_REQUEST)){
+			String username = "";
+			if(s.split(" ").length == 2){
+				username = s.split(" ")[1];
+				int uID = Database.get().getUserID(username);
+				if(uID != 0){
+					System.out.println(Constants.SUCCESS_MESSAGE + " " + uID);
+					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
+				} else {
+					sendMessage(Constants.FAIL_MESSAGE);
+				}
+			} else {
+				sendMessage(Constants.FAIL_MESSAGE);
+			}
+		}else if (s.startsWith(Constants.REQUEST_USERNAME_BY_ID)){
+			int uID;
+			if(s.split(" ").length == 2){
+				uID = Integer.parseInt(s.split(" ")[1]);
+				String retName = Database.get().getUsernameByID(uID);
+				sendMessage(Constants.SUCCESS_MESSAGE + " " + retName);
+			} else {
+				sendMessage(Constants.FAIL_MESSAGE);
+			}
+		} else if (s.startsWith(Constants.REMOVE_FRIEND_REQUEST)) {
+			String username = "";
+			if(s.split(" ").length == 2){
+				username = s.split(" ")[1];
 				System.out.println("username: " + username);
 				int uID = Database.get().getUserID(username);
-				System.out.println("uID:  " + uID);
-				if(uID != 0){
+				System.out.println("uID: " + uID);
+				if(uID != 0) {
 					System.out.println(Constants.SUCCESS_MESSAGE + " " + uID);
 					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
 				} else {
@@ -138,13 +175,13 @@ public class ClientConnection extends Thread{
 
 	private void handleRecievedTodoObject(TodoObject to) {
 		//TODO: make handleRecievedTodoObject AS LIT as handleRecievedUser
-		
+
 		Database.get().addTodo(to,username);
 		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + username);
 	}
 
 	private void handleRecievedUser(TodoUser tu){
-		
+
 		// check if user exists
 		if (Database.get().getUserID(tu.getUsername()) == 0)
 		{
@@ -161,8 +198,8 @@ public class ClientConnection extends Thread{
 			}
 			else
 			{
-				
-				
+
+
 				MainServer.gui.writeToLog("Error adding user: " + tu.getUsername());
 				sendMessage(Constants.FAIL_MESSAGE);
 				return;
@@ -174,7 +211,7 @@ public class ClientConnection extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Socket getSocket() {
 		return sSocket;
 	}
