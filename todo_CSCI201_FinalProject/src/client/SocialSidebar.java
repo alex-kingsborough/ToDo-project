@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,10 +18,12 @@ public class SocialSidebar extends JPanel implements Runnable {
 	
 	private JScrollPane mSocialPanel;
 	private TodoUser mUser;
+	private Vector<Integer> mFriendList;
 
 	public SocialSidebar(TodoUser inUser, TodoFrame inFrame){ //Creating and filling out the panel on the east holding the add button and Social Panel
 		
 		mUser = inUser;
+		mFriendList = mUser.getFriendList();
 		
 		JButton mAddTodoButton = new JButton("Add Todo");
 		mAddTodoButton.setPreferredSize(new Dimension(this.getWidth(),21));

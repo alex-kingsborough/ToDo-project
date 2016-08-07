@@ -25,7 +25,7 @@ public class Database {
 	}
 	
 	private final static String newAccount = "INSERT INTO USERS(USERNAME,HASHWORD,ACTUALNAME,EMAIL,ABOUTME) VALUES(?,?,?,?,?)";
-	private final static String selectUser = "SELECT HASHWORD FROM USERS WHERE USERNAME=?";
+	private final static String selectUser = "SELECT * FROM USERS WHERE USERNAME=?";
 	private final static String getUserTodos ="SELECT T.TODONAME, T.TODOPRIORITY, T.TODOPRIVATE, L.LISTNAME, T.TODODESC, T.TODOPOINTS, T.TODOFINISHED FROM TODOS T, USERS U, LISTS L WHERE T.USERID=U.USERID AND U.USERID=L.USERID AND T.LISTID=L.LISTID AND U.USERNAME=?";
 	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
 	private final static String getUserID = "SELECT USERID FROM USERS WHERE USERNAME=?";
@@ -35,12 +35,12 @@ public class Database {
 	private final static String getUserTodosById = "SELECT * FROM todos WHERE userID=?";
 	
 	
-	private Connection con;
+	private Connection con = null;
 	
 	{
 		try{
 			new Driver();
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=root");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=rootpassword&useSSL=false");
 		} catch(SQLException sqle){
 			System.out.println("SQL:"+sqle.getMessage());
 		}
@@ -115,11 +115,16 @@ public class Database {
 	*/
 	
 	public int getUserID(String username){
+		int retID = 0;
+		
 		try{
 			PreparedStatement ps = con.prepareStatement(getUserID);
 			ps.setString(1,username);
 			ResultSet result = ps.executeQuery();
-			return result.getInt("userID");
+			while(result.next()){
+				retID = result.getInt("userID");
+			}
+			return retID;
 		}	catch (SQLException e) {
 			System.out.println("SQLE: " + e.getMessage());
 		}
@@ -174,12 +179,12 @@ public class Database {
 				ResultSet result = ps.executeQuery();
 				while(result.next())
 				{
-					int userId = result.getInt(0);
-					String username = result.getString(1);
-					String email = result.getString(2);
-					String password = result.getString(3);
-					TodoUser newUser = new TodoUser(userId,username,email,password);
-					newUser.setAboutMe(result.getString(4));
+					String username = result.getString("username");
+					String actualname = result.getString("actualname");
+					String email = result.getString("email");
+					String password = result.getString("hashword");
+					String aboutme = result.getString("aboutme");
+					TodoUser newUser = new TodoUser(username,actualname,password,email,aboutme);
 					
 					//get all todos
 					newUser.setTodoLists(getUserTodoLists(newUser));

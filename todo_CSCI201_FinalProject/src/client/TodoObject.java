@@ -25,11 +25,11 @@ public class TodoObject {
 		userID = _userID;
 		isCompleted = _isCompleted;
 	}
+
 	
 	public int getUserID(){
 		return userID;
 	}
-	
 	
 	public String getTitle(){
 		return title;
@@ -57,7 +57,6 @@ public class TodoObject {
 	{
 		isPrivate = _isPrivate;
 	}
-	
 	
 	public String getListName(){
 		return listName;

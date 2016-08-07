@@ -56,8 +56,17 @@ public class ClientConnection extends Thread{
 						if(s.endsWith("echo")){
 							echo = !echo;
 						}
-					} if(s.startsWith("login: ")){
+					} if(s.startsWith(Constants.LOGIN_PREFIX)){
 						String[] elements = s.split(" ");
+						if(elements.length != 3){
+							sendMessage(Constants.FAIL_MESSAGE);
+						} else {
+							if(db.login(elements[1], elements[2])){
+								sendMessage(Constants.SUCCESS_MESSAGE);
+							} else {
+								sendMessage(Constants.FAIL_MESSAGE);
+							}
+						}
 					}
 					MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 					if(echo){
@@ -103,8 +112,9 @@ public class ClientConnection extends Thread{
 			else
 			{
 				
-				MainServer.gui.writeToLog("Error adding user: " + tu.getUsername());
 				
+				MainServer.gui.writeToLog("Error adding user: " + tu.getUsername());
+				sendMessage(Constants.FAIL_MESSAGE);
 				return;
 			}
 		}
@@ -115,13 +125,14 @@ public class ClientConnection extends Thread{
 			{
 				//their information is all good 
 				//update that shiz
+				sendMessage(Constants.AUTHENTICATED_MESSAGE);
 				tu = db.getUserInfo(tu.getUsername());
 			}
 			else
 			{
 				//fuck they have the wrong password 
 				//TODO: send some kind of random ass error message
-				sendMessage(Constants.FAIL_MESSAGE);
+				sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 				return;
 			}
 		}
