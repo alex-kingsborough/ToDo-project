@@ -59,7 +59,6 @@ public class ViewTodo extends JFrame {
 		super("View Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mTU = PortalManager.mUser;
 		AddTodo(to);
 	
@@ -173,20 +172,13 @@ public class ViewTodo extends JFrame {
 		mPriorityText.setEditable(false);
 		mPriorityText.setBackground(Constants.lightGreyColor);
 		mPriorityText.setForeground(Constants.redColor);
+
+		JTextField mListText = new JTextField(mListVector.get(currList));
+		mListText.setBorder(null);
+		mListText.setEditable(false);
+		mListText.setBackground(Constants.lightGreyColor);
+		mListText.setForeground(Constants.redColor);
 		
-/*		mListBox = new JComboBox<String>(mListVector);
-		mListBox.setFont(mFont.deriveFont(2));
-		mListBox.setSelectedIndex(currList);
-*/		
-		System.out.println(1);
-		System.out.println("currList: " + currList);
-		System.out.println("mListVector.size() = " + mListVector.size());
-		JTextField mListText = new JTextField(mListVector.get(currList)) {
-		    @Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
-		System.out.println(2);
 		JTextField mPrivacyText;
 		if(isPrivate){
 			mPrivacyText = new JTextField("Private") {
@@ -238,14 +230,12 @@ public class ViewTodo extends JFrame {
 
 		mMainPanel.add(mDescriptionLabel);
 		mMainPanel.add(mDescriptionText);
-		System.out.println("near the end");
 		JPanel outsidePanel = new JPanel();
 		outsidePanel.setLayout(new BorderLayout());
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
 
 		add(outsidePanel);
-		System.out.println("right before setting visible");
 		setVisible(true);
 		addSaveEvents();
 	}
