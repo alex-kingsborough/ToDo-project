@@ -426,6 +426,7 @@ public class Database {
 	
 	
 	//updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?"
+	//addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
 	private void updateUserLists(TodoUser tu) {
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
@@ -434,15 +435,15 @@ public class Database {
 			ps2 = con.prepareStatement(addList);
 			int userID = getUserID(tu.getUsername());
 			ps.setInt(3, userID);
-			ps2.setInt(3, userID);
+			ps2.setInt(1, userID);
 			for(TodoList tl : tu.getTodoLists()){
 				if(getListID(tl.getName()) != 0){
 					ps.setString(1, tl.getName());
 					ps.setBoolean(2, tl.isActive());
 					ps.executeUpdate();
 				} else {
-					ps2.setString(1, tl.getName());
-					ps2.setBoolean(2, tl.isActive());
+					ps2.setString(2, tl.getName());
+					ps2.setBoolean(3, tl.isActive());
 					ps2.executeUpdate();
 				}
 			}

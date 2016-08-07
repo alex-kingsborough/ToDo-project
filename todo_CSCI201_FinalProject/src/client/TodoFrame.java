@@ -91,6 +91,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
 		//tempUser = new TodoUser(1,"Jeff","pass","email");
+		/*
 		TodoList playList = new TodoList(0,"Play");
 		for(int i =0;i<6;i++){
 			String tempTitle = "TITLE "+i;
@@ -109,6 +110,8 @@ public class TodoFrame extends JFrame implements Navigator {
 		tempTodoListVec.add(workList);
 		mTodoUser.setTodoLists(tempTodoListVec);
 		//END OF STUFF TO REMOVE
+		 * 
+		 */
 
 		
 		JMenuBar mTestBar = new JMenuBar();
