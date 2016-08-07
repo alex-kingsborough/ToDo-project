@@ -163,7 +163,8 @@ public class Database {
 			PreparedStatement ps = con.prepareStatement(getListID);
 			ps.setString(1,list);
 			ResultSet result = ps.executeQuery();
-			return result.getInt("listID");
+			while (result.next())
+				return result.getInt("listID");
 		}	catch (SQLException e) {
 			System.out.println("SQLE: " + e.getMessage());
 		}
