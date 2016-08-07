@@ -26,6 +26,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import constants.Constants;
+
 
 /* This needs a vector of the different lists that the current user has 
  * to give the user an option of what list to add the new todo to.
@@ -35,6 +37,7 @@ import javax.swing.UIManager;
 */
 public class AddTodoItem extends JFrame {
 	private static final long serialVersionUID = 1376543;
+	
 	private JLabel mTitleLabel;
 	private JLabel mPriorityLabel;
 	private JLabel mPointsLabel;
@@ -100,6 +103,7 @@ public class AddTodoItem extends JFrame {
 		mTitleText.setFont(mFont.deriveFont(20));
 		mDescriptionText = new JTextArea(5, 15);
 		mDescriptionText.setFont(mFont.deriveFont(0, 10));
+		mDescriptionText.setWrapStyleWord(true);
 		mPriorityVector = new Vector<Integer>();
 		mListVector = new Vector<String>();
 		mListIDVector = new Vector<Integer>();
