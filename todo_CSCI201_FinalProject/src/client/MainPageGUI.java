@@ -95,6 +95,7 @@ public class MainPageGUI extends JPanel {
 		    				}
 		    				updatePage();
 		    				TodoClientListener.get().sendUser(mUser);
+		    				mUser = TodoClientListener.get().readTodoUser();
 		    			}
 		    			if(mTable.getSelectedColumn()==1){
 				    		new UpdateTodo(currTodos.get(mTable.getSelectedRow()));
