@@ -2,6 +2,9 @@ package client;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,9 +30,7 @@ public class SocialGUI extends JPanel implements Runnable {
 	private Vector<TodoObject> publicTodos, friendsTodos;
 	
 	
-	public SocialGUI(PortalManager pm, TodoUser currUser) {
-		this.pm = pm;
-		this.currUser = currUser;
+	public SocialGUI() {
 		tabbedPane = new JTabbedPane();
 		add(tabbedPane);
 		
@@ -37,6 +38,8 @@ public class SocialGUI extends JPanel implements Runnable {
 		createPublicTab();
 		
 		(new Thread(this)).start();	
+		
+		
 	}
 	
 	//create the friends tab
@@ -54,7 +57,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		});
 		friendSP = new JScrollPane(friendsTodo);
 		tabbedPane.add(friendSP, "Friends");
-		updateTab(0);
+		//updateTab(0);
 		
 	}
 	
@@ -68,57 +71,77 @@ public class SocialGUI extends JPanel implements Runnable {
 		        //TODO: open todo preview with selected row
 		    	int row = publicTodo.getSelectedRow();
 		    	System.out.println(row);
+		    	System.out.println(publicTodos.size());
 		    	//if (row < publicTodos.size() && row != -1)
 		    	new ViewTodo(new TodoObject("test", 1, true, 1, "alskdfj", "laksdjf", 1, 1, false));
 		     }
 		});
 		pubSP = new JScrollPane(publicTodo);
 		tabbedPane.add(pubSP, "Public");
-		updateTab(1);
+		//updateTab(1);
 		
 	}
 	
 	//will update the table with the new todos
-	public void updateTab( int tabId) {
+	/*
+	public boolean updateTab( int tabId) {
 		
 		//tabId = 0 then update friends tab
 		if (tabId == 0)
 		{
 			//send request to server
-			TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
 			//wait for response from server
-			friendsTodos = TodoClientListener.get().readTodoObjects();
+			System.out.println("hey there");
+			friendsTodos = TodoClientListener.get().readTodoObjects(Constants.GET_FRIENDS_TODOS);
 			Object[][] newTodos = convertToObject(friendsTodos);
 			
 			//send request to get new todos
 			friendsTodo.setModel(new TodoTableModel(newTodos));
+			return true;
 		}
 		
 		//tabId = 1 then update public tab
 		else if (tabId == 1)
 		{
 			//send request to server
-			TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
 			//wait for response from server
-			publicTodos = TodoClientListener.get().readTodoObjects();
+			System.out.println("hey there there");
+			publicTodos = TodoClientListener.get().readTodoObjects(Constants.GET_PUBLIC_TODOS);
 			Object[][] newTodos = convertToObject(publicTodos);
 			publicTodo.setModel(new TodoTableModel(newTodos));
+			return true;
 		}
+		return false;
 	}
+	*/
 	
 	//call update on currently select tab every 5 seconds
 	public void run() {
 		while (true)
 		{
 			try {
-				//wait for 5 seconds
+				System.out.println("Trying to update this shit");
+				Vector<Vector<TodoObject>> vvt = TodoClientListener.get().readVectorTodoObjects();
+				//send request to server
+				//wait for response from server
+				System.out.println("hey there");
+				friendsTodos = vvt.get(0);
+				Object[][] newTodos = convertToObject(friendsTodos);
+				
+				//send request to get new todos
+				friendsTodo.setModel(new TodoTableModel(newTodos));
+		
+				//send request to server
+				//wait for response from server
+				System.out.println("hey there there");
+				publicTodos = vvt.get(1);
+				Object[][] newTodos2 = convertToObject(publicTodos);
+				publicTodo.setModel(new TodoTableModel(newTodos2));
+				
+				System.out.println("Finished updating this shit");
 				Thread.sleep(5000);
-				
-				//call update on selected tab
-				int selectedTab = tabbedPane.getSelectedIndex();
-				updateTab(selectedTab);
-				
 			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -130,7 +153,8 @@ public class SocialGUI extends JPanel implements Runnable {
 
 		private static final long serialVersionUID = 1L;
 		
-		private String[] columnNames = {"Status",
+		private String[] columnNames = {
+				"Status",
                 "Title",
                 "Description",
                 "Private",

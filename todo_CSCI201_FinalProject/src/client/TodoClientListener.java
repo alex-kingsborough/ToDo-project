@@ -113,7 +113,8 @@ public class TodoClientListener {
 		return " ";
 	}
 	
-	public Vector<TodoObject> readTodoObjects() {
+public synchronized Vector<TodoObject> readTodoObjects(String request) {
+		TodoClientListener.get().send(request);
 		
 		try {
 			Object o = ois.readObject();
@@ -126,7 +127,28 @@ public class TodoClientListener {
 		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
 		}
-		return null;
+		return new Vector<TodoObject>();
+	}
+	
+	public Vector<Vector<TodoObject>> readVectorTodoObjects() {
+		TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
+		
+		try {
+			Object o = ois.readObject();
+			if(o instanceof Vector<?>) {
+				Vector<Vector<TodoObject>> todoVec = (Vector<Vector<TodoObject>>) o;
+				System.out.println("Reading vector of length " + todoVec.size());
+				return todoVec;
+			}
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+		Vector<Vector<TodoObject>> vvt = new Vector<Vector<TodoObject>>();
+		vvt.add(new Vector<TodoObject>());
+		vvt.add(new Vector<TodoObject>());
+		return vvt;
 	}
 	
 	public TodoUser readTodoUser() {
