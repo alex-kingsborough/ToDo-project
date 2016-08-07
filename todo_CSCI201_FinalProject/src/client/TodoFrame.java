@@ -48,30 +48,38 @@ public class TodoFrame extends JFrame implements Navigator {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Making tabbedpane look nice
+		UIManager.put("TabbedPane.background",Constants.lightGreyColor);
+		UIManager.put("TabbedPane.borderHightlightColor",Constants.goldColor);
 		UIManager.put("TabbedPane.shadow",Constants.goldColor);
 		UIManager.put("TabbedPane.darkShadow",Constants.goldColor);
 		UIManager.put("TabbedPane.light",Constants.goldColor);
 		UIManager.put("TabbedPane.highlight",Constants.goldColor);
 		UIManager.put("TabbedPane.tabAreaBackground",Constants.redColor);
 		UIManager.put("TabbedPane.unselectedBackground",Constants.redColor);
-		UIManager.put("TabbedPane.background",Constants.lightGreyColor);
 		UIManager.put("TabbedPane.foreground",Constants.goldColor);
 		UIManager.put("TabbedPane.focus",Constants.redColor);
 		UIManager.put("TabbedPane.contentAreaColor",Constants.redColor);
 		UIManager.put("TabbedPane.selected",Constants.redColor);
 		UIManager.put("TabbedPane.selectHighlight",Constants.goldColor);
-		UIManager.put("TabbedPane.borderHightlightColor",Constants.goldColor);
 		
 		//Making scrollpane look nice
 		UIManager.put("ScrollPane.background",Constants.lightGreyColor);
 		UIManager.put("ScrollPane.foreground",Constants.greyColor);
-		UIManager.put("ScrollBar.background",Constants.goldColor);
+		UIManager.put("ScrollPane.viewportBorder",BorderFactory.createLineBorder(Constants.greyColor,0));
+		//UIManager.put("ScrollBar.background",Constants.goldColor);
 		UIManager.put("ScrollBar.darkShadow",Constants.greyColor);
-		UIManager.put("ScrollBar.foreground",Constants.redColor);
+		//UIManager.put("ScrollBar.foreground",Constants.redColor);
 		UIManager.put("ScrollBar.highlight",Constants.greyColor);
 		UIManager.put("ScrollBar.shadow",Constants.greyColor);
-		UIManager.put("ScrollBar.thumb",Constants.redColor);
+		UIManager.put("ScrollBar.thumb",Color.GREEN);
 		UIManager.put("ScrollBar.thumbDarkShadow",Constants.greyColor);
+		UIManager.put("ScrollBar.thumbHighlight",Constants.greyColor);
+		UIManager.put("ScrollBar.thumbShadow",Constants.greyColor);
+		UIManager.put("ScrollBar.track",Color.GREEN);
+		UIManager.put("ScrollBar.trackForeground",Color.GREEN);
+		UIManager.put("ScrollBar.trackHighlight",Color.GREEN);
+		UIManager.put("ScrollBar.trackHighlightForeground",Color.GREEN);
+		
 		
 		
 		//Making tables look nice
@@ -86,6 +94,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("Table.light",Constants.redColor);
 		UIManager.put("Table.selectionBackground",Constants.lightGreyColor);
 		UIManager.put("Table.selectionForeground",Constants.goldColor);
+		UIManager.put("Table.scrollPaneBorder", BorderFactory.createLineBorder(Constants.redColor,1));
 		UIManager.put("Table.shadow",Constants.goldColor);
 		UIManager.put("TableHeader.background", Constants.lightGreyColor);
 		UIManager.put("TableHeader.foreground", Constants.redColor);
