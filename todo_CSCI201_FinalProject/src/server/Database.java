@@ -20,8 +20,16 @@ public class Database {
 		return sDatabase;
 	}
 	
+	private static Connection con = null;
+	
 	static {
 		sDatabase = new Database();
+		try{
+			new Driver();
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=rootpassword&useSSL=false");
+		} catch(SQLException sqle){
+			System.out.println("SQL:"+sqle.getMessage());
+		}
 	}
 	
 	private final static String newAccount = "INSERT INTO USERS(USERNAME,HASHWORD,ACTUALNAME,EMAIL,ABOUTME) VALUES(?,?,?,?,?)";
@@ -34,17 +42,6 @@ public class Database {
 	private final static String getAllUserFriends = "SELECT * FROM friendship WHERE fromID=?";
 	private final static String getUserTodosById = "SELECT * FROM todos WHERE userID=?";
 	
-	
-	private Connection con = null;
-	
-	{
-		try{
-			new Driver();
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=rootpassword&useSSL=false");
-		} catch(SQLException sqle){
-			System.out.println("SQL:"+sqle.getMessage());
-		}
-	}
 	
 	public void stop() {
 		try {con.close();} catch (SQLException e) {e.printStackTrace();}
