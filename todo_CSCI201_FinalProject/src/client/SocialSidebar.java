@@ -53,10 +53,11 @@ public class SocialSidebar extends JPanel implements Runnable {
 		
 		mSocialGrid = new JPanel();
 		mSocialGrid.setLayout(new GridLayout(100,1));
-		TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
 		//wait for response from server
 		
-		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects();
+		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects(Constants.GET_FRIENDS_TODOS);
+		if (newTodos == null)
+			return;
 		
 		for(int i=0; i< newTodos.size(); i++){
 			JPanel mSocialItemPanel = new JPanel();
@@ -92,10 +93,11 @@ public class SocialSidebar extends JPanel implements Runnable {
 	//will update the table with the new todos
 	public void updateBar() {
 		
-		TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
 		//wait for response from server
 		
-		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects();
+		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects(Constants.GET_FRIENDS_TODOS);
+		if (newTodos == null)
+			return;
 		
 		mSocialGrid.removeAll();
 		
@@ -141,11 +143,11 @@ public class SocialSidebar extends JPanel implements Runnable {
 		{
 			try {
 				//wait for 5 seconds
-				Thread.sleep(5000);
 
 				//call update on sidebar
 				updateBar();
 				mSocialPanel.getVerticalScrollBar().setValue(0);
+				Thread.sleep(5000);
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
