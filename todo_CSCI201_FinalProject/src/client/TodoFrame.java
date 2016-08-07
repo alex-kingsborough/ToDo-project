@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
@@ -45,6 +46,9 @@ public class TodoFrame extends JFrame implements Navigator {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//Setting icon
+		setIconImage(new ImageIcon("img/todoProjectIcon.png").getImage());
 		
 		//Making tabbedpane look nice
 		UIManager.put("TabbedPane.background",Constants.lightGreyColor);
