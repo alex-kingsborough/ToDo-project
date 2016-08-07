@@ -19,6 +19,7 @@ public class TodoObject implements Serializable {
 	private String desc;
 	private int mPoints;
 	private int userID;
+	private String username;
 	
 	public TodoObject(String _title, int _priority, boolean _isPrivate, int _listID, 
 			String _listName, String _desc, int _points, int _userID, boolean _isCompleted)
@@ -32,8 +33,18 @@ public class TodoObject implements Serializable {
 		mPoints = _points;
 		userID = _userID;
 		isCompleted = _isCompleted;
+		username = "";
 	}
 
+	public String getUsername()
+	{
+		return username;
+	}
+	
+	public void setUsername(String _username)
+	{
+		username = _username;
+	}
 	
 	public int getUserID(){
 		return userID;

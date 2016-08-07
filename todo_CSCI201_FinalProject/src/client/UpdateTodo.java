@@ -60,7 +60,7 @@ public class UpdateTodo extends JFrame {
 		AddTodo(to);
 		addPublicRBEvents();
 		addPrivateRBEvents();
-	
+		setVisible(true);
 	}
 	
 	private void AddTodo(TodoObject to) {
