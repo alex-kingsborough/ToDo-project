@@ -28,7 +28,7 @@ public class Database {
 		sDatabase = new Database();
 		try{
 			new Driver();
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=root&useSSL=false");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&useSSL=false");
 		} catch(SQLException sqle){
 			System.out.println("SQL:"+sqle.getMessage());
 		}
@@ -37,8 +37,8 @@ public class Database {
 	private final static String newAccount = "INSERT INTO USERS(USERNAME,HASHWORD,ACTUALNAME,EMAIL,ABOUTME) VALUES(?,?,?,?,?)";
 	private final static String selectUser = "SELECT * FROM USERS WHERE USERNAME=?";
 	@SuppressWarnings("unused")
-	private final static String getUserTodos ="SELECT T.TODONAME, T.TODOPRIORITY, T.TODOPRIVATE, L.LISTNAME, T.TODODESC, T.TODOPOINTS, T.TODOFINISHED FROM TODOS T, USERS U, LISTS L WHERE T.USERID=U.USERID AND U.USERID=L.USERID AND T.LISTID=L.LISTID AND U.USERNAME=?";
-	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
+	private final static String getUserTodos ="SELECT T.TODOTITLE, T.TODOPRIORITY, T.TODOPRIVATE, L.LISTNAME, T.TODODESC, T.TODOPOINTS, T.TODOFINISHED FROM TODOS T, USERS U, LISTS L WHERE T.USERID=U.USERID AND U.USERID=L.USERID AND T.LISTID=L.LISTID AND U.USERNAME=?";
+	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoFinished,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
 	private final static String getUserID = "SELECT USERID FROM USERS WHERE USERNAME=?";
 	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=?";
 	private final static String getLatestPublicTodos = "Select * FROM todos WHERE todoPrivate=false ORDER BY createdAt DESC LIMIT 50";
@@ -327,7 +327,6 @@ public class Database {
 			{
 				//get a friends todos
 				int userId = result.getInt("toId");
-				System.out.println("Found one frined: " + userId);
 				ps = con.prepareStatement(getUserTodosById);
 				ps.setInt(1, userId);
 				ResultSet todoResult = ps.executeQuery();
@@ -341,12 +340,11 @@ public class Database {
 				 */
 				while (todoResult.next())
 				{
-					String name = todoResult.getString("todoName");
-					System.out.println("They have one todo: " + name);
+					String name = todoResult.getString("todoTitle");
 					String description = todoResult.getString("todoDesc");
 					boolean isComplete = todoResult.getBoolean("todoFinished");
 					int priority = todoResult.getInt("todoPriority");
-					boolean isPrivate = todoResult.getBoolean("todoPrivate");
+					boolean isPrivate = todoResult.getBoolean("todoIsCompleted");
 					int points = todoResult.getInt("todoPoints");
 					int listId = todoResult.getInt("listID");
 					TodoObject to = new TodoObject(name, priority, isPrivate, listId, getListName(userId, listId), description, points, userId, isComplete);
@@ -372,9 +370,9 @@ public class Database {
 			PreparedStatement ps = con.prepareStatement(getLatestPublicTodos);
 			ResultSet todoResult = ps.executeQuery();
 			while(todoResult.next()) {
-				String name = todoResult.getString("todoName");
+				String name = todoResult.getString("todoTitle");
 				String description = todoResult.getString("todoDesc");
-				boolean isComplete = todoResult.getBoolean("todoFinished");
+				boolean isComplete = todoResult.getBoolean("todoIsCompleted");
 				int priority = todoResult.getInt("todoPriority");
 				boolean isPrivate = todoResult.getBoolean("todoPrivate");
 				int points = todoResult.getInt("todoPoints");
