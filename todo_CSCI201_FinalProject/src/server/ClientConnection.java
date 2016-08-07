@@ -59,12 +59,12 @@ public class ClientConnection extends Thread{
 					} if(s.startsWith(Constants.LOGIN_PREFIX)){
 						String[] elements = s.split(" ");
 						if(elements.length != 3){
-							sendMessage(Constants.FAIL_MESSAGE);
+							sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 						} else {
 							if(Database.get().login(elements[1], elements[2])){
-								sendMessage(Constants.SUCCESS_MESSAGE);
+								sendMessage(Constants.AUTHENTICATED_MESSAGE);
 							} else {
-								sendMessage(Constants.FAIL_MESSAGE);
+								sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 							}
 						}
 					}
