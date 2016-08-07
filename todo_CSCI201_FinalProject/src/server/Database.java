@@ -48,14 +48,14 @@ public class Database {
 	private final static String updateUserInfo = "UPDATE USERS SET actualname=?, email=?, points=?, aboutme=? WHERE userID=?";
 	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?";
 	private final static String updateUserTodos = "UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
-	private final static String getUsernameByID = "SELECT ACTUALNAME FROM USERS WHERE USERID=?";
+	private final static String getUsernameByID = "SELECT USERNAME FROM USERS WHERE USERID=?";
 	private final static String removeFriend = "DELETE FROM FRIENDSHIP WHERE fromID=? AND toID=?";
 	private final static String addFriend = "INSERT INTO FRIENDSHIP(fromID,toID,createdAt) VALUES(?,?,?)";
 	private final static String addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
 	private final static String todoExists = "SELECT * FROM TODOS WHERE userID=? AND todoTitle=?";
-	
-	
-	
+
+
+
 	public void stop() {
 		try {con.close();} catch (SQLException e) {e.printStackTrace();}
 	}
@@ -141,7 +141,7 @@ public class Database {
 
 		return 0;
 	}
-	
+
 	public String getUsernameByID(int id)
 	{
 		String username = "";
@@ -150,7 +150,7 @@ public class Database {
 			ps.setInt(1,id);
 			ResultSet result = ps.executeQuery();
 			while(result.next()){
-				username = result.getString("actualname");
+				username = result.getString("username");
 			}
 			return username;
 		}	catch (SQLException e) {
@@ -198,10 +198,10 @@ public class Database {
 		java.util.Date today = new java.util.Date();
 		return new java.sql.Timestamp(today.getTime());
 	}
-	
+
 	public String getListName(int userID, int listID){
 		String retStr = "";
-		
+
 		try{
 			PreparedStatement ps = con.prepareStatement(getListNameByUserAndID);
 			ps.setInt(1, listID);
@@ -213,16 +213,18 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return retStr;
 	}
 
 	//gets all user info with just username
 	//including all todos
-	public TodoUser getUserInfo(String mUsername)
-	{
+	public TodoUser getUserInfo(String mUsername){
+		TodoUser newUser = null;
+		PreparedStatement ps = null;
+
 		try{
-			PreparedStatement ps = con.prepareStatement(selectUser);
+			ps = con.prepareStatement(selectUser);
 			ps.setString(1, mUsername);
 			ResultSet result = ps.executeQuery();
 			while(result.next())
@@ -233,18 +235,44 @@ public class Database {
 				String email = result.getString("email");
 				String password = result.getString("hashword");
 				String aboutme = result.getString("aboutme");
-				TodoUser newUser = new TodoUser(username,actualname,password,email,aboutme);
+				newUser = new TodoUser(username,actualname,password,email,aboutme);
 				newUser.setID(id);
 				//get all todos
 				newUser.setTodoLists(getUserTodoLists(newUser));
-
-				return newUser;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if(ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
+					e.printStackTrace();
+				}
 		}
-		//user does not exist
-		return null;
+
+		ps = null;
+		try {
+			ps = con.prepareStatement(getAllUserFriends);
+			ps.setInt(1, getUserID(mUsername));
+			ResultSet result = ps.executeQuery();
+
+			//now iterate through all friends
+			while (result.next()) newUser.addFriend(result.getInt("toID"));
+		} catch (SQLException sqle){
+			System.out.println("SQLE in getting Friends: " + sqle.getMessage());
+		} finally {
+			if(ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
+					e.printStackTrace();
+				}
+		}
+
+		return newUser;
 	}
 
 
@@ -363,7 +391,7 @@ public class Database {
 	public Vector<TodoObject> getLatestPublic()
 	{
 		Vector<TodoObject> retvec = new Vector<TodoObject>();
-		
+
 		try {
 			PreparedStatement ps = con.prepareStatement(getLatestPublicTodos);
 			ResultSet todoResult = ps.executeQuery();
@@ -383,19 +411,19 @@ public class Database {
 		} catch (SQLException e) {
 			System.out.println("SQLE: " + e.getMessage());
 		}
-		
+
 		return retvec;
 	}
-	
+
 	public void updateAll(TodoUser tu){
 		updateUserInfo(tu);
 		updateUserLists(tu);
 		updateUserTodos(tu);
 		updateUserFriends(tu);
 	}
-	
-	
-	
+
+
+
 
 	//"UPDATE USERS SET actualname=?, email=?, points=?, aboutme=? WHERE userID=?"
 	private void updateUserInfo(TodoUser tu) {
@@ -421,9 +449,9 @@ public class Database {
 				}
 		}
 	}
-		
-	
-	
+
+
+
 	//updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?"
 	//addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
 	private void updateUserLists(TodoUser tu) {
@@ -465,9 +493,9 @@ public class Database {
 					e.printStackTrace();
 				}
 		}
-		
+
 	}
-	
+
 	//UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
 	private void updateUserTodos(TodoUser tu) {
 		PreparedStatement ps = null;
@@ -501,9 +529,9 @@ public class Database {
 					e.printStackTrace();
 				}
 		}
-		
+
 	}
-	
+
 	private boolean todoExists(TodoObject to, int userID) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -537,81 +565,81 @@ public class Database {
 	private void updateUserFriends(TodoUser tu) {
 		Vector<Integer> exFriends = new Vector<Integer>();
 		Vector<Integer> tuFriends = tu.getFriendList();
-		
+
 		//get all friends
-				PreparedStatement ps = null;
+		PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(getAllUserFriends);
+			ps.setInt(1, getUserID(tu.getUsername()));
+			ResultSet result = ps.executeQuery();
+
+			//now iterate through all friends
+			while (result.next()) exFriends.add(result.getInt("toID"));
+		} catch (SQLException sqle){
+			System.out.println("SQLE in getting Friends: " + sqle.getMessage());
+		} finally {
+			if(ps != null)
 				try {
-					ps = con.prepareStatement(getAllUserFriends);
-					ps.setInt(1, getUserID(tu.getUsername()));
-					ResultSet result = ps.executeQuery();
+					ps.close();
+				} catch (SQLException e) {
+					System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
+					e.printStackTrace();
+				}
+		}
 
-					//now iterate through all friends
-					while (result.next()) exFriends.add(result.getInt("toID"));
-				} catch (SQLException sqle){
-					System.out.println("SQLE in getting Friends: " + sqle.getMessage());
-				} finally {
-					if(ps != null)
-						try {
-							ps.close();
-						} catch (SQLException e) {
-							System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
-							e.printStackTrace();
-						}
-				}
-				
-				try{
-					ps = con.prepareStatement(removeFriend);
-					
-					for(Integer friend : exFriends){
-						if(!tuFriends.contains(friend)){
-							ps.setInt(1, tu.getID());
-							ps.setInt(2, friend);
-							ps.executeUpdate();
-							ps.setInt(1, friend);
-							ps.setInt(2, tu.getID());
-							ps.executeUpdate();
-						}
-					}
-					
-				} catch (SQLException sqle){
-					System.out.println("SQLE in getting Friends: " + sqle.getMessage());
-				} finally {
-					if(ps != null)
-						try {
-							ps.close();
-						} catch (SQLException e) {
-							System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
-							e.printStackTrace();
-						}
-				}
-				
-				try{
-					ps = con.prepareStatement(addFriend);
+		try{
+			ps = con.prepareStatement(removeFriend);
 
-					Timestamp ts = getCurrentTimeStamp();
-					ps.setDate(3, new Date(ts.getTime()));
-					for(Integer friend : tuFriends){
-						if(!exFriends.contains(friend)){
-							ps.setInt(1, tu.getID());
-							ps.setInt(2, friend);
-							ps.executeUpdate();
-							ps.setInt(1, friend);
-							ps.setInt(2, tu.getID());
-							ps.executeUpdate();
-						}
-					}
-					
-				} catch (SQLException sqle){
-					System.out.println("SQLE in getting Friends: " + sqle.getMessage());
-				} finally {
-					if(ps != null)
-						try {
-							ps.close();
-						} catch (SQLException e) {
-							System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
-							e.printStackTrace();
-						}
+			for(Integer friend : exFriends){
+				if(!tuFriends.contains(friend)){
+					ps.setInt(1, tu.getID());
+					ps.setInt(2, friend);
+					ps.executeUpdate();
+					ps.setInt(1, friend);
+					ps.setInt(2, tu.getID());
+					ps.executeUpdate();
 				}
-		
+			}
+
+		} catch (SQLException sqle){
+			System.out.println("SQLE in getting Friends: " + sqle.getMessage());
+		} finally {
+			if(ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
+					e.printStackTrace();
+				}
+		}
+
+		try{
+			ps = con.prepareStatement(addFriend);
+
+			Timestamp ts = getCurrentTimeStamp();
+			ps.setDate(3, new Date(ts.getTime()));
+			for(Integer friend : tuFriends){
+				if(!exFriends.contains(friend)){
+					ps.setInt(1, tu.getID());
+					ps.setInt(2, friend);
+					ps.executeUpdate();
+					ps.setInt(1, friend);
+					ps.setInt(2, tu.getID());
+					ps.executeUpdate();
+				}
+			}
+
+		} catch (SQLException sqle){
+			System.out.println("SQLE in getting Friends: " + sqle.getMessage());
+		} finally {
+			if(ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
+					e.printStackTrace();
+				}
+		}
+
 	}
 }
