@@ -28,7 +28,7 @@ public class Database {
 		sDatabase = new Database();
 		try{
 			new Driver();
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=root&useSSL=false");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=rootpass&useSSL=false");
 		} catch(SQLException sqle){
 			System.out.println("SQL:"+sqle.getMessage());
 		}
@@ -46,9 +46,8 @@ public class Database {
 	private final static String getUserTodosById = "SELECT * FROM TODOS WHERE userID=?";
 	private final static String getListNameByUserAndID = "SELECT l.listName FROM lists l, users u, todos t WHERE l.listID=? AND u.userID=?";
 	private final static String updateUserInfo = "UPDATE USERS SET actualname=?, email=?, points=?, aboutme=? WHERE userID=?";
-	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=?, WHERE userID=?";
+	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?";
 	private final static String updateUserTodos = "UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
-	private final static String updateUserFriends = "UPDATE FRIENDS SET ";
 	private final static String getUsernameByID = "SELECT ACTUALNAME FROM USERS WHERE USERID=?";
 	private final static String removeFriend = "DELETE FROM FRIENDSHIP WHERE fromID=? AND toID=?";
 	private final static String addFriend = "INSERT INTO FRIENDSHIP(fromID,toID,createdAt) VALUES(?,?,?)";
