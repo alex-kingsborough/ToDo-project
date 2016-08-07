@@ -52,19 +52,19 @@ public class ViewTodo extends JFrame {
 	Font mFont;
 	TodoUser mTU;
 	
-	public ViewTodo(TodoObject to, TodoUser tu){
+	public ViewTodo(TodoObject to){
 		super("Edit Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo(to, tu);
+		AddTodo(to);
+		mTU = PortalManager.mUser;
 		//addPublicRBEvents();
 		//addPrivateRBEvents();
-		mTU = tu;
 	
 	}
 	
-	private void AddTodo(TodoObject to, TodoUser tu) {
+	private void AddTodo(TodoObject to) {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mTitleLabel = new JLabel("Title: ");
@@ -117,9 +117,9 @@ public class ViewTodo extends JFrame {
 		mPointsText.setText(Integer.toString(to.getPoints()));
 		mListVector = new Vector<String>();
 
-		for(int i = 0; i < tu.getTodoLists().size(); i ++){
+		for(int i = 0; i < mTU.getTodoLists().size(); i ++){
 			String name;
-			name = tu.getTodoLists().get(i).getName();
+			name = mTU.getTodoLists().get(i).getName();
 			mListVector.addElement(name);
 		}
 		
