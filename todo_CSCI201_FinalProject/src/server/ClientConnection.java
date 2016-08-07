@@ -81,6 +81,7 @@ public class ClientConnection extends Thread{
 				sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 			} else {
 				if(Database.get().login(elements[1], elements[2])){
+					username = elements[1];
 					sendMessage(Constants.AUTHENTICATED_MESSAGE);
 				} else {
 					sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
@@ -101,6 +102,14 @@ public class ClientConnection extends Thread{
 			} catch (IOException e) {
 				System.out.println("IOE in GetFriendsTodos Write: " + e.getMessage());
 				e.printStackTrace();
+			}
+		} else if(s.startsWith(Constants.LOGIN_USER_REQUEST)) {
+			TodoUser tu = Database.get().getUserInfo(username);
+			try {
+				mOutputWriter.writeObject(tu);
+			} catch (IOException ioe) {
+				System.out.println("IOE in LoginUserRequest Write: " + ioe.getMessage());
+				ioe.printStackTrace();
 			}
 		}
 		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
