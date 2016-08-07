@@ -133,6 +133,10 @@ public class TodoUser implements Serializable {
 		mFriendList=inFriendList;
 	}
 	
+	public void addFriend(int f){
+		mFriendList.add(f);
+	}
+	
 	public Vector<Integer> getFriendList(){
 		return mFriendList;
 	}
