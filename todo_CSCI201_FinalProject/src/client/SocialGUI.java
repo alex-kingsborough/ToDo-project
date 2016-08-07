@@ -9,6 +9,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import constants.Constants;
+
 public class SocialGUI extends JPanel implements Runnable {
 
 	/** ****** *** ***** ****** **** *** ***** **\
@@ -103,20 +105,26 @@ public class SocialGUI extends JPanel implements Runnable {
 		//tabId = 0 then update friends tab
 		if (tabId == 0)
 		{
-			//TODO: add method to get newest todos for public
+			//send request to server
+			TodoClientListener.get().send(Constants.GET_FRIENDS_TODOS);
+			//wait for response from server
+			
 			Object[][] newTodos = {
 					{true, "This", "Was", "Updated"}
 			};
 			
 			//send request to get new todos
-			Object[][] newTodos2 = getNewTodos()
+			Object[][] newTodos2 = convertToObject(getNewTodos());
 			friendsTodo.setModel(new TodoTableModel(newTodos));
 		}
 		
 		//tabId = 1 then update public tab
 		else if (tabId == 1)
 		{
-			//TODO: add method to get newest todos for public
+			//send request to server
+			TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
+			//wait for response from server
+			
 			Object[][] newTodos = {
 					{true, "This", "Was", "Updated"}
 			};
