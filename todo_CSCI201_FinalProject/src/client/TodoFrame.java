@@ -67,13 +67,13 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		//Making scrollpane look nice
 		UIManager.put("ScrollPane.background",Constants.lightGreyColor);
-		UIManager.put("ScrollPane.foreground",Constants.greyColor);
+		UIManager.put("ScrollPane.foreground",Constants.redColor);
 		UIManager.put("ScrollPane.viewportBorder",BorderFactory.createLineBorder(Constants.greyColor,0));
 		UIManager.put("ScrollBar.background",Constants.goldColor);
-		UIManager.put("ScrollBar.darkShadow",Constants.greyColor);
+		UIManager.put("ScrollBar.darkShadow",Constants.redColor);
 		UIManager.put("ScrollBar.foreground",Constants.redColor);
-		UIManager.put("ScrollBar.highlight",Constants.greyColor);
-		UIManager.put("ScrollBar.shadow",Constants.greyColor);
+		UIManager.put("ScrollBar.highlight",Constants.redColor);
+		UIManager.put("ScrollBar.shadow",Constants.redColor);
 		UIManager.put("ScrollBar.thumb", Constants.redColor);
 		UIManager.put("ScrollBar.thumbDarkShadow",Constants.greyColor);
 		UIManager.put("ScrollBar.thumbHighlight",Constants.greyColor);
@@ -99,9 +99,9 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("TableHeader.cellBorder", BorderFactory.createLineBorder(Constants.greyColor));
 		
 		//Buttons
-		UIManager.put("Button.border", BorderFactory.createLineBorder(Color.BLACK,2));
+		UIManager.put("Button.border", BorderFactory.createLineBorder(Color.black,8));
+		UIManager.put("Button.foreground", Constants.goldColor);
 		UIManager.put("Button.select", Color.WHITE);
-		
 		
 		add(new SignInGUI(this));
 	}

@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -29,6 +30,7 @@ public class SignInGUI extends JPanel {
 		loginButton = new JButton("LOGIN");
 		loginButton.setBackground(Constants.redColor);
 		loginButton.setForeground(Constants.goldColor);
+		loginButton.setBorder(BorderFactory.createLineBorder(Constants.redColor,8));
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to login page
@@ -38,6 +40,8 @@ public class SignInGUI extends JPanel {
 		signupButton = new JButton("SIGNUP");
 		signupButton.setBackground(Constants.redColor);
 		signupButton.setForeground(Constants.goldColor);
+		signupButton.setBorder(BorderFactory.createLineBorder(Constants.redColor,8));
+
 		signupButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to signup page
@@ -55,6 +59,7 @@ public class SignInGUI extends JPanel {
 		offlineButton = new JButton("GUEST");
 		offlineButton.setBackground(Color.DARK_GRAY);
 		offlineButton.setForeground(Constants.goldColor);
+		offlineButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,8));
 		offlineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to main page in Guest Mode

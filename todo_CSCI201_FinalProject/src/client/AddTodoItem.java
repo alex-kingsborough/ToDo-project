@@ -185,7 +185,7 @@ public class AddTodoItem extends JFrame {
 		mListIDVector = new Vector<Integer>();
 		
 		
-		for(int i = 10; i > 0; i--){
+		for(int i = 5; i > 0; i--){
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15) {
@@ -207,15 +207,7 @@ public class AddTodoItem extends JFrame {
 		
 		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
-		/*mPriorityBox.setRenderer(new DefaultListCellRenderer() {
-	        @Override
-	        public void paint(Graphics g) {
-	       setBorder(BorderFactory.createLineBorder(Constants.greyColor,1));
-	       super.paint(g);
-	        }
-	    });*/
 		
-		//mPriorityBox.setBorder(BorderFactory.createLineBorder(Constants.greyColor,0));
 		mPriorityBox.setFont(mFont.deriveFont(2));
 		mPriorityBox.setForeground(Constants.redColor);
 		mPriorityBox.setBackground(Constants.greyColor);		
@@ -336,6 +328,7 @@ public class AddTodoItem extends JFrame {
 				mMainPage.updatePage();
 				if(!mTU.getName().equals(Constants.GUEST_USER)){
 					TodoClientListener.get().sendUser(mTU);
+					mTU = TodoClientListener.get().readTodoUser();
 				}
 				
 				setVisible(false);
