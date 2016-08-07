@@ -5,12 +5,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.colorchooser.ColorSelectionModel;
 
 import constants.Constants;
 
@@ -45,20 +47,40 @@ public class TodoFrame extends JFrame implements Navigator {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-
+		//Making tabbedpane look nice
 		UIManager.put("TabbedPane.shadow",Constants.goldColor);
 		UIManager.put("TabbedPane.darkShadow",Constants.goldColor);
 		UIManager.put("TabbedPane.light",Constants.goldColor);
 		UIManager.put("TabbedPane.highlight",Constants.goldColor);
-		UIManager.put("TabbedPane.tabAreaBackground",Constants.goldColor);
-		UIManager.put("TabbedPane.unselectedBackground",Constants.goldColor);
-		UIManager.put("TabbedPane.background",Constants.redColor);
-		UIManager.put("TabbedPane.foreground",Color.BLACK);
-		UIManager.put("TabbedPane.focus",Constants.goldColor);
-		UIManager.put("TabbedPane.contentAreaColor",Constants.goldColor);
-		UIManager.put("TabbedPane.selected",Constants.goldColor);
+		UIManager.put("TabbedPane.tabAreaBackground",Constants.redColor);
+		UIManager.put("TabbedPane.unselectedBackground",Constants.redColor);
+		UIManager.put("TabbedPane.background",Constants.lightGreyColor);
+		UIManager.put("TabbedPane.foreground",Constants.goldColor);
+		UIManager.put("TabbedPane.focus",Constants.redColor);
+		UIManager.put("TabbedPane.contentAreaColor",Constants.redColor);
+		UIManager.put("TabbedPane.selected",Constants.redColor);
 		UIManager.put("TabbedPane.selectHighlight",Constants.goldColor);
 		UIManager.put("TabbedPane.borderHightlightColor",Constants.goldColor);
+		
+		//Making scrollpane look nice
+		UIManager.put("ScrollPane.background",Constants.lightGreyColor);
+		
+		//Making tables look nice
+		UIManager.put("Table.background",Constants.lightGreyColor);
+		UIManager.put("Table.darkShadow",Constants.goldColor);
+		UIManager.put("Table.focusCellBackground",Constants.lightGreyColor);
+		UIManager.put("Table.focusCellForeground",Constants.goldColor);
+		UIManager.put("Table.focusCellHighlightBorder",Constants.redColor);
+		UIManager.put("Table.foreground",Constants.goldColor);
+		UIManager.put("Table.gridColor",Constants.greyColor);
+		UIManager.put("Table.highlight",Constants.redColor);
+		UIManager.put("Table.light",Constants.redColor);
+		UIManager.put("Table.selectionBackground",Constants.lightGreyColor);
+		UIManager.put("Table.selectionForeground",Constants.goldColor);
+		UIManager.put("Table.shadow",Constants.goldColor);
+		UIManager.put("TableHeader.background", Constants.lightGreyColor);
+		UIManager.put("TableHeader.foreground", Constants.redColor);
+		UIManager.put("TableHeader.cellBorder", BorderFactory.createLineBorder(Constants.greyColor));
 	}
 	
 	@Override
@@ -67,7 +89,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		getContentPane().removeAll();
 		
-/*		//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
+		//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
 		//tempUser = new TodoUser(1,"Jeff","pass","email");
 		TodoList playList = new TodoList(0,"Play");
 		for(int i =0;i<6;i++){
@@ -87,7 +109,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		tempTodoListVec.add(workList);
 		mTodoUser.setTodoLists(tempTodoListVec);
 		//END OF STUFF TO REMOVE
-*/
+
 		
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);

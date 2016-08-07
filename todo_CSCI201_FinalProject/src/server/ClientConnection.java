@@ -111,8 +111,7 @@ public class ClientConnection extends Thread{
 			username = s.split(" ")[1];
 			int uID = Database.get().getUserID(username);
 			if(uID != 0){
-				sendMessage(Constants.SUCCESS_MESSAGE);
-				sendMessage("" + uID);
+				sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
 			} else {
 				sendMessage(Constants.FAIL_MESSAGE);
 			}
