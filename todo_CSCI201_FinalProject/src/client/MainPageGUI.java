@@ -70,7 +70,7 @@ public class MainPageGUI extends JPanel {
 			
 			JTable mTable = new JTable(new MainPageTableModel(currTableData));
 			
-			//Setting "buttons" for the 
+			//Setting "buttons" for the table
 			mTable.setCellSelectionEnabled(true);
 		    ListSelectionModel cellSelectionModel = mTable.getSelectionModel();
 		    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -92,7 +92,7 @@ public class MainPageGUI extends JPanel {
 		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				updatePage();
-		    				//TODO call database update user function
+		    				TodoClientListener.get().sendUser(mUser);
 		    			}
 		    			if(mTable.getSelectedColumn()==1){
 				    		new UpdateTodo(currTodos.get(mTable.getSelectedRow()));
@@ -102,8 +102,9 @@ public class MainPageGUI extends JPanel {
 		    });
 	        
 			JScrollPane mScrollPane = new JScrollPane(mTable);
+			mScrollPane.getViewport().setBackground(Constants.greyColor);
 			mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			mScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			mScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 			
 			mMainTabbedPane.add(currTodoList.getName(),mScrollPane);
 		}
