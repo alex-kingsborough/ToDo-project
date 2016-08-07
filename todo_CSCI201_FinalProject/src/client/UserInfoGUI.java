@@ -103,7 +103,9 @@ public class UserInfoGUI extends JPanel {
 			System.out.println("response: " + response);
 			if(!response.equals(Constants.FAIL_MESSAGE)) {
 				String username = response.split(" ")[1];
-				mListModel.addElement(username);
+				if(!username.equals(mTodoUser.getUsername())) {
+					mListModel.addElement(username);
+				}
 			}
 		}
 		/*
@@ -169,11 +171,13 @@ public class UserInfoGUI extends JPanel {
 						String [] parameters = response.split(" ");
 						int userID = Integer.parseInt(parameters[1]);
 						System.out.println("userID: " + userID);
-						mTodoUser.addFriend(userID);
-						TodoClientListener.get().sendUser(mTodoUser);
+						if(!friendName.equals(mTodoUser.getUsername())) {
+							mTodoUser.addFriend(userID);
+							TodoClientListener.get().sendUser(mTodoUser);
+							mTodoUser = TodoClientListener.get().readTodoUser();
+							mListModel.addElement(friendName);
 						//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
-						mTodoUser = TodoClientListener.get().readTodoUser();
-						mListModel.addElement(friendName);
+						}
 					}
 				} 
 			}
@@ -190,7 +194,30 @@ public class UserInfoGUI extends JPanel {
 		mRemoveFriendButton = new JButton("Remove");
 		mRemoveFriendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
+				String friendName = mRemoveFriendTextField.getText();
+				if(!friendName.isEmpty()) {
+					String request = Constants.REMOVE_FRIEND_REQUEST + " " + friendName;
+					System.out.println("Friend Name: " + friendName);
+					TodoClientListener.get().send(request);
+					System.out.println("request: " + request);
+					String response = TodoClientListener.get().readLine();
+					System.out.println("response: " + response);
+					if(response.startsWith(Constants.FAIL_MESSAGE)) {
+						JOptionPane.showMessageDialog(mRemoveFriendButton, "Failed to removes friend: " + friendName,
+													"Failure", JOptionPane.ERROR_MESSAGE);
+					} else {
+						String [] parameters = response.split(" ");
+						int userID = Integer.parseInt(parameters[1]);
+						System.out.println("userID: " + userID);
+						if(!friendName.equals(mTodoUser.getUsername())) {
+							
+							TodoClientListener.get().sendUser(mTodoUser);
+							mTodoUser = TodoClientListener.get().readTodoUser();
+							mListModel.addElement(friendName);
+						//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
+						}
+					}
+				} 
 			}
 		});
 		mRemoveFriendPanel.add(mRemoveFriendLabel);
