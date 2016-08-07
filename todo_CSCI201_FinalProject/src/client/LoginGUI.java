@@ -8,9 +8,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import constants.Constants;
 
 public class LoginGUI extends JPanel {
 private static final long serialVersionUID = 456789212311L;
@@ -32,17 +35,32 @@ private static final long serialVersionUID = 456789212311L;
 				String password = new String(passwordField.getPassword());
 				if(password.isEmpty()) { return; }
 				//CHECK IF CLIENT IS ONLINE
+				if(TodoClientListener.get().isConnected()) {
 					//prepare login request
+					String request = Constants.LOGIN_PREFIX + username + " " + Encrypt.SHA1(password);
 					//send request to server
+					TodoClientListener.get().send(request);
+					String response = TodoClientListener.get().readLine();
 					//case: LOGIN SUCCESS
+					if(response.equals(Constants.AUTHENTICATED_MESSAGE)) {
+						System.out.println("Login success!");
+						TodoClientListener.get().setUsername(username);
 						mNav.toPortal();
+					}
 					//case: FAILURE
-						//JOptionPane.showMessageDialog(loginButton, "Username or password is \ninvalid",
-						//							"Log-in Failed", JOptionPane.ERROR_MESSAGE);
+					else {
+						JOptionPane.showMessageDialog(loginButton, "Username or password is \ninvalid",
+													"Log-in Failed", JOptionPane.ERROR_MESSAGE);
+					}
+				}
 				//CLIENT IS NOT ONLINE
-					//JOptionPane.showMessageDialog(loginButton, "Server cannot be reached.\nProgram in offline mode.",
-					//								"Log-in Failed", JOptionPane.WARNING_MESSAGE);
-					//mNav.toPortal();
+				else {
+					JOptionPane.showMessageDialog(loginButton, "Server cannot be reached.\nProgram in Guest mode.",
+													"Log-in Failed", JOptionPane.WARNING_MESSAGE);
+					TodoClientListener.get().setUsername(Constants.GUEST_USER);
+					mNav.toPortal();
+				}
+
 			}
 		});
 		GridBagConstraints gbc = new GridBagConstraints();

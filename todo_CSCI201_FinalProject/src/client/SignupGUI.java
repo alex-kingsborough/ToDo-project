@@ -15,6 +15,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import constants.Constants;
+
 public class SignupGUI extends JPanel {
 	private static final long serialVersionUID = 34432233333L;
 	private JLabel usernameLabel;
@@ -56,6 +58,7 @@ public class SignupGUI extends JPanel {
 				String aboutMe = mAboutMeTextArea.getText();
 				if(aboutMe.isEmpty()) { aboutMe = ""; } //about me can be empty
 				//If client is online
+				if(TodoClientListener.get().isConnected()) {
 					//CITE: http://stackoverflow.com/questions/1559751/regex-to-make-sure-that-the-string-contains-at-least-one-lower-case-char-upper
 					//using regex to determine 1 number and 1 uppercase letter
 					validPasswordFormat = password.matches("^(?=.*[A-Z])(?=.*\\d).+$");//need two \\ before d not one \ like stackoverflow example
@@ -79,13 +82,14 @@ public class SignupGUI extends JPanel {
 								"Password must contain at least: 1-Number 1-Uppercase Letter", 
 								"Sign-up Failed", JOptionPane.WARNING_MESSAGE);
 					}
+				}
 				//CLIENT IS NOT ONLINE
-					
-					//JOptionPane.showMessageDialog(loginButton, "Server cannot be reached.\nProgram in offline mode.",
-					//		"Log-in Failed", JOptionPane.WARNING_MESSAGE);
-					//set client to GUEST
-					//mNav.toPortal();
-					
+				else {
+					JOptionPane.showMessageDialog(loginButton, "Server cannot be reached.\nProgram in offline mode.",
+							"Log-in Failed", JOptionPane.WARNING_MESSAGE);
+					TodoClientListener.get().setUsername(Constants.GUEST_USER);
+					mNav.toPortal();
+				}
 			} //end actionPerformed()
 		});
 	

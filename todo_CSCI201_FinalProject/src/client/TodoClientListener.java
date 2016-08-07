@@ -79,13 +79,13 @@ public class TodoClientListener {
 		}
 	}
 	
-	public void read() {
+	public String readLine() {
 		try {
 			Object o = ois.readObject();
 			if(o instanceof String) {
 				String line = (String) o;
-				if(line.startsWith(Constants.SUCCESS_MESSAGE)) {
-					System.out.println("Successfully signed up user: " + username);
+				if(line.startsWith(Constants.AUTHENTICATED_MESSAGE)) {
+					return line;
 				} else if(o instanceof TodoUser){
 					TodoUser tu = (TodoUser) o;
 					/*
@@ -104,6 +104,22 @@ public class TodoClientListener {
 		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
 		}
+		return " ";
+	}
+	
+	public Vector<TodoObject> readTodoObjects() {
+		try {
+			Object o = ois.readObject();
+			if(o instanceof Vector<?>) {
+				Vector<TodoObject> todoVec = (Vector<TodoObject>) o;
+				return todoVec;
+			}
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		} catch (IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
+		return null;
 	}
 	/*
 	public void run() {

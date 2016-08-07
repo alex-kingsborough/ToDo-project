@@ -51,8 +51,9 @@ public class UserInfoGUI extends JPanel {
 		
 		JPanel mCenterPanel = new JPanel(new GridLayout(1,2));
 		JPanel mInfoPanel = new JPanel();
-		mInfoPanel.setLayout(new BoxLayout(mInfoPanel, BoxLayout.Y_AXIS));
-		mNameLabel = new JLabel("Name: Marshall");
+		//mInfoPanel.setLayout(new BoxLayout(mInfoPanel, BoxLayout.Y_AXIS));
+		mInfoPanel.setLayout(new GridLayout(7,1));
+		mNameLabel = new JLabel("Name: Marshall                         sa");
 		mNameLabel.setFont(mNameLabel.getFont().deriveFont(15f));
 		
 		mEmailLabel = new JLabel("Email: Marshall.jacobs12@gmail.com");
@@ -72,13 +73,14 @@ public class UserInfoGUI extends JPanel {
 		
 		JPanel mAboutMePanel = new JPanel(new GridLayout(1,1));
 		mAboutMeTextArea = new JTextArea();
-		//mAboutMeTextArea.setLineWrap(true); //TODO Marshall, you'll probably want to add this, but I noticed it fucks with the alignment
+		mAboutMeTextArea.setLineWrap(true); //TODO Marshall, you'll probably want to add this, but I noticed it fucks with the alignment
 		//of the other things. I didn't want to mess with stuff much so just leaving it here commented out. -Luc
+		mAboutMeTextArea.setText("Here is some text blah blah blah blah blah");
 		mAboutMeTextArea.setEditable(false);
 		mAboutMePanel.add(mAboutMeTextArea);
 		mAboutMePanel.setBorder(new TitledBorder("About Me")); //give about me new titled border
 		mInfoPanel.add(mAboutMePanel);
-		mInfoPanel.add(Box.createGlue());
+		//mInfoPanel.add(Box.createGlue());
 		mInfoPanel.add(Box.createGlue());
 		
 		JPanel mFriendsPanel = new JPanel();
