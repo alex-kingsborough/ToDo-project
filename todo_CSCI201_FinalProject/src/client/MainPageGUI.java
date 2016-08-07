@@ -69,8 +69,12 @@ public class MainPageGUI extends JPanel {
 			}
 			
 			JTable mTable = new JTable(new MainPageTableModel(currTableData));
-			
-			//Setting "buttons" for the 
+			/*mTable.getTableHeader().setBackground(Constants.lightGreyColor);
+			mTable.getTableHeader().setOpaque(true);
+			mTable.setBackground(Constants.lightGreyColor);
+			mTable.setGridColor(Constants.goldColor);
+			*/
+			//Setting "buttons" for the table
 			mTable.setCellSelectionEnabled(true);
 		    ListSelectionModel cellSelectionModel = mTable.getSelectionModel();
 		    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -92,7 +96,7 @@ public class MainPageGUI extends JPanel {
 		    					PortalManager.mUserInfoPage.updatePoints();
 		    				}
 		    				updatePage();
-		    				//TODO call database update user function
+		    				TodoClientListener.get().sendUser(mUser);
 		    			}
 		    			if(mTable.getSelectedColumn()==1){
 				    		new UpdateTodo(currTodos.get(mTable.getSelectedRow()));
