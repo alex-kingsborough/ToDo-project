@@ -105,6 +105,20 @@ public class ClientConnection extends Thread{
 				System.out.println("IOE in LoginUserRequest Write: " + ioe.getMessage());
 				ioe.printStackTrace();
 			}
+		} else if (s.startsWith(Constants.ADD_FRIEND_REQUEST)){
+			String username = "";
+			if(s.split(" ").length == 2){
+			username = s.split(" ")[1];
+			int uID = Database.get().getUserID(username);
+			if(uID != 0){
+				sendMessage(Constants.SUCCESS_MESSAGE);
+				sendMessage("" + uID);
+			} else {
+				sendMessage(Constants.FAIL_MESSAGE);
+			}
+			} else {
+				sendMessage(Constants.FAIL_MESSAGE);
+			}
 		}
 		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
 		if(echo){
