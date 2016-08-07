@@ -37,6 +37,7 @@ public class TodoUser implements Serializable {
 		mPassword = password;
 		mEmail = email;
 		mAboutMe = aboutMe;
+		allTodoLists = new Vector<TodoList>();
 	}
 	
 	public void setTodoLists(Vector<TodoList> tlv)

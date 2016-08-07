@@ -35,20 +35,13 @@ public class SocialGUI extends JPanel implements Runnable {
 		createFriendsTab();
 		createPublicTab();
 		
-		int selectedTab = tabbedPane.getSelectedIndex();
-		updateTab(selectedTab);
-		
 		(new Thread(this)).start();	
 	}
 	
 	//create the friends tab
 	public void createFriendsTab() {
-		//TODO: Implement get FriendsTodos function
-		Object[][] todos = {
-				{true, "Do this", "A good description", "alex"},
-				{false, "New Todo", "This is new", "alex"}
-		};
-		friendsTodo = new JTable(new TodoTableModel(todos));
+		
+		friendsTodo = new JTable(new TodoTableModel(new Object[0][6]));
 		friendsTodo.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent evnt) {
 		        //TODO: open todo preview with selected row
@@ -58,6 +51,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		});
 		friendSP = new JScrollPane(friendsTodo);
 		tabbedPane.add(friendSP, "Friends");
+		updateTab(0);
 		
 	}
 	
@@ -65,11 +59,7 @@ public class SocialGUI extends JPanel implements Runnable {
 	
 	//creates the public tab
 	public void createPublicTab() {
-		//TODO: Implement get PublicTodos function
-		Object[][] todos = {
-				{true, "Title", "Public", "bill"}
-		};
-		publicTodo = new JTable(new TodoTableModel(todos));
+		publicTodo = new JTable(new TodoTableModel(new Object[0][6]));
 		publicTodo.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent evnt) {
 		        //TODO: open todo preview with selected row
@@ -79,6 +69,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		});
 		pubSP = new JScrollPane(publicTodo);
 		tabbedPane.add(pubSP, "Public");
+		updateTab(1);
 		
 	}
 	
@@ -105,7 +96,6 @@ public class SocialGUI extends JPanel implements Runnable {
 			TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
 			//wait for response from server
 			Object[][] newTodos = convertToObject(TodoClientListener.get().readTodoObjects());
-			
 			publicTodo.setModel(new TodoTableModel(newTodos));
 		}
 	}
@@ -122,7 +112,6 @@ public class SocialGUI extends JPanel implements Runnable {
 				//call update on selected tab
 				int selectedTab = tabbedPane.getSelectedIndex();
 				updateTab(selectedTab);
-				System.out.println("Updating " + selectedTab);
 				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -141,8 +130,7 @@ public class SocialGUI extends JPanel implements Runnable {
                 "Description",
                 "Private",
                 "Priority",
-                "Points",
-                "Username"};
+                "Points"};
 	    private Object[][] data;
 	    
 	    public TodoTableModel(Object[][] data)
@@ -156,7 +144,7 @@ public class SocialGUI extends JPanel implements Runnable {
 	    }
 
 	    public int getRowCount() {
-	        return data.length;
+	    	return data.length;
 	    }
 
 	    public String getColumnName(int col) {
@@ -181,6 +169,9 @@ public class SocialGUI extends JPanel implements Runnable {
 	
 	public Object[][] convertToObject(Vector<TodoObject> currTodoList)
 	{		
+		if (currTodoList == null || currTodoList.size() == 0)
+			return new Object[0][6];
+		
 		Object[][] todoArray = new Object[currTodoList.size()][6];
 		
 		//loop through the user's todo list and add it to a 2D array

@@ -1,6 +1,14 @@
 package client;
 
-public class TodoObject {
+import java.io.Serializable;
+
+public class TodoObject implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private String title;
 	private int priority;

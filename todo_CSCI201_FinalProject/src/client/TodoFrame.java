@@ -17,7 +17,7 @@ public class TodoFrame extends JFrame implements Navigator {
 	private TodoUser mTodoUser;
 	
 	public static void main(String[] args) {
-		new TodoFrame("Todo Frame");
+		new TodoFrame("Todo: a CS201 project worth 100%");
 	}
 	
 	public TodoFrame(String string) {
@@ -74,6 +74,15 @@ public class TodoFrame extends JFrame implements Navigator {
 	public void toPortal() {
 		System.out.println("Guest user");
 		System.out.println(TodoClientListener.get().getUsername());
+		
+		getContentPane().removeAll();
+
+		JMenuBar mGuestBar = new JMenuBar();
+		setJMenuBar(mGuestBar);
+		getContentPane().add(new PortalManager(mGuestBar), BorderLayout.CENTER);
+		
+		revalidate();
+		repaint();
 	}
 	
 	@Override

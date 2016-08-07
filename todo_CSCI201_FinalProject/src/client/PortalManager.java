@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import constants.Constants;
+
 public class PortalManager extends JPanel {
 	private static final long serialVersionUID = 123901585432L;
 	
@@ -75,6 +77,41 @@ public class PortalManager extends JPanel {
 		add(mMainPage, "main");
 		add(mSocialPage, "social");
 		add(mUserInfoPage, "user");
+	}
+	
+	public PortalManager(JMenuBar jmb) {
+		mJMenuBar = jmb;
+		mUser = new TodoUser(Constants.GUEST_USER, Constants.GUEST_USER, " ", " ", " ");
+		mUser.addTodoList(new TodoList(0, "GUEST"));
+		
+		mTestMenu = new JMenu("Menu");
+		mTestMenu.setMnemonic('M');
+		mJMenuBar.add(mTestMenu);
+		mMainPageItem = new JMenuItem("Main Page");
+		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
+		mMainPageItem.addActionListener(new MenuItemActionListener(this, "main"));
+		mTestMenu.add(mMainPageItem);
+		
+		mNewTabItem = new JMenuItem("New List Tab");
+		mNewTabItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		mNewTabItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent ae){
+			    String mNewTabMessage = "Please enter the title of the new tab:";
+			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage);
+			    if(mTabTitle != null){
+			    	int newTodoListIndex = mUser.getTodoLists().size();
+			    	TodoList mNewTodoList = new TodoList(newTodoListIndex, mTabTitle);
+			    	mUser.addTodoList(mNewTodoList);
+			    	mMainPage.updatePage();
+			    } //Else do nothing, user hit cancel
+			}
+		});
+		mTestMenu.addSeparator();
+		mTestMenu.add(mNewTabItem);
+		
+		mMainPage = new MainPageGUI();
+		add(mMainPage);
 	}
 	
 	private class MenuItemActionListener implements ActionListener {

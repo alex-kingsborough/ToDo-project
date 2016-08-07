@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import constants.Constants;
 
@@ -28,6 +30,8 @@ private static final long serialVersionUID = 456789212311L;
 	{
 		setLayout(new GridBagLayout());
 		loginButton = new JButton("LOGIN");
+		loginButton.setBackground(Color.BLACK);
+		loginButton.setForeground(Constants.goldColor);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				String username = usernameField.getText();
@@ -74,18 +78,39 @@ private static final long serialVersionUID = 456789212311L;
 		
 		JPanel usernamePanel = new JPanel(new FlowLayout());
 		usernameLabel = new JLabel("USERNAME: ");
+		usernameLabel.setForeground(Constants.goldColor);
+		usernameLabel.setBackground(Constants.greyColor);
 		usernamePanel.add(usernameLabel);
-		usernameField = new JTextField();
+		usernamePanel.setBackground(Constants.greyColor);
+		
+		usernameField = new JTextField(){
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
 		usernameField.setColumns(10);
 		usernamePanel.add(usernameField);
 		add(usernamePanel, gbc);
-		
+		usernameField.setForeground(Constants.redColor);
+		usernameField.setBackground(Constants.lightGreyColor);
+
 		JPanel passwordPanel = new JPanel(new FlowLayout());
 		passwordLabel = new JLabel("PASSWORD: ");
+		passwordLabel.setForeground(Constants.goldColor);
+		passwordLabel.setBackground(Constants.greyColor);
 		passwordPanel.add(passwordLabel);
-		passwordField = new JPasswordField();
+		passwordPanel.setBackground(Constants.greyColor);
+		passwordField = new JPasswordField(){
+		    @Override public void setBorder(Border border) {
+		        // None
+		    }
+		};
 		passwordField.setColumns(10);
 		passwordPanel.add(passwordField);
+		passwordField.setForeground(Constants.redColor);
+		passwordField.setBackground(Constants.lightGreyColor);
+
+		setBackground(Constants.greyColor);
 		gbc.gridy = 1;
 		add(passwordPanel, gbc);
 	
