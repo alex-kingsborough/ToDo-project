@@ -17,7 +17,7 @@ public class TodoFrame extends JFrame implements Navigator {
 	private TodoUser mTodoUser;
 	
 	public static void main(String[] args) {
-		new TodoFrame("Todo Frame");
+		new TodoFrame("Todo: a CS201 project worth 100%");
 	}
 	
 	public TodoFrame(String string) {
