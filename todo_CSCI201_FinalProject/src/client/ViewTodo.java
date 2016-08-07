@@ -123,11 +123,8 @@ public class ViewTodo extends JFrame {
 		mPrivateRB.setFont(mFont.deriveFont(20));
 		
 		
-		mTitleText = new JTextField(15) {
-		    @Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		mTitleText = new JTextField(15);
+		mTitleText.setBorder(null);
 		mTitleText.setText(to.getTitle());
 		mTitleText.setFont(mFont.deriveFont(20));
 		mTitleText.setEditable(false);
@@ -135,11 +132,8 @@ public class ViewTodo extends JFrame {
 		mTitleText.setForeground(Constants.redColor);
 		mTitleText.setBackground(Constants.lightGreyColor);		
 		
-		mDescriptionText = new JTextArea(5, 15) {
-		    @Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		mDescriptionText = new JTextArea(5, 15);
+		mDescriptionText.setBorder(null);
 		mDescriptionText.setText(to.getDescription());
 		mDescriptionText.setFont(mFont.deriveFont(0, 10));
 		mDescriptionText.setEditable(false);
@@ -148,14 +142,10 @@ public class ViewTodo extends JFrame {
 		mDescriptionText.setForeground(Constants.redColor);
 		mDescriptionText.setBackground(Constants.lightGreyColor);		
 		
-		
-/*		mPriorityVector = new Vector<Integer>();
-		
-		for(int i = 10; i > 0; i--){
-			mPriorityVector.addElement(i);
-		}*/
+
 		mPointsText = new JTextField(15);
 		mPointsText.setText(Integer.toString(to.getPoints()));
+		mPointsText.setEditable(false);
 		mPointsText.setForeground(Constants.redColor);
 		mPointsText.setBackground(Constants.lightGreyColor);
 		
@@ -178,15 +168,11 @@ public class ViewTodo extends JFrame {
 			}
 		}
 		
-		/*mPriorityBox = new JComboBox<Integer>(mPriorityVector);
-		mPriorityBox.setFont(mFont.deriveFont(20));
-		mPriorityBox.setSelectedIndex(10-to.getPriority());
-		*/
-		JTextField mPriorityText = new JTextField(to.getPriority()) {
-		    @Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		
+		JTextField mPriorityText = new JTextField(to.getPriority());
+		mPriorityText.setEditable(false);
+		mPriorityText.setBackground(Constants.lightGreyColor);
+		mPriorityText.setForeground(Constants.redColor);
 		
 /*		mListBox = new JComboBox<String>(mListVector);
 		mListBox.setFont(mFont.deriveFont(2));
@@ -215,6 +201,11 @@ public class ViewTodo extends JFrame {
 			    }
 			};
 		}
+		
+		mPrivacyText.setEditable(false);
+		mPrivacyText.setBackground(Constants.lightGreyColor);
+		mPrivacyText.setForeground(Constants.redColor);
+		
 		mMainPanel =  new JPanel();
 		mMainPanel.setForeground(Constants.goldColor);
 		mMainPanel.setBackground(Constants.greyColor);		
@@ -227,8 +218,6 @@ public class ViewTodo extends JFrame {
 		mDescriptionPanel =  new JPanel();
 		mMainPanel.setLayout(new GridLayout(6, 2));
 		mPrivacyPanel.setLayout(new FlowLayout());
-		/*mPrivacyPanel.add(mPublicRB);
-		mPrivacyPanel.add(mPrivateRB);*/
 		mPrivacyPanel.setForeground(Constants.goldColor);
 		mPrivacyPanel.setBackground(Constants.greyColor);		
 		
