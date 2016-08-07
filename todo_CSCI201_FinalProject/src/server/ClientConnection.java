@@ -16,7 +16,6 @@ public class ClientConnection extends Thread{
 	private ObjectInputStream mInputReader;
 	private Socket sSocket;
 	boolean echo = false;
-//	private Database db = Database.get();
 	private String username = "";
 	private int userID = 0;
 
@@ -41,15 +40,7 @@ public class ClientConnection extends Thread{
 	}
 
 	public void run() {
-		try {
-
-			/*
-			 * TODO
-			 * This is where we read in new objects, So any objects that are SENT from the client
-			 * (i.e. the ClientServerCommunicator class) MUST be handled here. Truthfully, that's not
-			 * difficult to manage with the if(o instanceof CLASS) architecture.
-			 */
-			
+		try {		
 			while(true){
 				Object o = mInputReader.readObject();
 				if(o instanceof String){
@@ -153,10 +144,6 @@ public class ClientConnection extends Thread{
 				return;
 			}
 		} else Database.get().updateAll(tu);
-		
-		//TODO Implement the update user part. This will also be done in the handleReceivedUser.
-		
-		//now that we have a populated user object write it the socket
 		try {
 			mOutputWriter.writeObject(tu);
 		} catch (IOException e) {

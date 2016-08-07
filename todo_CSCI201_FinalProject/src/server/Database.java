@@ -34,6 +34,7 @@ public class Database {
 
 	private final static String newAccount = "INSERT INTO USERS(USERNAME,HASHWORD,ACTUALNAME,EMAIL,ABOUTME) VALUES(?,?,?,?,?)";
 	private final static String selectUser = "SELECT * FROM USERS WHERE USERNAME=?";
+	@SuppressWarnings("unused")
 	private final static String getUserTodos ="SELECT T.TODONAME, T.TODOPRIORITY, T.TODOPRIVATE, L.LISTNAME, T.TODODESC, T.TODOPOINTS, T.TODOFINISHED FROM TODOS T, USERS U, LISTS L WHERE T.USERID=U.USERID AND U.USERID=L.USERID AND T.LISTID=L.LISTID AND U.USERNAME=?";
 	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
 	private final static String getUserID = "SELECT USERID FROM USERS WHERE USERNAME=?";
@@ -395,7 +396,7 @@ public class Database {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					System.out.println("SQLE in Closing updateUserInfo: " + e.getMessage());
 					e.printStackTrace();
 				}
 		}
@@ -422,7 +423,7 @@ public class Database {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					System.out.println("SQLE in Closing updateUserLists: " + e.getMessage());
 					e.printStackTrace();
 				}
 		}
@@ -454,7 +455,7 @@ public class Database {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
 					e.printStackTrace();
 				}
 		}
