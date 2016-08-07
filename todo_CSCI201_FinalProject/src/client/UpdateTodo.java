@@ -323,6 +323,7 @@ public class UpdateTodo extends JFrame {
 	
 				if(!mTU.getName().equals(Constants.GUEST_USER)){
 					TodoClientListener.get().sendUser(mTU);
+					mTU = TodoClientListener.get().readTodoUser();
 				}
 				
 				mMainPage.updatePage();

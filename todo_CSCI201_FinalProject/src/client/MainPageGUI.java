@@ -95,6 +95,7 @@ public class MainPageGUI extends JPanel {
 		    				if(mUser.getUsername()!=Constants.GUEST_USER){
 		    					PortalManager.mUserInfoPage.updatePoints();
 		    					TodoClientListener.get().sendUser(mUser);
+		    					mUser = TodoClientListener.get().readTodoUser();
 		    				}
 		    			}
 		    			if(mTable.getSelectedColumn()==1){
