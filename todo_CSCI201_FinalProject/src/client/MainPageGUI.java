@@ -73,6 +73,19 @@ public class MainPageGUI extends JPanel {
 		    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
 		    	public void valueChanged(ListSelectionEvent lse) {
 		    		if(!lse.getValueIsAdjusting()){
+		    			if(mTable.getSelectedColumn()==0){
+		    				TodoObject changeFinishedTodo = currTodos.get(mTable.getSelectedRow());
+		    				if(changeFinishedTodo.getCompleted()){
+		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
+		    					changeFinishedTodo.setCompleted(false);
+		    				}
+		    				else{
+		    					mUser.setTotalPoints(mUser.getTotalPoints()+changeFinishedTodo.getPoints());
+		    					changeFinishedTodo.setCompleted(true);
+		    				}
+		    				updatePage();
+		    				//TODO call database update user function
+		    			}
 		    			if(mTable.getSelectedColumn()==1){
 				    		new UpdateTodo(currTodos.get(mTable.getSelectedRow()));
 		    			}
