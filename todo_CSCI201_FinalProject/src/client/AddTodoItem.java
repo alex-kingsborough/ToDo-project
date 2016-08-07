@@ -56,12 +56,15 @@ public class AddTodoItem extends JFrame {
 	JPanel mDescriptionPanel;
 	Vector<Integer> mPriorityVector;
 	Vector<String> mListVector;
+	Vector<Integer> mListIDVector;
 	boolean isPrivate;
 	JTextField mPointsText;
 	Font mFont;
 	TodoUser mTU;
+	int listID = 0;
+	MainPageGUI mMainPage;
 	
-	public AddTodoItem(TodoUser tu){
+	public AddTodoItem(TodoUser tu, MainPageGUI mMPGUI){
 		super("Add Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
@@ -70,6 +73,7 @@ public class AddTodoItem extends JFrame {
 		addPublicRBEvents();
 		addPrivateRBEvents();
 		mTU = tu;
+		mMainPage = mMPGUI;
 	
 	}
 	
@@ -107,7 +111,9 @@ public class AddTodoItem extends JFrame {
 		for(int i = 0; i < tu.getTodoLists().size(); i ++){
 			String name;
 			name = tu.getTodoLists().get(i).getName();
+			listID = tu.getTodoLists().get(i).getID();
 			mListVector.addElement(name);
+			mListIDVector.addElement(listID);
 		}
 		
 		
@@ -194,11 +200,23 @@ public class AddTodoItem extends JFrame {
 				String title = mTitleText.getText();
 				int priority = Integer.parseInt(mPriorityBox.getSelectedItem().toString());
 				String list = mListBox.getSelectedItem().toString();
+				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
 				
 				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
 				
-				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points, mTU.getID());
+				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, currListID, list, description, points, mTU.getID(), false);
+				int currPlace = 0;
+				for(int i = 0; i < mTU.getTodoLists().size(); i ++){
+					if(mTU.getTodoLists().get(i).getID() == currListID){
+						currPlace = i;
+					}
+				}
+				
+				mTU.getTodoLists().get(currPlace).addTodo(mTodoObject);
+	
+				mMainPage.updatePage();
+				
 				//need to send this to the client to add to user's todos
 			}
 		});
