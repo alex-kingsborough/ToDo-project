@@ -43,13 +43,13 @@ public class TodoFrame extends JFrame implements Navigator {
 		TodoList playList = new TodoList(0,"Play");
 		for(int i =0;i<6;i++){
 			String tempTitle = "TITLE "+i;
-			TodoObject tempTodo = new TodoObject(tempTitle, 1, true, 0, playList.getName(), "I LIKE TO HAVE FUN", i,1);
+			TodoObject tempTodo = new TodoObject(tempTitle, 1, true, 0, playList.getName(), "I LIKE TO HAVE FUN", i, 1, false);
 			playList.addTodo(tempTodo);
 		}
 		TodoList workList = new TodoList(1,"Work");
 		for(int i =0;i<10;i++){
 			String tempTitle = i+" TITLE";
-			TodoObject tempTodo = new TodoObject(tempTitle, 5, false, 0, workList.getName(), "I WorkHard", 100-i,1);
+			TodoObject tempTodo = new TodoObject(tempTitle, 5, false, 0, workList.getName(), "I WorkHard", 100-i, 1, true);
 			workList.addTodo(tempTodo);
 		}
 		Vector<TodoList> tempTodoListVec = new Vector<TodoList>();
