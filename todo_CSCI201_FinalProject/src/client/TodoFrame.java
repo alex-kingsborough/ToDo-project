@@ -7,11 +7,14 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
+import constants.Constants;
+
 public class TodoFrame extends JFrame implements Navigator {
 	
 	private static final long serialVersionUID = 1290395190L;
 	
-	private TodoUser tempUser; //TODO temporary user for working on functionality/communication between classes
+	//private TodoUser tempUser; //TODO temporary user for working on functionality/communication between classes
+	private TodoUser mTodoUser;
 	
 	public static void main(String[] args) {
 		new TodoFrame("Todo Frame");
@@ -30,11 +33,13 @@ public class TodoFrame extends JFrame implements Navigator {
 	}
 	
 	@Override
-	public void toPortal() {
+	public void toPortal(TodoUser tu) {
+		mTodoUser = tu;
+		
 		getContentPane().removeAll();
 		
 		//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
-		tempUser = new TodoUser(1,"Jeff","pass","email");
+		//tempUser = new TodoUser(1,"Jeff","pass","email");
 		TodoList playList = new TodoList(0,"Play");
 		for(int i =0;i<6;i++){
 			String tempTitle = "TITLE "+i;
@@ -51,19 +56,26 @@ public class TodoFrame extends JFrame implements Navigator {
 		Vector<TodoList> tempTodoListVec = new Vector<TodoList>();
 		tempTodoListVec.add(playList);
 		tempTodoListVec.add(workList);
-		tempUser.setTodoLists(tempTodoListVec);
+		mTodoUser.setTodoLists(tempTodoListVec);
 		//END OF STUFF TO REMOVE
 
 		
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
 		
-		getContentPane().add(new PortalManager(tempUser, mTestBar), BorderLayout.CENTER);
-		getContentPane().add(new SocialSidebar(tempUser, this, PortalManager.mMainPage), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
+		//getContentPane().add(new PortalManager(mTodoUser, mTestBar), BorderLayout.CENTER);
+		getContentPane().add(new PortalManager(mTodoUser, mTestBar), BorderLayout.CENTER);
+		getContentPane().add(new SocialSidebar(mTodoUser, this, PortalManager.mMainPage), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
 		revalidate();
 		repaint();
 	}
 
+	@Override
+	public void toPortal() {
+		System.out.println("Guest user");
+		System.out.println(TodoClientListener.get().getUsername());
+	}
+	
 	@Override
 	public void toLogin() {
 		getContentPane().removeAll();

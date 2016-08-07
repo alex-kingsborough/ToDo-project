@@ -1,24 +1,19 @@
 package client;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.Component;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class MainPageGUI extends JPanel {
 	private static final long serialVersionUID = 1293859318L;
@@ -26,7 +21,6 @@ public class MainPageGUI extends JPanel {
 	//MEMBER VARIABLES
 	//Panes and Panels and GUI stuff
 	private JTabbedPane mMainTabbedPane;
-	private JButton mAddTodoButton;
 	private String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
 	
 	//Necessary user variables
@@ -62,24 +56,40 @@ public class MainPageGUI extends JPanel {
 			for(int j=0;j<currTodos.size();j++){
 				TodoObject moveTodo = currTodos.get(j);
 				currTableData[j][0] = moveTodo.getCompleted();
-				
-				JButton mTitleButton = new JButton(moveTodo.getTitle());
-				//mTitleButton.setText();
-				mTitleButton.addActionListener(new ActionListener(){
-					@Override
-					public void actionPerformed(ActionEvent ae){
-						new UpdateTodo(moveTodo);
-					}
-				});
-				currTableData[j][1] = mTitleButton;
-				
+				currTableData[j][1] = moveTodo.getTitle();
 				currTableData[j][2] = moveTodo.getDescription();
 				currTableData[j][3] = moveTodo.getIsPrivate();
 				currTableData[j][4] = moveTodo.getPriority();
 				currTableData[j][5] = moveTodo.getPoints();
 			}
 			
-			JTable mTable = new JTable(new MainPageTableModel(currTableData, currTodos));
+			JTable mTable = new JTable(new MainPageTableModel(currTableData));
+			mTable.setCellSelectionEnabled(true);
+		    ListSelectionModel cellSelectionModel = mTable.getSelectionModel();
+		    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
+		    	public void valueChanged(ListSelectionEvent lse) {
+		    		if(!lse.getValueIsAdjusting()){
+		    			if(mTable.getSelectedColumn()==0){
+		    				TodoObject changeFinishedTodo = currTodos.get(mTable.getSelectedRow());
+		    				if(changeFinishedTodo.getCompleted()){
+		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
+		    					changeFinishedTodo.setCompleted(false);
+		    				}
+		    				else{
+		    					mUser.setTotalPoints(mUser.getTotalPoints()+changeFinishedTodo.getPoints());
+		    					changeFinishedTodo.setCompleted(true);
+		    				}
+		    				updatePage();
+		    				//TODO call database update user function
+		    			}
+		    			if(mTable.getSelectedColumn()==1){
+				    		new UpdateTodo(currTodos.get(mTable.getSelectedRow()));
+		    			}
+		    		}
+		    	}
+		    });
 	        
 			JScrollPane mScrollPane = new JScrollPane(mTable);
 			mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -95,18 +105,23 @@ public class MainPageGUI extends JPanel {
 		mMainTabbedPane.setSelectedIndex(currIndex);
 		add(mMainTabbedPane, BorderLayout.CENTER);
 	}
+	
+	class RadioButtonRenderer implements TableCellRenderer{
+		@Override public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JRadioButton mRadRendButton = (JRadioButton)value;
+            return mRadRendButton;  
+        }
+	}
 
 	class MainPageTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 12616121233L;
 		
 		private String[] mColumnHeaders = mTableHeaders;
 	    private Object[][] mData;
-	    private Vector<TodoObject> tableTodos;
 	    
-	    public MainPageTableModel(Object[][] inData, Vector<TodoObject> inTodos){
+	    public MainPageTableModel(Object[][] inData){
 	    	super();
 	    	mData = inData;
-	    	tableTodos = inTodos;
 	    }
 	    
 	    @Override
@@ -124,49 +139,9 @@ public class MainPageGUI extends JPanel {
 	        return mColumnHeaders[colnum];
 	    }
 
-	    /*@Override
+	    @Override
 	    public Object getValueAt(int row, int col){
 	        return mData[row][col];
-	    }*/
-	    
-	    @Override public Object getValueAt(int row, int col) {
-            /*Adding components*/
-	    	/*
-	    	if(col == 0){
-	    		JRadioButton currRadButton = new JRadioButton();
-	    		currRadButton.setSelected(tableTodos.get(row).getCompleted());
-	    		currRadButton.addActionListener(new ActionListener(){
-	    			@Override
-	    			public void actionPerformed(ActionEvent ae){
-	    				
-	    			}
-	    		});
-	    	}
-	    	else if(col == 1){
-	    		
-	    	}
-	    	else{
-	    		return mData[row][col];
-	    	}
-	    	*/
-	    	
-	    	return mData[row][col];
-/*
-	    	switch (col) {
-	    	case 0: return row;
-	    	case 1: return "Text for "+row;
-	    	case 2: // fall through
-	    		/*Adding button and creating click listener*//*
-	    	case 3: final JButton button = new JButton(mColumnHeaders[col]);
-	    	button.addActionListener(new ActionListener() {
-	    		public void actionPerformed(ActionEvent arg0) {
-	    			JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(button), 
-	    					"Button clicked for row "+row);
-	    		}
-	    	});
-	    	return button;
-	    	default: return "Error";
-	    	}*/
 	    }
 
 	    @Override

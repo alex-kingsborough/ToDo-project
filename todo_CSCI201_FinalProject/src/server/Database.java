@@ -26,7 +26,7 @@ public class Database {
 		sDatabase = new Database();
 		try{
 			new Driver();
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&password=root&useSSL=false");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TodoProject?user=root&useSSL=false");
 		} catch(SQLException sqle){
 			System.out.println("SQL:"+sqle.getMessage());
 		}
@@ -38,7 +38,7 @@ public class Database {
 	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
 	private final static String getUserID = "SELECT USERID FROM USERS WHERE USERNAME=?";
 	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=?";
-	private final static String getLatestPublicTodos = "Select * FROM todos WHERE isPrivate=0 LIMIT 50 ORDER BY createdAt DESC";
+	private final static String getLatestPublicTodos = "Select * FROM todos WHERE todoPrivate=false ORDER BY createdAt DESC LIMIT 50";
 	private final static String getAllUserFriends = "SELECT * FROM friendship WHERE fromID=?";
 	private final static String getUserTodosById = "SELECT * FROM TODOS T WHERE userID=?";
 	private final static String getListNameByUserAndID = "SELECT l.listName FROM lists l, users u, todos t WHERE l.listID=? AND u.userID=?";
@@ -202,13 +202,14 @@ public class Database {
 			ResultSet result = ps.executeQuery();
 			while(result.next())
 			{
+				int id = result.getInt("userID");
 				String username = result.getString("username");
 				String actualname = result.getString("actualname");
 				String email = result.getString("email");
 				String password = result.getString("hashword");
 				String aboutme = result.getString("aboutme");
 				TodoUser newUser = new TodoUser(username,actualname,password,email,aboutme);
-
+				newUser.setID(id);
 				//get all todos
 				newUser.setTodoLists(getUserTodoLists(newUser));
 
@@ -288,7 +289,9 @@ public class Database {
 	public Vector<TodoObject> getFriendsTodos(int _userId)
 	{
 		Vector<TodoObject> friendTodos = new Vector<TodoObject>();
-
+		
+		System.out.println(_userId);
+		
 		//get all friends
 		PreparedStatement ps;
 		try {
@@ -314,9 +317,9 @@ public class Database {
 				 */
 				while (todoResult.next())
 				{
-					String name = todoResult.getString("todoTitle");
+					String name = todoResult.getString("todoName");
 					String description = todoResult.getString("todoDesc");
-					boolean isComplete = todoResult.getBoolean("todoIsCompleted");
+					boolean isComplete = todoResult.getBoolean("todoFinished");
 					int priority = todoResult.getInt("todoPriority");
 					boolean isPrivate = todoResult.getBoolean("todoPrivate");
 					int points = todoResult.getInt("todoPoints");
@@ -343,9 +346,9 @@ public class Database {
 			PreparedStatement ps = con.prepareStatement(getLatestPublicTodos);
 			ResultSet todoResult = ps.executeQuery();
 			while(todoResult.next()) {
-				String name = todoResult.getString("todoTitle");
+				String name = todoResult.getString("todoName");
 				String description = todoResult.getString("todoDesc");
-				boolean isComplete = todoResult.getBoolean("todoIsCompleted");
+				boolean isComplete = todoResult.getBoolean("todoFinished");
 				int priority = todoResult.getInt("todoPriority");
 				boolean isPrivate = todoResult.getBoolean("todoPrivate");
 				int points = todoResult.getInt("todoPoints");

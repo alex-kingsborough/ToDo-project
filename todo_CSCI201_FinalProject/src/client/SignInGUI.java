@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import constants.Constants;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,6 +51,7 @@ public class SignInGUI extends JPanel {
 		offlineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				//go to main page in Guest Mode
+				TodoClientListener.get().setUsername(Constants.GUEST_USER);
 				mNav.toPortal();
 			}
 		});
