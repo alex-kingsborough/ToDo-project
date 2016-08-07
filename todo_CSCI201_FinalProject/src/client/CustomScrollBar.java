@@ -24,7 +24,9 @@ package client;
         	System.out.println("in the try");
              imageThumb = ImageIO.read(new File("img/ThumbColor.png"));
             imageTrack = ImageIO.read(new File("img/bgColor.png"));
-       } catch (IOException e){}
+       } catch (IOException e){
+    	   System.out.println("Exception Loading the scroll bar images" + e.getMessage());
+       }
     }
 
     @Override
