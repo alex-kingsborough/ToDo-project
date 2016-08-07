@@ -56,24 +56,30 @@ public class UpdateTodo extends JFrame {
 	JPanel mDescriptionPanel;
 	Vector<Integer> mPriorityVector;
 	Vector<String> mListVector;
+	Vector<Integer> mListIDVector;
 	boolean isPrivate;
 	JTextField mPointsText;
 	Font mFont;
 	TodoUser mTU;
+	int listID = 0;
+	MainPageGUI mMainPage;
+	TodoObject mTO;
 	
-	public UpdateTodo(TodoObject to, TodoUser tu){
-		super("Edit Todo");
+	public UpdateTodo(TodoUser tu, MainPageGUI mMPGUI, TodoObject to){
+		super("Add Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo(to, tu);
+		AddTodo(tu, to);
 		addPublicRBEvents();
 		addPrivateRBEvents();
 		mTU = tu;
+		mMainPage = mMPGUI;
+		mTO = to;
 	
 	}
 	
-	private void AddTodo(TodoObject to, TodoUser tu) {
+	private void AddTodo(TodoUser tu, TodoObject to) {
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mTitleLabel = new JLabel("Title: ");
@@ -91,11 +97,11 @@ public class UpdateTodo extends JFrame {
 		mSaveButton = new JButton("Save");
 		mSaveButton.setFont(mFont.deriveFont(20));
 		mPublicRB = new JRadioButton("Public");
-		mPublicRB.setSelected(!to.getIsPrivate());
 		mPublicRB.setFont(mFont.deriveFont(20));
+		mPublicRB.setSelected(!to.getIsPrivate());
 		mPrivateRB = new JRadioButton("Private");
-		mPrivateRB.setSelected(to.getIsPrivate());
 		mPrivateRB.setFont(mFont.deriveFont(20));
+		mPrivateRB.setSelected(to.getIsPrivate());
 		mTitleText = new JTextField(15);
 		mTitleText.setText(to.getTitle());
 		mTitleText.setFont(mFont.deriveFont(20));
@@ -107,31 +113,31 @@ public class UpdateTodo extends JFrame {
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15);
-		mPointsText.setText(Integer.toString(to.getPoints()));
-		mListVector = new Vector<String>();
-
+		
 		for(int i = 0; i < tu.getTodoLists().size(); i ++){
 			String name;
 			name = tu.getTodoLists().get(i).getName();
+			listID = tu.getTodoLists().get(i).getID();
 			mListVector.addElement(name);
+			mListIDVector.addElement(listID);
 		}
 		
 		int currList = 0;
 		for(int i = 0; i < mListVector.size(); i ++){
-			if(mListVector.get(i).equals(to.getList())){
+			if(mListVector.get(i).equals(to.getListName())){
 				currList = i;
 				return;
 			}
 		}
+
+		
 		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
 		mPriorityBox.setFont(mFont.deriveFont(20));
-		mPriorityBox.setSelectedIndex(10-to.getPriority());
+		mPriorityBox.setSelectedItem(10-to.getPriority());
 		mListBox = new JComboBox<String>(mListVector);
 		mListBox.setFont(mFont.deriveFont(2));
 		mListBox.setSelectedIndex(currList);
-		
-		//mListBox.setSelectedIndex();
 		mMainPanel =  new JPanel();
 		mTitlePanel =  new JPanel();
 		mPriorityPanel =  new JPanel();
@@ -169,7 +175,6 @@ public class UpdateTodo extends JFrame {
 		add(outsidePanel);
 		addSaveEvents();
 	}
-	
 	
 	
 	private void addPublicRBEvents(){
@@ -212,11 +217,31 @@ public class UpdateTodo extends JFrame {
 				String title = mTitleText.getText();
 				int priority = Integer.parseInt(mPriorityBox.getSelectedItem().toString());
 				String list = mListBox.getSelectedItem().toString();
+				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
 				
 				int points = Integer.parseInt(mPointsText.getText()); ;// ALEX I DIDN't want to mess with all your implementation, just
 				
-				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, list, description, points, mTU.getID());
+				//TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, currListID, list, description, points, mTU.getID(), false);
+				mTO.setTitle(title);
+				mTO.setPriority(priority);
+				mTO.setIsPrivate(isPrivate);
+				mTO.setListName(list);
+				mTO.setListID(currListID);
+				mTO.setDescription(description);
+				
+				
+				int currPlace = 0;
+				for(int i = 0; i < mTU.getTodoLists().size(); i ++){
+					if(mTU.getTodoLists().get(i).getID() == currListID){
+						currPlace = i;
+					}
+				}
+				
+				//mTU.getTodoLists().get(currPlace).addTodo(mTodoObject);
+	
+				mMainPage.updatePage();
+				
 				//need to send this to the client to add to user's todos
 			}
 		});
