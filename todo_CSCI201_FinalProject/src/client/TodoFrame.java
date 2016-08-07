@@ -63,6 +63,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
 		
+		//getContentPane().add(new PortalManager(mTodoUser, mTestBar), BorderLayout.CENTER);
 		getContentPane().add(new PortalManager(mTodoUser, mTestBar), BorderLayout.CENTER);
 		getContentPane().add(new SocialSidebar(mTodoUser, this, PortalManager.mMainPage), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
 		revalidate();
