@@ -150,7 +150,7 @@ public class Database {
 			ps.setInt(1,id);
 			ResultSet result = ps.executeQuery();
 			while(result.next()){
-				username = result.getString("actualname");
+				username = result.getString("username");
 			}
 			return username;
 		}	catch (SQLException e) {
