@@ -48,7 +48,7 @@ public class Database {
 	private final static String updateUserInfo = "UPDATE USERS SET actualname=?, email=?, points=?, aboutme=? WHERE userID=?";
 	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?";
 	private final static String updateUserTodos = "UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
-	private final static String getUsernameByID = "SELECT ACTUALNAME FROM USERS WHERE USERID=?";
+	private final static String getUsernameByID = "SELECT USERNAME FROM USERS WHERE USERID=?";
 	private final static String removeFriend = "DELETE FROM FRIENDSHIP WHERE fromID=? AND toID=?";
 	private final static String addFriend = "INSERT INTO FRIENDSHIP(fromID,toID,createdAt) VALUES(?,?,?)";
 	private final static String addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
