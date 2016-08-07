@@ -146,7 +146,7 @@ public class TodoClientListener {
 		this.username = username;
 	}
 	
-	public boolean authenticateUser(String username, String password){
+	public boolean authenticateUser(String username, String hashword){
 		
 		/*
 		 * TODO Implement with JDBC
