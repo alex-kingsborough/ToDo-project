@@ -112,7 +112,6 @@ public class UpdateTodo extends JFrame {
 		}
 		int currList = 0;
 		for(int i = 0; i < mListVector.size(); i ++){
-			System.out.println("in for");
 			if(mListVector.get(i).equals(to.getListName())){
 				currList = i;
 			}
@@ -188,7 +187,6 @@ public class UpdateTodo extends JFrame {
 			public void actionPerformed(ActionEvent ae){
 				
 				if(!isInteger(mPointsText.getText())){
-					System.out.println("in if");
 					JOptionPane.showMessageDialog(
 							null,
 						    "Please Enter a Number in the Points Field",
