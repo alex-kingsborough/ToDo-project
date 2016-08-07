@@ -102,7 +102,10 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialInfo.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 36));
 			mSocialInfo.setEditable(false);
 			mSocialInfo.setLineWrap(true);
-			mSocialInfo.setText("New todo named " + newTodos.get(i).getTitle() + " in " + newTodos.get(i).getListName() + " : " + newTodos.get(i).getDescription());
+			mSocialInfo.setText(newTodos.get(i).getUsername() + 
+					" made a new todo named " + newTodos.get(i).getTitle() + 
+					" in " + newTodos.get(i).getListName() + " : " 
+					+ newTodos.get(i).getDescription());
 			
 			JButton mSocialButton = new JButton();
 			mSocialButton.setText("View " + newTodos.get(i).getTitle());
