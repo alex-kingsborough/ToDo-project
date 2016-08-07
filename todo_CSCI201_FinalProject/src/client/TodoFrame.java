@@ -19,7 +19,6 @@ public class TodoFrame extends JFrame implements Navigator {
 	private TodoUser tempUser; //TODO temporary user for working on functionality/communication between classes
 	
 	public static void main(String[] args) {
-		TodoClientListener mTCL = new TodoClientListener("localhost",6789);
 		new TodoFrame("Todo Frame");
 	}
 	
