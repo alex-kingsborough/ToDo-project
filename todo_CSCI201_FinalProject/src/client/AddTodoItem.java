@@ -292,6 +292,8 @@ public class AddTodoItem extends JFrame {
 	
 				mMainPage.updatePage();
 				
+				TodoClientListener.get().sendUser(mTU);
+				
 				setVisible(false);
 				
 				//need to send this to the client to add to user's todos

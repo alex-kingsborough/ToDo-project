@@ -301,6 +301,7 @@ public class UpdateTodo extends JFrame {
 				
 				mTU.getTodoLists().get(currPlace).addTodo(mTO);
 	
+				TodoClientListener.get().sendUser(mTU);
 				
 				mMainPage.updatePage();
 				setVisible(false);
