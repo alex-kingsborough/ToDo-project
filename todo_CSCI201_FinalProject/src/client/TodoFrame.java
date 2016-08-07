@@ -72,7 +72,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("ScrollBar.foreground",Constants.redColor);
 		UIManager.put("ScrollBar.highlight",Constants.greyColor);
 		UIManager.put("ScrollBar.shadow",Constants.greyColor);
-		UIManager.put("ScrollBar.thumb", new ColorUIResource(Constants.redColor));
+		UIManager.put("ScrollBar.thumb", Constants.redColor);
 		UIManager.put("ScrollBar.thumbDarkShadow",Constants.greyColor);
 		UIManager.put("ScrollBar.thumbHighlight",Constants.greyColor);
 		UIManager.put("ScrollBar.thumbShadow",Constants.greyColor);
@@ -95,6 +95,9 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("TableHeader.background", Constants.lightGreyColor);
 		UIManager.put("TableHeader.foreground", Constants.redColor);
 		UIManager.put("TableHeader.cellBorder", BorderFactory.createLineBorder(Constants.greyColor));
+		
+		
+		
 	}
 	
 	@Override
