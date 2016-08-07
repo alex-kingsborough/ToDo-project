@@ -77,7 +77,7 @@ private static final long serialVersionUID = 456789212311L;
 		gbc.gridy = 0;
 		
 		JPanel usernamePanel = new JPanel(new FlowLayout());
-		usernameLabel = new JLabel("USERNAME: ");
+		usernameLabel = new JLabel(" USERNAME: ");
 		usernameLabel.setForeground(Constants.goldColor);
 		usernameLabel.setBackground(Constants.greyColor);
 		usernamePanel.add(usernameLabel);
