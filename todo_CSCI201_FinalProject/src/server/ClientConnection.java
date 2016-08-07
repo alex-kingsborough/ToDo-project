@@ -52,26 +52,7 @@ public class ClientConnection extends Thread{
 				Object o = mInputReader.readObject();
 				if(o instanceof String){
 					String s = (String) o;
-					if(s.startsWith("req: ")){
-						if(s.endsWith("echo")){
-							echo = !echo;
-						}
-					} if(s.startsWith(Constants.LOGIN_PREFIX)){
-						String[] elements = s.split(" ");
-						if(elements.length != 3){
-							sendMessage(Constants.FAIL_MESSAGE);
-						} else {
-							if(Database.get().login(elements[1], elements[2])){
-								sendMessage(Constants.SUCCESS_MESSAGE);
-							} else {
-								sendMessage(Constants.FAIL_MESSAGE);
-							}
-						}
-					}
-					MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
-					if(echo){
-						sendMessage("Server Echo: " + s);
-					}
+					handleString(s);
 				} else if (o instanceof TodoUser){
 					TodoUser tu = (TodoUser) o;
 					handleRecievedUser(tu);
@@ -85,6 +66,29 @@ public class ClientConnection extends Thread{
 		} catch (IOException ioe) {
 			System.out.println("ioe in run: " + ioe.getMessage());
 		}
+	}
+
+	private void handleString(String s) {
+		if(s.startsWith("req: ")){
+			if(s.endsWith("echo")){
+				echo = !echo;
+			}
+		} if(s.startsWith(Constants.LOGIN_PREFIX)){
+			String[] elements = s.split(" ");
+			if(elements.length != 3){
+				sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
+			} else {
+				if(Database.get().login(elements[1], elements[2])){
+					sendMessage(Constants.AUTHENTICATED_MESSAGE);
+				} else {
+					sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
+				}
+			}
+		}
+		MainServer.gui.writeToLog("Message from Server Thread: " + this.getName() + "Message: " + s);
+		if(echo){
+			sendMessage("Server Echo: " + s);
+		}	
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
@@ -118,24 +122,8 @@ public class ClientConnection extends Thread{
 				return;
 			}
 		}
-		else 
-		{
-			//user exists, make sure their information is right
-			if (Database.get().login(tu.getUsername(), tu.getPassword()))
-			{
-				//their information is all good 
-				//update that shiz
-				sendMessage(Constants.AUTHENTICATED_MESSAGE);
-				tu = Database.get().getUserInfo(tu.getUsername());
-			}
-			else
-			{
-				//fuck they have the wrong password 
-				//TODO: send some kind of random ass error message
-				sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
-				return;
-			}
-		}
+		
+		//TODO Implement the update user part. This will also be done in the handleReceivedUser.
 		
 		//now that we have a populated user object write it the socket
 		try {

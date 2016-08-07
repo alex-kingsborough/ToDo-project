@@ -1,5 +1,7 @@
 package constants;
 
+import java.awt.Color;
+
 public class Constants {
 	
 	public static final String TRUE_MESSAGE = "TRUE_MESSAGE";
@@ -10,5 +12,8 @@ public class Constants {
 	public static final String LOGIN_PREFIX = "AUTHENTICATE: ";
 	public static final String GET_PUBLIC_TODOS = "GETPUBLICTODOS";
 	public static final String GET_FRIENDS_TODOS = "GETFRIENDTODOS";
+	public static final Color goldColor = new Color(255, 204, 0);
+	public static final Color redColor = new Color(153, 0, 0);
+	public static final String GUEST_USER = "GUEST";
 	
 }
