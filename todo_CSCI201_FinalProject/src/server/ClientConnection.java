@@ -82,8 +82,9 @@ public class ClientConnection extends Thread{
 			} else {
 				if(Database.get().login(elements[1], elements[2])){
 					TodoUser temp = Database.get().getUserInfo(elements[1]);
-					username = temp.getUsername();
-					userID = temp.getID();
+					username = elements[1];
+					userID = Database.get().getUserID(elements[1]);
+					System.out.println(username + " " + userID);
 					sendMessage(Constants.AUTHENTICATED_MESSAGE);
 				} else {
 					sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);

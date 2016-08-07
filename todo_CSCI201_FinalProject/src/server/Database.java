@@ -40,7 +40,7 @@ public class Database {
 	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=?";
 	private final static String getLatestPublicTodos = "Select * FROM todos WHERE todoPrivate=false ORDER BY createdAt DESC LIMIT 50";
 	private final static String getAllUserFriends = "SELECT * FROM friendship WHERE fromID=?";
-	private final static String getUserTodosById = "SELECT * FROM TODOS T WHERE userID=?";
+	private final static String getUserTodosById = "SELECT * FROM TODOS WHERE userID=?";
 	private final static String getListNameByUserAndID = "SELECT l.listName FROM lists l, users u, todos t WHERE l.listID=? AND u.userID=?";
 	private final static String updateUserInfo = "UPDATE USERS SET actualname=?, email=?, points=?, aboutme=? WHERE userID=?";
 	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=?, WHERE userID=?";
@@ -303,7 +303,8 @@ public class Database {
 			while (result.next())
 			{
 				//get a friends todos
-				int userId = result.getInt(2);
+				int userId = result.getInt("toId");
+				System.out.println("Found one frined: " + userId);
 				ps = con.prepareStatement(getUserTodosById);
 				ps.setInt(1, userId);
 				ResultSet todoResult = ps.executeQuery();
@@ -318,6 +319,7 @@ public class Database {
 				while (todoResult.next())
 				{
 					String name = todoResult.getString("todoName");
+					System.out.println("They have one todo: " + name);
 					String description = todoResult.getString("todoDesc");
 					boolean isComplete = todoResult.getBoolean("todoFinished");
 					int priority = todoResult.getInt("todoPriority");
