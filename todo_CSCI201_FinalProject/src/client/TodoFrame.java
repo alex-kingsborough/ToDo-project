@@ -48,7 +48,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Setting icon
-		setIconImage(new ImageIcon("img/todoProjectIcon.png").getImage());
+		setIconImage(new ImageIcon("img/todoTaskbarIcon.png").getImage());
 		
 		//Making tabbedpane look nice
 		UIManager.put("TabbedPane.background",Constants.lightGreyColor);
