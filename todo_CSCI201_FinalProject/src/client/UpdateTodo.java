@@ -18,6 +18,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import constants.Constants;
+
 public class UpdateTodo extends JFrame {
 	private static final long serialVersionUID = 1376543;
 	private JLabel mTitleLabel;
@@ -144,9 +146,10 @@ public class UpdateTodo extends JFrame {
 		mMainPanel.add(mPointsLabel);
 		mMainPanel.add(mPointsText);
 		
-		mMainPanel.add(mPrivacyLabel);
-		mMainPanel.add(mPrivacyPanel);
-
+		if(!mTU.getName().equals(Constants.GUEST_USER)){
+			mMainPanel.add(mPrivacyLabel);
+			mMainPanel.add(mPrivacyPanel);
+		}
 		mMainPanel.add(mListLabel);
 		mMainPanel.add(mListBox);
 

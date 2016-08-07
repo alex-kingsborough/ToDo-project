@@ -57,8 +57,8 @@ public class ViewTodo extends JFrame {
 		setSize(400, 300);
 		setLocation(800, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddTodo(to);
 		mTU = PortalManager.mUser;
+		AddTodo(to);
 		//addPublicRBEvents();
 		//addPrivateRBEvents();
 	
