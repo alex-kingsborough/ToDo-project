@@ -227,8 +227,8 @@ public class ViewTodo extends JFrame {
 		mDescriptionPanel =  new JPanel();
 		mMainPanel.setLayout(new GridLayout(6, 2));
 		mPrivacyPanel.setLayout(new FlowLayout());
-		mPrivacyPanel.add(mPublicRB);
-		mPrivacyPanel.add(mPrivateRB);
+		/*mPrivacyPanel.add(mPublicRB);
+		mPrivacyPanel.add(mPrivateRB);*/
 		mPrivacyPanel.setForeground(Constants.goldColor);
 		mPrivacyPanel.setBackground(Constants.greyColor);		
 		
@@ -249,12 +249,15 @@ public class ViewTodo extends JFrame {
 
 		mMainPanel.add(mDescriptionLabel);
 		mMainPanel.add(mDescriptionText);
-		
+		System.out.println("near the end");
 		JPanel outsidePanel = new JPanel();
 		outsidePanel.setLayout(new BorderLayout());
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
+
 		add(outsidePanel);
+		System.out.println("right before setting visible");
+		setVisible(true);
 		addSaveEvents();
 	}
 	
