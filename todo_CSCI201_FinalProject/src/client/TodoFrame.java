@@ -65,13 +65,21 @@ public class TodoFrame extends JFrame implements Navigator {
 		//Making scrollpane look nice
 		UIManager.put("ScrollPane.background",Constants.lightGreyColor);
 		UIManager.put("ScrollPane.foreground",Constants.greyColor);
-		UIManager.put("ScrollBar.background",Constants.goldColor);
+		UIManager.put("ScrollPane.viewportBorder",BorderFactory.createLineBorder(Constants.greyColor,0));
+		//UIManager.put("ScrollBar.background",Constants.goldColor);
 		UIManager.put("ScrollBar.darkShadow",Constants.greyColor);
-		UIManager.put("ScrollBar.foreground",Constants.redColor);
+		//UIManager.put("ScrollBar.foreground",Constants.redColor);
 		UIManager.put("ScrollBar.highlight",Constants.greyColor);
 		UIManager.put("ScrollBar.shadow",Constants.greyColor);
-		UIManager.put("ScrollBar.thumb",Constants.redColor);
+		UIManager.put("ScrollBar.thumb",Color.GREEN);
 		UIManager.put("ScrollBar.thumbDarkShadow",Constants.greyColor);
+		UIManager.put("ScrollBar.thumbHighlight",Constants.greyColor);
+		UIManager.put("ScrollBar.thumbShadow",Constants.greyColor);
+		UIManager.put("ScrollBar.track",Color.GREEN);
+		UIManager.put("ScrollBar.trackForeground",Color.GREEN);
+		UIManager.put("ScrollBar.trackHighlight",Color.GREEN);
+		UIManager.put("ScrollBar.trackHighlightForeground",Color.GREEN);
+		
 		
 		
 		//Making tables look nice
@@ -86,6 +94,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("Table.light",Constants.redColor);
 		UIManager.put("Table.selectionBackground",Constants.lightGreyColor);
 		UIManager.put("Table.selectionForeground",Constants.goldColor);
+		UIManager.put("Table.scrollPaneBorder", BorderFactory.createLineBorder(Constants.redColor,1));
 		UIManager.put("Table.shadow",Constants.goldColor);
 		UIManager.put("TableHeader.background", Constants.lightGreyColor);
 		UIManager.put("TableHeader.foreground", Constants.redColor);
