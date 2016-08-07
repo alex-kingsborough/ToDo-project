@@ -19,9 +19,13 @@ public class SocialGUI extends JPanel implements Runnable {
 	private JTabbedPane tabbedPane;
 	private JTable friendsTodo, publicTodo, popularTodo;
 	private JScrollPane friendSP, pubSP, popSP;
+	private PortalManager pm;
+	private TodoUser currUser;
 	
 	
-	public SocialGUI() {
+	public SocialGUI(PortalManager pm, TodoUser currUser) {
+		this.pm = pm;
+		this.currUser = currUser;
 		tabbedPane = new JTabbedPane();
 		add(tabbedPane);
 		
