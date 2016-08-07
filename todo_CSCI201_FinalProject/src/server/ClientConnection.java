@@ -17,6 +17,7 @@ public class ClientConnection extends Thread{
 	boolean echo = false;
 //	private Database db = Database.get();
 	private String username = "";
+	private int userID = 0;
 
 	public ClientConnection(Socket s, MainServer mainServer) {
 		sSocket = s;
@@ -112,6 +113,8 @@ public class ClientConnection extends Thread{
 				//so let's return a populated todo object
 				tu = Database.get().getUserInfo(tu.getUsername());
 				sendMessage(Constants.SUCCESS_MESSAGE);
+				username = tu.getUsername();
+				userID = tu.getID();
 			}
 			else
 			{
