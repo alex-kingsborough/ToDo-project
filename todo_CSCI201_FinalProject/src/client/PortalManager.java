@@ -41,7 +41,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.setMnemonic('M');
 		mJMenuBar.add(mTestMenu);
 		mMainPageItem = new JMenuItem("Main Page");
-		mMainPageItem.setIcon(new ImageIcon(new ImageIcon("img/userinfoIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
+		mMainPageItem.setIcon(new ImageIcon(new ImageIcon("img/mainPageImage.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		mMainPageItem.addActionListener(new MenuItemActionListener(this, "main"));
 		mTestMenu.add(mMainPageItem);
