@@ -1,18 +1,22 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import client.CustomScrollBar.MyScrollbarUI;
 import constants.Constants;
 
 public class SocialSidebar extends JPanel implements Runnable {
@@ -30,6 +34,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mAddTodoButton.setPreferredSize(new Dimension(this.getWidth(),21));
 		mAddTodoButton.setForeground(Constants.goldColor);
 		mAddTodoButton.setBackground(Constants.redColor);
+		mAddTodoButton.setBorder(BorderFactory.createLineBorder(Constants.redColor, 6));
 		mAddTodoButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
@@ -51,7 +56,13 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mSocialPanel = new JScrollPane();
 		mSocialPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		mSocialPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+		JScrollBar sb = mSocialPanel.getVerticalScrollBar();
+		sb.setPreferredSize(new Dimension(14, Integer.MAX_VALUE));
+		sb.setUI(new MyScrollbarUI());
+		sb.getComponent(0).setBackground(Constants.redColor);
+		sb.getComponent(0).setForeground(Constants.goldColor);
+		sb.getComponent(1).setBackground(Constants.redColor);
+		sb.getComponent(1).setForeground(Constants.goldColor);
 		mSocialGrid = new JPanel();
 		mSocialGrid.setBackground(Constants.greyColor);
 		mSocialGrid.setLayout(new GridLayout(100,1));

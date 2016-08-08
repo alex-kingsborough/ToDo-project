@@ -1,14 +1,17 @@
 package client;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import client.CustomScrollBar.MyScrollbarUI;
 import constants.Constants;
 
 public class SocialGUI extends JPanel implements Runnable {
@@ -29,7 +32,6 @@ public class SocialGUI extends JPanel implements Runnable {
 	
 	public SocialGUI() {
 		tabbedPane = new JTabbedPane();
-		add(tabbedPane);
 		
 		createFriendsTab();
 		createPublicTab();
@@ -53,6 +55,15 @@ public class SocialGUI extends JPanel implements Runnable {
 		     }
 		});
 		friendSP = new JScrollPane(friendsTodo);
+		
+		JScrollBar sb = friendSP.getVerticalScrollBar();
+		sb.setPreferredSize(new Dimension(14, Integer.MAX_VALUE));
+		sb.setUI(new MyScrollbarUI());
+		sb.getComponent(0).setBackground(Constants.redColor);
+		sb.getComponent(0).setForeground(Constants.goldColor);
+		sb.getComponent(1).setBackground(Constants.redColor);
+		sb.getComponent(1).setForeground(Constants.goldColor);
+		
 		tabbedPane.add(friendSP, "Friends");
 		//updateTab(0);
 		

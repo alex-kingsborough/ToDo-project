@@ -116,6 +116,7 @@ public class ViewTodo extends JFrame {
 		
 
 		mPointsText = new JTextField(15);
+		mPointsText.setBorder(null);
 		mPointsText.setText(Integer.toString(to.getPoints()));
 		mPointsText.setEditable(false);
 		mPointsText.setForeground(Constants.redColor);
@@ -143,6 +144,7 @@ public class ViewTodo extends JFrame {
 		
 		
 		JTextField mPriorityText = new JTextField(to.getPriority());
+		mPriorityText.setBorder(null);
 		mPriorityText.setEditable(false);
 		mPriorityText.setBackground(Constants.greyColor);
 		mPriorityText.setForeground(Constants.redColor);
