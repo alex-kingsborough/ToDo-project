@@ -17,7 +17,6 @@ public class TodoFrame extends JFrame implements Navigator {
 	
 	private static final long serialVersionUID = 1290395190L;
 	private TodoUser mTodoUser;
-	//private TodoUser tempUser; //TODO temporary user for working on functionality/communication between classes
 	
 	public static void main(String[] args) {
 
