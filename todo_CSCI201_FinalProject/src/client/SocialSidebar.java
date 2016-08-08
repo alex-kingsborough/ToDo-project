@@ -97,11 +97,9 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialButton.setBackground(Constants.greyColor);
 			mSocialButton.setForeground(Constants.redColor);
 //			mSocialButton.setBorder(BorderFactory.createLineBorder(Constants.greyColor, 4));
-			System.out.println("current border" + mSocialButton.getBorder());
 			mSocialButton.addActionListener(new ActionListener(){
 				
 				public void actionPerformed(ActionEvent ae){
-					System.out.println("clicked the social button");
 					new ViewTodo(thisTodo);
 				}
 			});
@@ -156,7 +154,6 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialButton.addActionListener(new ActionListener(){
 
 				public void actionPerformed(ActionEvent ae){
-					System.out.println("clicked the social button");
 					new ViewTodo(thisTodo);
 				}
 			});

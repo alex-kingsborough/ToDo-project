@@ -113,13 +113,11 @@ public class UserInfoGUI extends JPanel {
 		mFriendsPanel.setBackground(Constants.greyColor);
 		mListModel = new DefaultListModel<String>();
 		
-		System.out.println("PortalManager.mUser.getFriendList().size(): " + PortalManager.mUser.getFriendList().size());
 		TodoClientListener.lock.lock();
 		try {
 			for(Integer i: PortalManager.mUser.getFriendList()) {
 				TodoClientListener.get().send(Constants.REQUEST_USERNAME_BY_ID + " " + i);
 				String response = TodoClientListener.get().readLine();
-				System.out.println("response: " + response);
 				if(!response.equals(Constants.FAIL_MESSAGE)) {
 					String username = response.split(" ")[1];
 					if(!username.equals(PortalManager.mUser.getUsername())) {
@@ -129,7 +127,6 @@ public class UserInfoGUI extends JPanel {
 			}
 		} finally {
 			TodoClientListener.lock.unlock();
-			System.out.println("got rid of the friends lock");
 		}
 		/*
 		mListModel.addElement("Friend1");
@@ -196,22 +193,17 @@ public class UserInfoGUI extends JPanel {
 				String friendName = mAddFriendTextField.getText();
 				TodoClientListener.lock.lock();
 				try {
-					System.out.println("Add friend in this lock");
 					if(!friendName.isEmpty()) {
 						mAddFriendTextField.setText("");
 						String request = Constants.ADD_FRIEND_REQUEST + " " + friendName;
-						System.out.println("Friend Name: " + friendName);
 						TodoClientListener.get().send(request);
-						System.out.println("request: " + request);
 						String response = TodoClientListener.get().readLine();
-						System.out.println("response: " + response);
 						if(response.startsWith(Constants.FAIL_MESSAGE)) {
 							JOptionPane.showMessageDialog(mAddFriendButton, "Failed to add friend: " + friendName,
 														"Failure", JOptionPane.ERROR_MESSAGE);
 						} else {
 							String [] parameters = response.split(" ");
 							int userID = Integer.parseInt(parameters[1]);
-							System.out.println("userID: " + userID);
 							if(!friendName.equals(PortalManager.mUser.getUsername())) {
 								PortalManager.mUser.addFriend(userID);
 								TodoClientListener.get().sendUser(PortalManager.mUser);
@@ -223,7 +215,6 @@ public class UserInfoGUI extends JPanel {
 					} 
 				} finally {
 					TodoClientListener.lock.unlock();
-					System.out.println("Add friend out of this lock");
 				}
 			}
 		});
@@ -246,23 +237,18 @@ public class UserInfoGUI extends JPanel {
 			public void actionPerformed(ActionEvent ae) {
 				TodoClientListener.lock.lock();
 				try {
-					System.out.println("Removing Friend In Lock");
 					String friendName = mRemoveFriendTextField.getText();
 					if(!friendName.isEmpty()) {
 						mRemoveFriendTextField.setText("");
 						String request = Constants.REMOVE_FRIEND_REQUEST + " " + friendName;
-						System.out.println("Friend Name: " + friendName);
 						TodoClientListener.get().send(request);
-						System.out.println("request: " + request);
 						String response = TodoClientListener.get().readLine();
-						System.out.println("response: " + response);
 						if(response.startsWith(Constants.FAIL_MESSAGE)) {
 							JOptionPane.showMessageDialog(mRemoveFriendButton, "Failed to removes friend: " + friendName,
 														"Failure", JOptionPane.ERROR_MESSAGE);
 						} else {
 							String [] parameters = response.split(" ");
 							int userID = Integer.parseInt(parameters[1]);
-							System.out.println("userID: " + userID);
 							if(!friendName.equals(PortalManager.mUser.getUsername())) {
 								PortalManager.mUser.removeFriend(userID);
 								TodoClientListener.get().sendUser(PortalManager.mUser);
@@ -274,7 +260,6 @@ public class UserInfoGUI extends JPanel {
 					} 
 				} finally {
 					TodoClientListener.lock.unlock();
-					System.out.println("Removing Friend Out of Lock");
 				}
 			}
 		});

@@ -93,7 +93,6 @@ public class TodoClientListener {
 				if(line.startsWith(Constants.AUTHENTICATED_MESSAGE)) {
 					return line;
 				}else if (line.startsWith(Constants.SUCCESS_MESSAGE)) {
-					System.out.println("line: " + line);
 					return line;
 				}else if(o instanceof TodoUser){
 					TodoUser tu = (TodoUser) o;
@@ -121,7 +120,6 @@ public class TodoClientListener {
 	public Vector<TodoObject> readTodoObjects(String request) {
 		lock.lock();
 		try {
-			System.out.println("in read todo objects");
 			TodoClientListener.get().send(request);
 			
 			try {
@@ -138,22 +136,18 @@ public class TodoClientListener {
 			return new Vector<TodoObject>();
 		} finally {
 			lock.unlock();
-			System.out.println("onlocked read todo objects");
 		}
 	}
 	
 	public Vector<Vector<TodoObject>> readVectorTodoObjects() {
 		lock.lock();
 		try {
-			System.out.println("read vector in the lock");
 			TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
 			
 			try {
 				Object o = ois.readObject();
-				System.out.println(o);
 				if(o instanceof Vector<?>) {
 					Vector<Vector<TodoObject>> todoVec = (Vector<Vector<TodoObject>>) o;
-					System.out.println("Reading vector of length " + todoVec.size());
 					return todoVec;
 				}
 			} catch (ClassNotFoundException cnfe) {
@@ -168,7 +162,6 @@ public class TodoClientListener {
 			return vvt;
 		}  finally {
 			TodoClientListener.lock.unlock();
-			System.out.println("read vector out of the lock");
 		}
 	}
 	
