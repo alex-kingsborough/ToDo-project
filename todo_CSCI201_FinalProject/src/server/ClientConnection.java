@@ -76,7 +76,6 @@ public class ClientConnection extends Thread{
 				if(Database.get().login(elements[1], elements[2])){
 					username = elements[1];
 					userID = Database.get().getUserID(elements[1]);
-					System.out.println(username + " " + userID);
 					sendMessage(Constants.AUTHENTICATED_MESSAGE);
 				} else {
 					sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
@@ -123,7 +122,6 @@ public class ClientConnection extends Thread{
 				username = s.split(" ")[1];
 				int uID = Database.get().getUserID(username);
 				if(uID != 0){
-					System.out.println(Constants.SUCCESS_MESSAGE + " " + uID);
 					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
 				} else {
 					sendMessage(Constants.FAIL_MESSAGE);
@@ -137,7 +135,6 @@ public class ClientConnection extends Thread{
 				username = s.split(" ")[1];
 				int uID = Database.get().getUserID(username);
 				if(uID != 0){
-					System.out.println(Constants.SUCCESS_MESSAGE + " " + uID);
 					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
 				} else {
 					sendMessage(Constants.FAIL_MESSAGE);
@@ -158,11 +155,8 @@ public class ClientConnection extends Thread{
 			String username = "";
 			if(s.split(" ").length == 2){
 				username = s.split(" ")[1];
-				System.out.println("username: " + username);
 				int uID = Database.get().getUserID(username);
-				System.out.println("uID: " + uID);
 				if(uID != 0) {
-					System.out.println(Constants.SUCCESS_MESSAGE + " " + uID);
 					sendMessage(Constants.SUCCESS_MESSAGE + " " + uID);
 				} else {
 					sendMessage(Constants.FAIL_MESSAGE);
