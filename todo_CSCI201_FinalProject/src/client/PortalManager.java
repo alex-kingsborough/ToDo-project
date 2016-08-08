@@ -72,6 +72,7 @@ public class PortalManager extends JPanel {
 			    	mUser.addTodoList(mNewTodoList);
 			    	mMainPage.updatePage();
 			    	TodoClientListener.get().sendUser(mUser);
+			    	mUser = TodoClientListener.get().readTodoUser();
 			    } //Else do nothing, user hit cancel
 			}
 		});
