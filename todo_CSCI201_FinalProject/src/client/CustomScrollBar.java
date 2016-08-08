@@ -1,6 +1,5 @@
 package client;
 	import java.awt.*;
-	import java.io.FileReader;
 	import java.io.IOException;
 	import javax.swing.*;
 	import javax.swing.plaf.metal.MetalScrollBarUI;
