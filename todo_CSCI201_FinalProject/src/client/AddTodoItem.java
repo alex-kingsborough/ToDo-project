@@ -4,14 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -50,7 +48,6 @@ public class AddTodoItem extends JFrame {
 	private JComboBox<String> mListBox;
 	private JRadioButton mPrivateRB;
 	private JPanel mMainPanel;
-	private JPanel mTitlePanel;
 	private JPanel mPrivacyPanel;
 	private Vector<Integer> mPriorityVector;
 	private Vector<String> mListVector;
@@ -159,7 +156,12 @@ public class AddTodoItem extends JFrame {
 		
 		
 		mTitleText = new JTextField(15) {
-		    @Override public void setBorder(Border border) {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = -6601892872896221295L;
+
+			@Override public void setBorder(Border border) {
 		        // None
 		    }
 		};
@@ -169,7 +171,12 @@ public class AddTodoItem extends JFrame {
 		
 		
 		mDescriptionText = new JTextArea(5, 15) {
-		    @Override public void setBorder(Border border) {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1742600629544601L;
+
+			@Override public void setBorder(Border border) {
 		        // None
 		    }
 		};
@@ -189,7 +196,12 @@ public class AddTodoItem extends JFrame {
 			mPriorityVector.addElement(i);
 		}
 		mPointsText = new JTextField(15) {
-		    @Override public void setBorder(Border border) {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 8765676347225270345L;
+
+			@Override public void setBorder(Border border) {
 		        // None
 		    }
 		};

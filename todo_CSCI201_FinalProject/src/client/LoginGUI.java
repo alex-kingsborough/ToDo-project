@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -72,6 +73,18 @@ private static final long serialVersionUID = 456789212311L;
 
 			}
 		});
+		loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+				loginButton.setBorder(BorderFactory.createLineBorder(Color.white ,8));
+				loginButton.setBackground(Color.white);
+				
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+				loginButton.setBorder(BorderFactory.createLineBorder(Color.black,8));
+				loginButton.setBackground(Color.black);
+		    }
+		});
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -84,7 +97,12 @@ private static final long serialVersionUID = 456789212311L;
 		usernamePanel.setBackground(Constants.greyColor);
 		
 		usernameField = new JTextField(){
-		    @Override public void setBorder(Border border) {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 6762367646379653329L;
+
+			@Override public void setBorder(Border border) {
 		        // None
 		    }
 		};
@@ -101,7 +119,12 @@ private static final long serialVersionUID = 456789212311L;
 		passwordPanel.add(passwordLabel);
 		passwordPanel.setBackground(Constants.greyColor);
 		passwordField = new JPasswordField(){
-		    @Override public void setBorder(Border border) {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 8657616015155767600L;
+
+			@Override public void setBorder(Border border) {
 		        // None
 		    }
 		};

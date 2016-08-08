@@ -37,6 +37,20 @@ public class SignInGUI extends JPanel {
 				mNav.toLogin();
 			}
 		});
+		loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+				loginButton.setBorder(BorderFactory.createLineBorder(Color.white ,8));
+				loginButton.setBackground(Color.white);
+				
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+				loginButton.setBorder(BorderFactory.createLineBorder(Constants.redColor,8));
+				loginButton.setBackground(Constants.redColor);
+		    }
+		});
+		
+		
 		signupButton = new JButton("SIGNUP");
 		signupButton.setBackground(Constants.redColor);
 		signupButton.setForeground(Constants.goldColor);
@@ -48,6 +62,19 @@ public class SignInGUI extends JPanel {
 				mNav.toSignup();
 			}
 		});
+		signupButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+				signupButton.setBorder(BorderFactory.createLineBorder(Color.white ,8));
+				signupButton.setBackground(Color.white);
+				
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	signupButton.setBorder(BorderFactory.createLineBorder(Constants.redColor,8));
+		    	signupButton.setBackground(Constants.redColor);
+		    }
+		});
+		
 		JPanel topButtonPanel = new JPanel(new FlowLayout());
 		topButtonPanel.add(loginButton);
 		topButtonPanel.add(signupButton);
@@ -67,6 +94,18 @@ public class SignInGUI extends JPanel {
 				mNav.toPortal();
 			}
 		});
+		offlineButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	offlineButton.setBorder(BorderFactory.createLineBorder(Color.white ,8));
+		    	offlineButton.setBackground(Color.white);
+				
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	offlineButton.setBorder(BorderFactory.createLineBorder(Color.darkGray,8));
+		    	offlineButton.setBackground(Color.darkGray);
+		    }
+		});		
 		setBackground(Constants.greyColor);
 		gbc.gridx = 1;
 		gbc.gridy = 1;

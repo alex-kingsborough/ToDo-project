@@ -39,7 +39,6 @@ public class UpdateTodo extends JFrame {
 	private JComboBox<String> mListBox;
 	private JRadioButton mPrivateRB;
 	private JPanel mMainPanel;
-	private JPanel mTitlePanel;
 	private JPanel mPrivacyPanel;
 	private Vector<Integer> mPriorityVector;
 	private Vector<String> mListVector;
@@ -209,8 +208,6 @@ public class UpdateTodo extends JFrame {
 		
 		
 		mMainPanel =  new JPanel();
-		
-		mTitlePanel =  new JPanel();
 		
 		mPrivacyPanel =  new JPanel();
 		

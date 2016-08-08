@@ -7,15 +7,14 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import constants.Constants;
 
@@ -99,6 +98,19 @@ public class SignupGUI extends JPanel {
 					mNav.toPortal();
 				}
 			} //end actionPerformed()
+		});
+		
+		loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	loginButton.setBorder(BorderFactory.createLineBorder(Color.white ,8));
+		    	loginButton.setBackground(Color.white);
+				
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	loginButton.setBorder(BorderFactory.createLineBorder(Color.darkGray,8));
+		    	loginButton.setBackground(Color.darkGray);
+		    }
 		});
 	
 		GridBagConstraints gbc = new GridBagConstraints();

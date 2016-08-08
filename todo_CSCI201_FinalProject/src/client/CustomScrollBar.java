@@ -1,6 +1,5 @@
 package client;
 	import java.awt.*;
-	import java.io.FileReader;
 	import java.io.IOException;
 	import javax.swing.*;
 	import javax.swing.plaf.metal.MetalScrollBarUI;
@@ -22,7 +21,7 @@ package client;
 
     MyScrollbarUI() {
     	UIManager.put("Button.background", Color.black);
-
+    	
     	try {
              imageThumb = ImageIO.read(new File("img/ThumbColor.png"));
             imageTrack = ImageIO.read(new File("img/bgColor.png"));

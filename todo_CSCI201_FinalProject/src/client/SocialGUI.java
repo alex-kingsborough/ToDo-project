@@ -2,17 +2,12 @@ package client;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-
-import constants.Constants;
 
 public class SocialGUI extends JPanel implements Runnable {
 
@@ -21,12 +16,12 @@ public class SocialGUI extends JPanel implements Runnable {
 	 *  **************************************  *
     \*                                          */
 	
+	
+	
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane tabbedPane;
-	private JTable friendsTodo, publicTodo, popularTodo;
-	private JScrollPane friendSP, pubSP, popSP;
-	private PortalManager pm;
-	private TodoUser currUser;
+	private JTable friendsTodo, publicTodo;
+	private JScrollPane friendSP, pubSP;
 	private Vector<TodoObject> publicTodos, friendsTodos;
 	
 	
