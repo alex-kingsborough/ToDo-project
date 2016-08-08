@@ -98,6 +98,10 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("Button.foreground", Constants.goldColor);
 		UIManager.put("Button.select", Color.WHITE);
 		
+		//Option pane
+		UIManager.put("OptionPane.warningDialog.titlePane.background", Constants.redColor);
+				
+		
 		add(new SignInGUI(this));
 	}
 	
@@ -107,7 +111,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		getContentPane().removeAll();
 		
-		/*//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
+		/*//REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
 		//tempUser = new TodoUser(1,"Jeff","pass","email");
 		/*
 		TodoList playList = new TodoList(0,"Play");

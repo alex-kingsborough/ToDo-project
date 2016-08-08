@@ -7,12 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import client.CustomScrollBar.MyScrollbarUI;
 import constants.Constants;
 
 public class SocialSidebar extends JPanel implements Runnable {
@@ -30,6 +33,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mAddTodoButton.setPreferredSize(new Dimension(this.getWidth(),21));
 		mAddTodoButton.setForeground(Constants.goldColor);
 		mAddTodoButton.setBackground(Constants.redColor);
+		mAddTodoButton.setBorder(BorderFactory.createLineBorder(Constants.redColor, 6));
 		mAddTodoButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
@@ -51,17 +55,23 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mSocialPanel = new JScrollPane();
 		mSocialPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		mSocialPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+		JScrollBar sb = mSocialPanel.getVerticalScrollBar();
+		sb.setPreferredSize(new Dimension(14, Integer.MAX_VALUE));
+		sb.setUI(new MyScrollbarUI());
+		sb.getComponent(0).setBackground(Constants.redColor);
+		sb.getComponent(0).setForeground(Constants.goldColor);
+		sb.getComponent(1).setBackground(Constants.redColor);
+		sb.getComponent(1).setForeground(Constants.goldColor);
 		mSocialGrid = new JPanel();
 		mSocialGrid.setBackground(Constants.greyColor);
 		mSocialGrid.setLayout(new GridLayout(100,1));
 		//wait for response from server
 		
 		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects(Constants.GET_FRIENDS_TODOS);
-		if (newTodos == null)
-			return;
 		
 		for(int i=0; i< newTodos.size(); i++){
+			TodoObject thisTodo = newTodos.get(i);
+			
 			JPanel mSocialItemPanel = new JPanel();
 			mSocialItemPanel.setLayout(new BorderLayout());
 			
@@ -69,7 +79,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialInfo.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 36));
 			mSocialInfo.setEditable(false);
 			mSocialInfo.setLineWrap(true);
-			mSocialInfo.setText("New todo named " + newTodos.get(i).getTitle() + " in " + newTodos.get(i).getListName() + " : " + newTodos.get(i).getDescription());
+			mSocialInfo.setText("New todo named " + thisTodo.getTitle() + " in " + thisTodo.getListName() + " : " + thisTodo.getDescription());
 			mSocialInfo.setBackground(Constants.lightGreyColor);
 			
 			
@@ -78,6 +88,12 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
 			mSocialButton.setBackground(Constants.greyColor);
 			mSocialButton.setForeground(Constants.redColor);
+			mSocialButton.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent ae){
+					new ViewTodo(thisTodo);
+				}
+			});
 			
 			JLabel mSpaceLabel = new JLabel();
 			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 9));
