@@ -399,7 +399,7 @@ public class Database {
 				String description = todoResult.getString("todoDesc");
 				boolean isComplete = todoResult.getBoolean("todoIsCompleted");
 				int priority = todoResult.getInt("todoPriority");
-				boolean isPrivate = todoResult.getBoolean("todoIsCompleted");
+				boolean isPrivate = todoResult.getBoolean("todoPrivate");
 				int points = todoResult.getInt("todoPoints");
 				int listId = todoResult.getInt("listID");
 				TodoObject to = new TodoObject(name, priority, isPrivate, listId, getListName(userId, listId), description, points, userId, isComplete);
