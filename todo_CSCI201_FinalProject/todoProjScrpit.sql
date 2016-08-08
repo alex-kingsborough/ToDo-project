@@ -44,36 +44,3 @@ CREATE TABLE friendship (
     toId int(11) not null,
     createdAt datetime default current_timestamp
 );
-
-INSERT INTO users(username, actualname, hashword, email, aboutme) VALUES('testuser', 'Testy McTesterson', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'testemail@emailserver.net', 'Im the best tester ever!!!!');
-INSERT INTO LISTS(userID,listName) VALUES(1,"Test");
-INSERT INTO FRIENDSHIP(fromID, toID) VALUES(1,2);
-INSERT INTO FRIENDSHIP(fromID, toID) VALUES(2,1);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"what's up this is new","this is a name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);
-INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(1,1,1000,4,"howdy","name",true,false);

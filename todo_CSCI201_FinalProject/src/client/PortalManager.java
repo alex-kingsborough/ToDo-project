@@ -33,6 +33,21 @@ public class PortalManager extends JPanel {
 	
 	public PortalManager(TodoUser inUser, JMenuBar jmb) { //FOR LOGIN USER
 		mUser = inUser;
+		if (mUser.getTodoLists().size() == 0)
+		{
+			TodoClientListener.lock.lock();
+	    	try {
+				mUser.addTodoList(new TodoList(0, "My 1st List"));
+	    		System.out.println("adding initial todolist in the lock");
+		    	TodoClientListener.get().sendUser(mUser);
+		    	mUser = TodoClientListener.get().readTodoUser();
+	    	} finally {
+				TodoClientListener.lock.unlock();
+				System.out.println("addingin inital todolist out of the lock");
+			}
+		}
+			
+		
 		
 		mJMenuBar = jmb;
 		setLayout(new CardLayout());

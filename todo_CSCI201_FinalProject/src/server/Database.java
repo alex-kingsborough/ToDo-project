@@ -40,7 +40,7 @@ public class Database {
 	private final static String getUserTodos ="SELECT T.TODOTITLE, T.TODOPRIORITY, T.TODOPRIVATE, L.LISTNAME, T.TODODESC, T.TODOPOINTS, T.todoIsCompleted FROM TODOS T, USERS U, LISTS L WHERE T.USERID=U.USERID AND U.USERID=L.USERID AND T.LISTID=L.LISTID AND U.USERNAME=?";
 	private final static String addTodo = "INSERT INTO TODOS(userID,listID,todoPoints,todoPriority,todoDesc,todoTitle,todoIsCompleted,todoPrivate) VALUES(?,?,?,?,?,?,?,?)";
 	private final static String getUserID = "SELECT USERID FROM USERS WHERE USERNAME=?";
-	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=?";
+	private final static String getListID = "SELECT LISTID FROM LISTS WHERE LISTNAME=? AND USERID=?";
 	private final static String getLatestPublicTodos = "Select * FROM todos WHERE todoPrivate=false ORDER BY createdAt DESC LIMIT 50";
 	private final static String getAllUserFriends = "SELECT * FROM friendship WHERE fromID=?";
 	private final static String getUserTodosById = "SELECT * FROM TODOS WHERE userID=?";
@@ -159,10 +159,11 @@ public class Database {
 		return username;
 	}
 
-	public int getListID(String list){
+	public int getListID(String list, int userID){
 		try{
 			PreparedStatement ps = con.prepareStatement(getListID);
 			ps.setString(1,list);
+			ps.setInt(2, userID);
 			ResultSet result = ps.executeQuery();
 			while (result.next())
 				return result.getInt("listID");
@@ -464,7 +465,7 @@ public class Database {
 			ps.setInt(3, userID);
 			ps2.setInt(1, userID);
 			for(TodoList tl : tu.getTodoLists()){
-				if(getListID(tl.getName()) != 0){
+				if(getListID(tl.getName(), userID) != 0){
 					ps.setString(1, tl.getName());
 					ps.setBoolean(2, tl.isActive());
 					ps.executeUpdate();
