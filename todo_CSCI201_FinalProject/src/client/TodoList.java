@@ -8,7 +8,10 @@ public class TodoList implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8906355305626818802L;
+	/**
+	 * 
+	 */
 	
 	private int todolistID;
 	private String name;

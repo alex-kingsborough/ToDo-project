@@ -7,7 +7,8 @@ public class TodoObject implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8508028940107805198L;
+
 	
 	
 	private String title;

@@ -135,6 +135,7 @@ public synchronized Vector<TodoObject> readTodoObjects(String request) {
 		
 		try {
 			Object o = ois.readObject();
+			System.out.println(o);
 			if(o instanceof Vector<?>) {
 				Vector<Vector<TodoObject>> todoVec = (Vector<Vector<TodoObject>>) o;
 				System.out.println("Reading vector of length " + todoVec.size());
