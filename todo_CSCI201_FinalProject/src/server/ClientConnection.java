@@ -52,7 +52,8 @@ public class ClientConnection extends Thread{
 					handleRecievedUser(tu);
 				} else if (o instanceof TodoObject){
 					TodoObject to = (TodoObject) o;
-					handleRecievedTodoObject(to);
+					//deprecated
+					//handleRecievedTodoObject(to);
 				}
 			}
 		} catch (ClassNotFoundException cnfe) {
@@ -176,10 +177,12 @@ public class ClientConnection extends Thread{
 		}	
 	}
 
+	/* deprecated
 	private void handleRecievedTodoObject(TodoObject to) {
 		Database.get().addTodo(to,username);
 		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + username);
 	}
+	*/
 
 	private void handleRecievedUser(TodoUser tu){
 

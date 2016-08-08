@@ -217,7 +217,6 @@ public class AddTodoItem extends JFrame {
 		
 		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
-		
 		mPriorityBox.setFont(mFont.deriveFont(2));
 		mPriorityBox.setForeground(Constants.redColor);
 		mPriorityBox.setBackground(Constants.greyColor);		

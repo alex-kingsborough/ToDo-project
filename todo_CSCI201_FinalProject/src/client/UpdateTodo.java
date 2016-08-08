@@ -192,13 +192,15 @@ public class UpdateTodo extends JFrame {
 
 		
 		mPriorityBox = new JComboBox<Integer>(mPriorityVector);
-		mPriorityBox.setFont(mFont.deriveFont(20));
+		mPriorityBox.setBorder(null);
+		mPriorityBox.setFont(mFont.deriveFont(2));
 		mPriorityBox.setSelectedItem(to.getPriority());
 		mPriorityBox.setForeground(Constants.redColor);
 		mPriorityBox.setBackground(Constants.greyColor);		
 		
 		
 		mListBox = new JComboBox<String>(mListVector);
+		mListBox.setBorder(null);
 		mListBox.setFont(mFont.deriveFont(2));
 		mListBox.setSelectedIndex(currList);
 		mListBox.setForeground(Constants.redColor);

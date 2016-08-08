@@ -85,6 +85,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
 			mSocialButton.setBackground(Constants.greyColor);
 			mSocialButton.setForeground(Constants.redColor);
+			mSocialButton.setBorder(BorderFactory.createLineBorder(Constants.greyColor, 4));
 			mSocialButton.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent ae){
