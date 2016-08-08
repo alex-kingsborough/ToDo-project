@@ -34,10 +34,16 @@ public class ViewTodo extends JFrame {
 	private boolean isPrivate;
 	private JTextField mPointsText;
 	private Font mFont;
+	private JPanel outsidePanel;
 	
 	public ViewTodo(TodoObject to){
 		super("View Todo");
 		System.out.println("in the view constructor");
+		System.out.println(to.getTitle());
+		System.out.println(to.getPriority());
+		System.out.println(to.getPoints());
+		System.out.println(to.getDescription());
+		
 		setSize(400, 300);
 		setLocation(800, 400);
 		AddTodo(to);
@@ -46,7 +52,8 @@ public class ViewTodo extends JFrame {
 	}
 	
 	private void AddTodo(TodoObject to) {
-		mFont = new Font("Serif", Font.PLAIN, 22);
+		System.out.println("here 1");
+		mFont = new Font("Comic Sans MS", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mMainPanel.setBackground(Constants.greyColor);
 		setBackground(Constants.goldColor);
@@ -57,7 +64,7 @@ public class ViewTodo extends JFrame {
 		mTitleLabel.setForeground(Constants.goldColor);
 		mTitleLabel.setBackground(Constants.greyColor);		
 
-		
+		System.out.println("here 2");	
 		mPriorityLabel = new JLabel("Priority: ");
 		mPriorityLabel.setFont(mFont);
 		mPriorityLabel.setForeground(Constants.goldColor);
@@ -75,13 +82,13 @@ public class ViewTodo extends JFrame {
 		mPrivacyLabel.setForeground(Constants.goldColor);
 		mPrivacyLabel.setBackground(Constants.greyColor);		
 
-		
+		System.out.println("here 1");		
 		mListLabel = new JLabel("List: ");
 		mListLabel.setFont(mFont);
 		mListLabel.setForeground(Constants.goldColor);
 		mListLabel.setBackground(Constants.greyColor);		
 		
-		
+		System.out.println("here 1");	
 		mDescriptionLabel = new JLabel("Description: ");
 		mDescriptionLabel.setFont(mFont);
 		mDescriptionLabel.setForeground(Constants.goldColor);
@@ -103,6 +110,7 @@ public class ViewTodo extends JFrame {
 		mTitleText.setOpaque(false);
 		mTitleText.setForeground(Constants.redColor);
 		mTitleText.setBackground(Constants.greyColor);		
+		System.out.println("title text: " + mTitleText.getText());
 		
 		mDescriptionText = new JTextArea(5, 15);
 		mDescriptionText.setBorder(null);
@@ -138,12 +146,11 @@ public class ViewTodo extends JFrame {
 		for(int i = 0; i < mListVector.size(); i ++){
 			if(mListVector.get(i).equals(to.getListName())){
 				currList = i;
-				return;
 			}
 		}
 		
 		System.out.println("priority= " + to.getPriority());
-		JTextField mPriorityText = new JTextField(to.getPriority());
+		JTextField mPriorityText = new JTextField(Integer.toString(to.getPriority()));
 		mPriorityText.setBorder(null);
 		mPriorityText.setEditable(false);
 		mPriorityText.setBackground(Constants.greyColor);
@@ -198,7 +205,7 @@ public class ViewTodo extends JFrame {
 
 		mMainPanel.add(mDescriptionLabel);
 		mMainPanel.add(mDescriptionText);
-		JPanel outsidePanel = new JPanel();
+		outsidePanel = new JPanel();
 		outsidePanel.setLayout(new BorderLayout());
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);

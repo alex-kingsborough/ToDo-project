@@ -107,7 +107,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 			});
 			
 			JLabel mSpaceLabel = new JLabel();
-			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 9));
+			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 3));
 			mSpaceLabel.setForeground(Constants.redColor);
 			
 			mSocialItemPanel.add(mSocialInfo, BorderLayout.CENTER);
@@ -133,6 +133,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 		mSocialGrid.removeAll();
 		
 		for(int i=0; i< newTodos.size(); i++){
+			TodoObject thisTodo = newTodos.get(i);
 			JPanel mSocialItemPanel = new JPanel();
 			mSocialItemPanel.setLayout(new BorderLayout());
 			
@@ -140,21 +141,29 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialInfo.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 36));
 			mSocialInfo.setEditable(false);
 			mSocialInfo.setLineWrap(true);
-			mSocialInfo.setText(newTodos.get(i).getUsername() + 
-					" made a new todo named " + newTodos.get(i).getTitle() + 
-					" in " + newTodos.get(i).getListName() + " : " 
+			mSocialInfo.setText(thisTodo.getUsername() + 
+					" made a new todo named " + thisTodo.getTitle() + 
+					" in " + thisTodo.getListName() + " : " 
 					+ newTodos.get(i).getDescription());
 			mSocialInfo.setBackground(Constants.lightGreyColor);
 			mSocialInfo.setForeground(Constants.redColor);
 			
 			JButton mSocialButton = new JButton();
-			mSocialButton.setText("View " + newTodos.get(i).getTitle());
+			mSocialButton.setText("View " + thisTodo.getTitle());
 			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
 			mSocialButton.setBackground(Constants.greyColor);
 			mSocialButton.setForeground(Constants.goldColor);
+			mSocialButton.addActionListener(new ActionListener(){
+
+				public void actionPerformed(ActionEvent ae){
+					System.out.println("clicked the social button");
+					new ViewTodo(thisTodo);
+				}
+			});
+
 			
 			JLabel mSpaceLabel = new JLabel();
-			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 9));
+			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 3));
 			mSpaceLabel.setForeground(Constants.redColor);
 			
 			mSocialItemPanel.add(mSocialInfo, BorderLayout.CENTER);
@@ -176,8 +185,11 @@ public class SocialSidebar extends JPanel implements Runnable {
 				//wait for 5 seconds
 
 				//call update on sidebar
+				int scrollPoint = mSocialPanel.getVerticalScrollBar().getValue();
 				updateBar();
+				mSocialPanel.getVerticalScrollBar().setValue(mSocialPanel.getVerticalScrollBar().getMaximum());
 				mSocialPanel.getVerticalScrollBar().setValue(0);
+				mSocialPanel.getVerticalScrollBar().setValue(scrollPoint);
 				Thread.sleep(5000);
 
 			} catch (InterruptedException e) {
