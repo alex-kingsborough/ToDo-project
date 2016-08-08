@@ -16,7 +16,7 @@ import constants.Constants;
 public class TodoFrame extends JFrame implements Navigator {
 	
 	private static final long serialVersionUID = 1290395190L;
-	
+	private TodoUser mTodoUser;
 	//private TodoUser tempUser; //TODO temporary user for working on functionality/communication between classes
 	
 	public static void main(String[] args) {
@@ -106,7 +106,7 @@ public class TodoFrame extends JFrame implements Navigator {
 	
 	@Override
 	public void toPortal(TodoUser tu) {
-		
+		mTodoUser = tu;
 		getContentPane().removeAll();
 		
 		/*//REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
@@ -137,8 +137,8 @@ public class TodoFrame extends JFrame implements Navigator {
 		setJMenuBar(mTestBar);
 		
 		//getContentPane().add(new PortalManager(PortalManager.mUser, mTestBar), BorderLayout.CENTER);
-		getContentPane().add(new PortalManager(PortalManager.mUser, mTestBar), BorderLayout.CENTER);
-		getContentPane().add(new SocialSidebar(PortalManager.mUser, this, PortalManager.mMainPage), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
+		getContentPane().add(new PortalManager(mTodoUser, mTestBar), BorderLayout.CENTER);
+		getContentPane().add(new SocialSidebar(mTodoUser, this, PortalManager.mMainPage), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
 		revalidate();
 		repaint();
 	}

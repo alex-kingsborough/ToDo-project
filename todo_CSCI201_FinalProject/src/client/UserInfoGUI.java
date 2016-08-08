@@ -95,16 +95,22 @@ public class UserInfoGUI extends JPanel {
 		mListModel = new DefaultListModel<String>();
 		
 		System.out.println("PortalManager.mUser.getFriendList().size(): " + PortalManager.mUser.getFriendList().size());
-		for(Integer i: PortalManager.mUser.getFriendList()) {
-			TodoClientListener.get().send(Constants.REQUEST_USERNAME_BY_ID + " " + i);
-			String response = TodoClientListener.get().readLine();
-			System.out.println("response: " + response);
-			if(!response.equals(Constants.FAIL_MESSAGE)) {
-				String username = response.split(" ")[1];
-				if(!username.equals(PortalManager.mUser.getUsername())) {
-					mListModel.addElement(username);
+		TodoClientListener.lock.lock();
+		try {
+			for(Integer i: PortalManager.mUser.getFriendList()) {
+				TodoClientListener.get().send(Constants.REQUEST_USERNAME_BY_ID + " " + i);
+				String response = TodoClientListener.get().readLine();
+				System.out.println("response: " + response);
+				if(!response.equals(Constants.FAIL_MESSAGE)) {
+					String username = response.split(" ")[1];
+					if(!username.equals(PortalManager.mUser.getUsername())) {
+						mListModel.addElement(username);
+					}
 				}
 			}
+		} finally {
+			TodoClientListener.lock.unlock();
+			System.out.println("got rid of the friends lock");
 		}
 		/*
 		mListModel.addElement("Friend1");
