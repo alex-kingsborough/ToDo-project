@@ -34,10 +34,16 @@ public class ViewTodo extends JFrame {
 	private boolean isPrivate;
 	private JTextField mPointsText;
 	private Font mFont;
+	private JPanel outsidePanel;
 	
 	public ViewTodo(TodoObject to){
 		super("View Todo");
 		System.out.println("in the view constructor");
+		System.out.println(to.getTitle());
+		System.out.println(to.getPriority());
+		System.out.println(to.getPoints());
+		System.out.println(to.getDescription());
+		
 		setSize(400, 300);
 		setLocation(800, 400);
 		AddTodo(to);
@@ -198,7 +204,7 @@ public class ViewTodo extends JFrame {
 
 		mMainPanel.add(mDescriptionLabel);
 		mMainPanel.add(mDescriptionText);
-		JPanel outsidePanel = new JPanel();
+		outsidePanel = new JPanel();
 		outsidePanel.setLayout(new BorderLayout());
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
