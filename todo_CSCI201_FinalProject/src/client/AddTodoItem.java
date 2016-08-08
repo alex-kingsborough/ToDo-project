@@ -300,12 +300,10 @@ public class AddTodoItem extends JFrame {
 				if(!PortalManager.mUser.getName().equals(Constants.GUEST_USER)){
 					TodoClientListener.lock.lock();
 					try {
-						System.out.println("add todo in the lock");
 						TodoClientListener.get().sendUser(PortalManager.mUser);
 						PortalManager.mUser = TodoClientListener.get().readTodoUser();
 					} finally {
 						TodoClientListener.lock.unlock();
-						System.out.println("add todo out of the lock");
 					}
 				}
 				mMainPage.updatePage();

@@ -68,7 +68,6 @@ public class SignupGUI extends JPanel {
 						//send signup request
 						TodoClientListener.lock.lock();
 						try {
-							System.out.println("sign up in the lcok");
 							TodoClientListener.get().sendUser(newTodoUser);
 							//read response from server
 							String response = TodoClientListener.get().readLine();
@@ -90,7 +89,6 @@ public class SignupGUI extends JPanel {
 							}
 						}  finally {
 							TodoClientListener.lock.unlock();
-							System.out.println("sign up out of the lock");
 						}
 					
 					} else if (!validPasswordFormat) {
