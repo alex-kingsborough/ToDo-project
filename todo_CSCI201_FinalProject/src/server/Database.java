@@ -194,6 +194,23 @@ public class Database {
 			System.out.println("SQLE: " + e.getMessage());
 		}
 	}
+	
+	public void addTodoOther(TodoObject to, String username, int listID){
+		try{
+			PreparedStatement ps = con.prepareStatement(addTodo);
+			ps.setInt(1, getUserID(username));
+			ps.setInt(2, listID);
+			ps.setInt(3, to.getPoints());
+			ps.setInt(4, to.getPriority());
+			ps.setString(5, to.getDescription());
+			ps.setString(6, to.getTitle());
+			ps.setBoolean(7, to.getCompleted());
+			ps.setBoolean(8, to.getIsPrivate());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQLE: " + e.getMessage());
+		}
+	}
 
 	public static java.sql.Timestamp getCurrentTimeStamp() {
 		java.util.Date today = new java.util.Date();
@@ -505,6 +522,7 @@ public class Database {
 			int userID = getUserID(tu.getUsername());
 			ps.setInt(7, userID);
 			for(TodoList tl : tu.getTodoLists()){
+				int listID = getListID(tl.getName(), userID);
 				for(TodoObject to : tl.getAllTodos()){
 					if(todoExists(to, userID)){
 						ps.setInt(1, to.getPoints());
@@ -515,7 +533,7 @@ public class Database {
 						ps.setBoolean(6, to.getIsPrivate());
 						ps.executeUpdate();
 					} else 
-						addTodo(to, tu.getUsername());
+						addTodoOther(to, tu.getUsername(), listID);
 				}
 			}
 		} catch (SQLException e){
