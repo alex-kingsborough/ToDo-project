@@ -1,7 +1,6 @@
 package client;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -69,10 +68,10 @@ public class SocialSidebar extends JPanel implements Runnable {
 		//wait for response from server
 		
 		Vector<TodoObject> newTodos = TodoClientListener.get().readTodoObjects(Constants.GET_FRIENDS_TODOS);
-		if (newTodos == null)
-			return;
 		
 		for(int i=0; i< newTodos.size(); i++){
+			TodoObject thisTodo = newTodos.get(i);
+			
 			JPanel mSocialItemPanel = new JPanel();
 			mSocialItemPanel.setLayout(new BorderLayout());
 			
@@ -80,7 +79,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialInfo.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 36));
 			mSocialInfo.setEditable(false);
 			mSocialInfo.setLineWrap(true);
-			mSocialInfo.setText("New todo named " + newTodos.get(i).getTitle() + " in " + newTodos.get(i).getListName() + " : " + newTodos.get(i).getDescription());
+			mSocialInfo.setText("New todo named " + thisTodo.getTitle() + " in " + thisTodo.getListName() + " : " + thisTodo.getDescription());
 			mSocialInfo.setBackground(Constants.lightGreyColor);
 			
 			
@@ -89,6 +88,12 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
 			mSocialButton.setBackground(Constants.greyColor);
 			mSocialButton.setForeground(Constants.redColor);
+			mSocialButton.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent ae){
+					new ViewTodo(thisTodo);
+				}
+			});
 			
 			JLabel mSpaceLabel = new JLabel();
 			mSpaceLabel.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 9));
