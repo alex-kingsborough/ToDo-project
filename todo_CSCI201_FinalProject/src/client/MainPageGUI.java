@@ -80,7 +80,6 @@ public class MainPageGUI extends JPanel {
 		    					PortalManager.mUser.setTotalPoints(PortalManager.mUser.getTotalPoints()+changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(true);
 		    				}
-		    				updatePage();
 		    				if(PortalManager.mUser.getUsername()!=Constants.GUEST_USER){
 		    					PortalManager.mUserInfoPage.updatePoints();
 		    					TodoClientListener.lock.lock();
@@ -93,6 +92,7 @@ public class MainPageGUI extends JPanel {
 		    						System.out.println("main page i dont' have it");
 		    					}
 		    				}
+		    				updatePage();
 		    			}
 		    			if(mTable.getSelectedColumn()==1){
 				    		new UpdateTodo(currTodos.get(mTable.getSelectedRow()));
