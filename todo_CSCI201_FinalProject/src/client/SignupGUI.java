@@ -65,7 +65,6 @@ public class SignupGUI extends JPanel {
 					if(validPasswordFormat) {
 						//build todo user
 						TodoUser newTodoUser = new TodoUser(username, name, Encrypt.SHA1(password), email, aboutMe);
-						newTodoUser.addTodoList(new TodoList(0, "My 1st List"));
 						//send signup request
 						TodoClientListener.lock.lock();
 						try {
@@ -78,6 +77,7 @@ public class SignupGUI extends JPanel {
 								//signup user and go to editor
 								TodoClientListener.get().setUsername(username);
 								newTodoUser = TodoClientListener.get().readTodoUser();
+								//newTodoUser.addTodoList(new TodoList(0, "My 1st List"));
 								mNav.toPortal(newTodoUser);
 							}
 							//case: SIGNUP FAILURE

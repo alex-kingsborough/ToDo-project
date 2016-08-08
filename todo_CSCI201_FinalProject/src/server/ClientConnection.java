@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Vector;
 
+import client.TodoList;
 import client.TodoObject;
 import client.TodoUser;
 import constants.Constants;
