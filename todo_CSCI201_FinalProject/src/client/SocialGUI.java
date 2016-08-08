@@ -48,15 +48,6 @@ public class SocialGUI extends JPanel implements Runnable {
 	public void createFriendsTab() {
 		
 		friendsTodo = new JTable(new TodoTableModel(new Object[0][7]));
-		friendsTodo.addMouseListener(new MouseAdapter(){
-		    public void mouseClicked(MouseEvent evnt) {
-		        //TODO: open todo preview with selected row
-		    	int row = friendsTodo.getSelectedRow();
-		    	System.out.println(row);
-		    	if (row < friendsTodos.size() && row != -1)
-		    		new ViewTodo(friendsTodos.get(row));
-		     }
-		});
 		friendSP = new JScrollPane(friendsTodo);
 		friendSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		friendSP.getViewport().setBackground(Constants.greyColor);
@@ -79,16 +70,6 @@ public class SocialGUI extends JPanel implements Runnable {
 	//creates the public tab
 	public void createPublicTab() {
 		publicTodo = new JTable(new TodoTableModel(new Object[0][7]));
-		publicTodo.addMouseListener(new MouseAdapter(){
-		    public void mouseClicked(MouseEvent evnt) {
-		        //TODO: open todo preview with selected row
-		    	int row = publicTodo.getSelectedRow();
-		    	System.out.println(row);
-		    	System.out.println(publicTodos.size());
-		    	//if (row < publicTodos.size() && row != -1)
-		    	new ViewTodo(new TodoObject("test", 1, true, 1, "alskdfj", "laksdjf", 1, 1, false));
-		     }
-		});
 		pubSP = new JScrollPane(publicTodo);
 		JScrollBar sb = pubSP.getVerticalScrollBar();
 		sb.setPreferredSize(new Dimension(14, Integer.MAX_VALUE));
