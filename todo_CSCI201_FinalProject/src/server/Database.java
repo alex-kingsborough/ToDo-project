@@ -178,6 +178,7 @@ public class Database {
 	//(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate)
 	//TodoObject Construtor: public TodoObject(String _title, int _priority, boolean _isPrivate, int _listID, 
 	//String _listName, String _desc, int _points, int _userID, boolean _isCompleted)
+	/* deprecated
 	public void addTodo(TodoObject to, String username){
 		try{
 			PreparedStatement ps = con.prepareStatement(addTodo);
@@ -194,6 +195,7 @@ public class Database {
 			System.out.println("SQLE: " + e.getMessage());
 		}
 	}
+	*/
 	
 	public void addTodoOther(TodoObject to, String username, int listID){
 		try{
@@ -615,9 +617,6 @@ public class Database {
 					ps.setInt(1, tu.getID());
 					ps.setInt(2, friend);
 					ps.executeUpdate();
-					ps.setInt(1, friend);
-					ps.setInt(2, tu.getID());
-					ps.executeUpdate();
 				}
 			}
 
@@ -642,9 +641,6 @@ public class Database {
 				if(!exFriends.contains(friend)){
 					ps.setInt(1, tu.getID());
 					ps.setInt(2, friend);
-					ps.executeUpdate();
-					ps.setInt(1, friend);
-					ps.setInt(2, tu.getID());
 					ps.executeUpdate();
 				}
 			}
