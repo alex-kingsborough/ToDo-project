@@ -130,7 +130,7 @@ private static final long serialVersionUID = 456789212311L;
 		usernameField.setBackground(Constants.lightGreyColor);
 
 		JPanel passwordPanel = new JPanel(new FlowLayout());
-		passwordLabel = new JLabel("PASSWORD: ");
+		passwordLabel = new JLabel(" PASSWORD: ");
 		passwordLabel.setForeground(Constants.goldColor);
 		passwordLabel.setBackground(Constants.greyColor);
 		passwordPanel.add(passwordLabel);
