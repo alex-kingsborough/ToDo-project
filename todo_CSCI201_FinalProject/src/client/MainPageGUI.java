@@ -30,10 +30,6 @@ public class MainPageGUI extends JPanel {
 	
 	//Necessary user variables
 	private Vector<TodoList> mAllTodos;
-	/*
-	//TODO
-	*/
-	
 	
 	//Constructor
 	public MainPageGUI(){

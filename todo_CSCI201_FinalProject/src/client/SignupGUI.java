@@ -77,7 +77,9 @@ public class SignupGUI extends JPanel {
 								//signup user and go to editor
 								TodoClientListener.get().setUsername(username);
 								newTodoUser = TodoClientListener.get().readTodoUser();
-								//newTodoUser.addTodoList(new TodoList(0, "My 1st List"));
+								newTodoUser.addTodoList(new TodoList(0, "My 1st List"));
+								TodoClientListener.get().sendUser(newTodoUser);
+								newTodoUser = TodoClientListener.get().readTodoUser();
 								mNav.toPortal(newTodoUser);
 							}
 							//case: SIGNUP FAILURE
