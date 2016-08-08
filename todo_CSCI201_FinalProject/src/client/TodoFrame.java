@@ -98,6 +98,10 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("Button.foreground", Constants.goldColor);
 		UIManager.put("Button.select", Color.WHITE);
 		
+		//Option pane
+		UIManager.put("OptionPane.warningDialog.titlePane.background", Constants.redColor);
+				
+		
 		add(new SignInGUI(this));
 	}
 	
