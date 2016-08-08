@@ -20,17 +20,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
 
 import constants.Constants;
 
 
-/* This needs a vector of the different lists that the current user has 
- * to give the user an option of what list to add the new todo to.
- * 
- * 
- * 
-*/
 public class AddTodoItem extends JFrame {
 	private static final long serialVersionUID = 1376543;
 	
@@ -153,31 +146,15 @@ public class AddTodoItem extends JFrame {
 		
 		
 		
-		mTitleText = new JTextField(15) {
-		    /**
-			 * 
-			 */
-			private static final long serialVersionUID = -6601892872896221295L;
-
-			@Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		mTitleText = new JTextField(15);
+		mTitleText.setBorder(null);
 		mTitleText.setFont(mFont.deriveFont(20));
 		mTitleText.setForeground(Constants.redColor);
 		mTitleText.setBackground(Constants.lightGreyColor);		
 		
 		
-		mDescriptionText = new JTextArea(5, 15) {
-		    /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1742600629544601L;
-
-			@Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		mDescriptionText = new JTextArea(5, 15);
+		mDescriptionText.setBorder(null);
 		mDescriptionText.setFont(mFont.deriveFont(0, 14));
 		mDescriptionText.setLineWrap(true);
 		mDescriptionText.setWrapStyleWord(true);
@@ -193,16 +170,8 @@ public class AddTodoItem extends JFrame {
 		for(int i = 5; i > 0; i--){
 			mPriorityVector.addElement(i);
 		}
-		mPointsText = new JTextField(15) {
-		    /**
-			 * 
-			 */
-			private static final long serialVersionUID = 8765676347225270345L;
-
-			@Override public void setBorder(Border border) {
-		        // None
-		    }
-		};
+		mPointsText = new JTextField(15);
+		mPointsText.setBorder(null);
 		mPointsText.setForeground(Constants.redColor);
 		mPointsText.setBackground(Constants.lightGreyColor);
 		mPointsText.setFont(mFont);
@@ -223,7 +192,6 @@ public class AddTodoItem extends JFrame {
 		
 		
 		mListBox = new JComboBox<String>(mListVector);
-		//mListBox.setBorder(BorderFactory.createLineBorder(Constants.greyColor,0));
 		mListBox.setFont(mFont.deriveFont(2));
 		mListBox.setForeground(Constants.redColor);
 		mListBox.setBackground(Constants.greyColor);		
