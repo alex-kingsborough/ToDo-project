@@ -3,6 +3,8 @@ package client;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -40,6 +42,14 @@ public class TodoFrame extends JFrame implements Navigator {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//Font change
+		try{
+			Font newFont = new Font("Comic Sans MS", Font.BOLD, 12);
+			setUIFont(new javax.swing.plaf.FontUIResource(newFont));
+		} catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+
 		//Setting icon
 		setIconImage(new ImageIcon("img/todoTaskbarIcon.png").getImage());
 		
@@ -101,6 +111,17 @@ public class TodoFrame extends JFrame implements Navigator {
 				
 		
 		add(new SignInGUI(this));
+	}
+	
+
+	public static void setUIFont (javax.swing.plaf.FontUIResource f){
+	    Enumeration<Object> keys = UIManager.getDefaults().keys();
+	    while (keys.hasMoreElements()) {
+	      Object key = keys.nextElement();
+	      Object value = UIManager.get (key);
+	      if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+	        UIManager.put (key, f);
+	      }
 	}
 	
 	@Override

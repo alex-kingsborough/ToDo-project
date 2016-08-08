@@ -37,9 +37,12 @@ public class ViewTodo extends JFrame {
 	
 	public ViewTodo(TodoObject to){
 		super("View Todo");
+		System.out.println("in the view constructor");
 		setSize(400, 300);
 		setLocation(800, 400);
 		AddTodo(to);
+		setVisible(true);
+		System.out.println("opened view");
 	}
 	
 	private void AddTodo(TodoObject to) {
