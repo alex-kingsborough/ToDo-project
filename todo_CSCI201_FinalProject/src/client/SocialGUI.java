@@ -9,6 +9,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import constants.Constants;
+
 public class SocialGUI extends JPanel implements Runnable {
 
 	/** ****** *** ***** ****** **** *** ***** **\
@@ -115,12 +117,10 @@ public class SocialGUI extends JPanel implements Runnable {
 		while (true)
 		{
 			try {
-				System.out.println("Trying to update this shit");
-				Vector<Vector<TodoObject>> vvt = TodoClientListener.get().readVectorTodoObjects();
 				//send request to server
 				//wait for response from server
-				System.out.println("hey there");
-				friendsTodos = vvt.get(0);
+				
+				friendsTodos = TodoClientListener.get().readTodoObjects(Constants.GET_FRIENDS_TODOS);
 				Object[][] newTodos = convertToObject(friendsTodos);
 				
 				//send request to get new todos
@@ -128,12 +128,10 @@ public class SocialGUI extends JPanel implements Runnable {
 		
 				//send request to server
 				//wait for response from server
-				System.out.println("hey there there");
-				publicTodos = vvt.get(1);
+				publicTodos = TodoClientListener.get().readTodoObjects(Constants.GET_PUBLIC_TODOS);
 				Object[][] newTodos2 = convertToObject(publicTodos);
 				publicTodo.setModel(new TodoTableModel(newTodos2));
 				
-				System.out.println("Finished updating this shit");
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

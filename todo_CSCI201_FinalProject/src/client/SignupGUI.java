@@ -67,21 +67,28 @@ public class SignupGUI extends JPanel {
 						TodoUser newTodoUser = new TodoUser(username, name, Encrypt.SHA1(password), email, aboutMe);
 						newTodoUser.addTodoList(new TodoList(0, "My 1st List"));
 						//send signup request
-						TodoClientListener.get().sendUser(newTodoUser);
-						//read response from server
-						String response = TodoClientListener.get().readLine();
-						//case: SIGNUP SUCCESS
-						if(response.equals(Constants.SUCCESS_MESSAGE)) {
-							//signup user and go to editor
-							TodoClientListener.get().setUsername(username);
-							newTodoUser = TodoClientListener.get().readTodoUser();
-							mNav.toPortal(newTodoUser);
-						}
-						//case: SIGNUP FAILURE
-						else {
-							JOptionPane.showMessageDialog(loginButton, "Username or password is \ninvalid.",
-														"Sign-up Failed", JOptionPane.ERROR_MESSAGE);
-							TodoClientListener.get().readTodoUser();
+						TodoClientListener.lock.lock();
+						try {
+							System.out.println("sign up in the lcok");
+							TodoClientListener.get().sendUser(newTodoUser);
+							//read response from server
+							String response = TodoClientListener.get().readLine();
+							//case: SIGNUP SUCCESS
+							if(response.equals(Constants.SUCCESS_MESSAGE)) {
+								//signup user and go to editor
+								TodoClientListener.get().setUsername(username);
+								newTodoUser = TodoClientListener.get().readTodoUser();
+								mNav.toPortal(newTodoUser);
+							}
+							//case: SIGNUP FAILURE
+							else {
+								JOptionPane.showMessageDialog(loginButton, "Username or password is \ninvalid.",
+															"Sign-up Failed", JOptionPane.ERROR_MESSAGE);
+								TodoClientListener.get().readTodoUser();
+							}
+						}  finally {
+							TodoClientListener.lock.unlock();
+							System.out.println("sign up out of the lock");
 						}
 					
 					} else if (!validPasswordFormat) {

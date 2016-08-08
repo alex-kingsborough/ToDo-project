@@ -44,18 +44,35 @@ private static final long serialVersionUID = 456789212311L;
 					//prepare login request
 					String request = Constants.LOGIN_PREFIX + username + " " + Encrypt.SHA1(password);
 					//send request to server
-					TodoClientListener.get().send(request);
-					String response = TodoClientListener.get().readLine();
+					TodoClientListener.lock.lock();
+					String response;
+					try {
+						System.out.println("login in the lock");
+						TodoClientListener.get().send(request);
+						response = TodoClientListener.get().readLine();
+					} finally {
+						TodoClientListener.lock.unlock();
+						System.out.println("login unlocked");
+					}
 					//case: LOGIN SUCCESS
 					if(response.equals(Constants.AUTHENTICATED_MESSAGE)) {
 						System.out.println("Login success!");
 						TodoClientListener.get().setUsername(username);
 						//get todo user to pass into portal
 						request = Constants.LOGIN_USER_REQUEST;
-						TodoClientListener.get().send(request);
-						TodoUser loggedInUser = TodoClientListener.get().readTodoUser();
-						System.out.println("loggedInUser: " + loggedInUser.getName());
+						TodoUser loggedInUser = null;
+						TodoClientListener.lock.lock();
+						try {
+							System.out.println("login got the lock again");
+							TodoClientListener.get().send(request);
+							loggedInUser = TodoClientListener.get().readTodoUser();
+							System.out.println("loggedInUser: " + loggedInUser.getName());
+						} finally {
+							TodoClientListener.lock.unlock();
+							System.out.println("login got rid of it");
+						}
 						mNav.toPortal(loggedInUser);
+							
 					}
 					//case: FAILURE
 					else {

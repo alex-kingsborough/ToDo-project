@@ -339,8 +339,15 @@ public class AddTodoItem extends JFrame {
 	
 				mMainPage.updatePage();
 				if(!mTU.getName().equals(Constants.GUEST_USER)){
-					TodoClientListener.get().sendUser(mTU);
-					mTU = TodoClientListener.get().readTodoUser();
+					TodoClientListener.lock.lock();
+					try {
+						System.out.println("add todo in the lock");
+						TodoClientListener.get().sendUser(mTU);
+						mTU = TodoClientListener.get().readTodoUser();
+					} finally {
+						TodoClientListener.lock.unlock();
+						System.out.println("add todo out of the lock");
+					}
 				}
 				
 				setVisible(false);
