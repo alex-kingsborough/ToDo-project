@@ -90,6 +90,14 @@ public class SocialGUI extends JPanel implements Runnable {
 		     }
 		});
 		pubSP = new JScrollPane(publicTodo);
+		JScrollBar sb = pubSP.getVerticalScrollBar();
+		sb.setPreferredSize(new Dimension(14, Integer.MAX_VALUE));
+		sb.setUI(new MyScrollbarUI());
+		sb.getComponent(0).setBackground(Constants.redColor);
+		sb.getComponent(0).setForeground(Constants.goldColor);
+		sb.getComponent(1).setBackground(Constants.redColor);
+		sb.getComponent(1).setForeground(Constants.goldColor);
+		
 		pubSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		pubSP.getViewport().setBackground(Constants.greyColor);
 		
