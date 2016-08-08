@@ -125,7 +125,7 @@ public class SignupGUI extends JPanel {
 		gbc.gridy = 0;
 		
 		JPanel usernamePanel = new JPanel(new FlowLayout());
-		usernameLabel = new JLabel(" USERNAME: ");
+		usernameLabel = new JLabel(" USERNAME:     ");
 		usernameLabel.setForeground(Constants.goldColor);
 		usernameLabel.setBackground(Constants.greyColor);
 		usernamePanel.add(usernameLabel);
@@ -139,7 +139,7 @@ public class SignupGUI extends JPanel {
 		add(usernamePanel, gbc);
 		
 		JPanel passwordPanel = new JPanel(new FlowLayout());
-		passwordLabel = new JLabel("PASSWORD: ");
+		passwordLabel = new JLabel("PASSWORD:      ");
 		passwordLabel.setForeground(Constants.goldColor);
 		passwordLabel.setBackground(Constants.greyColor);
 		passwordPanel.add(passwordLabel);
@@ -154,7 +154,7 @@ public class SignupGUI extends JPanel {
 		add(passwordPanel, gbc);
 		
 		JPanel repeatPanel = new JPanel(new FlowLayout());
-		repeatLabel = new JLabel("       REPEAT:  ");
+		repeatLabel = new JLabel("       REPEAT:    ");
 		repeatLabel.setForeground(Constants.goldColor);
 		repeatLabel.setBackground(Constants.greyColor);
 		repeatPanel.add(repeatLabel);
@@ -169,7 +169,7 @@ public class SignupGUI extends JPanel {
 		add(repeatPanel, gbc);
 		
 		JPanel mNamePanel = new JPanel(new FlowLayout());
-		mNameLabel = new JLabel("         NAME:   ");
+		mNameLabel = new JLabel("         NAME:    ");
 		mNameLabel.setForeground(Constants.goldColor);
 		mNameLabel.setBackground(Constants.greyColor);
 		mNamePanel.add(mNameLabel);
