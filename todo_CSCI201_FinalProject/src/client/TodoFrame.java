@@ -111,7 +111,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		
 		getContentPane().removeAll();
 		
-		/*//TODO REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
+		/*//REMOVE THIS, JUST TO HAVE A USER TO WORK WITH
 		//tempUser = new TodoUser(1,"Jeff","pass","email");
 		/*
 		TodoList playList = new TodoList(0,"Play");
