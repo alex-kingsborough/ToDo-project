@@ -52,7 +52,7 @@ public class Database {
 	private final static String removeFriend = "DELETE FROM FRIENDSHIP WHERE fromID=? AND toID=?";
 	private final static String addFriend = "INSERT INTO FRIENDSHIP(fromID,toID,createdAt) VALUES(?,?,?)";
 	private final static String addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
-	private final static String todoExists = "SELECT * FROM TODOS WHERE userID=? AND todoTitle=?";
+	private final static String todoExists = "SELECT * FROM TODOS WHERE userID=? AND todoTitle=? AND listID=?";
 
 
 
@@ -524,7 +524,7 @@ public class Database {
 			for(TodoList tl : tu.getTodoLists()){
 				int listID = getListID(tl.getName(), userID);
 				for(TodoObject to : tl.getAllTodos()){
-					if(todoExists(to, userID)){
+					if(todoExists(to, userID, listID)){
 						ps.setInt(1, to.getPoints());
 						ps.setInt(2, to.getPriority());
 						ps.setString(3, to.getDescription());
@@ -551,13 +551,14 @@ public class Database {
 
 	}
 
-	private boolean todoExists(TodoObject to, int userID) {
+	private boolean todoExists(TodoObject to, int userID, int listID) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try{
 			ps = con.prepareStatement(todoExists);
 			ps.setInt(1, userID);
 			ps.setString(2, to.getTitle());
+			ps.setInt(3, listID);
 			rs = ps.executeQuery();
 			if(rs.next()) return true;
 		} catch (SQLException e){
