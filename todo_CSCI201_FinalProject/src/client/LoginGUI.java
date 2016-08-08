@@ -97,7 +97,12 @@ private static final long serialVersionUID = 456789212311L;
 		usernamePanel.setBackground(Constants.greyColor);
 		
 		usernameField = new JTextField(){
-		    @Override public void setBorder(Border border) {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 6762367646379653329L;
+
+			@Override public void setBorder(Border border) {
 		        // None
 		    }
 		};
@@ -114,7 +119,12 @@ private static final long serialVersionUID = 456789212311L;
 		passwordPanel.add(passwordLabel);
 		passwordPanel.setBackground(Constants.greyColor);
 		passwordField = new JPasswordField(){
-		    @Override public void setBorder(Border border) {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 8657616015155767600L;
+
+			@Override public void setBorder(Border border) {
 		        // None
 		    }
 		};

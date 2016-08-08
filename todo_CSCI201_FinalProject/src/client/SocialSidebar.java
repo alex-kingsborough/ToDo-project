@@ -1,7 +1,6 @@
 package client;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,13 +20,11 @@ public class SocialSidebar extends JPanel implements Runnable {
 	
 	private JScrollPane mSocialPanel;
 	private TodoUser mUser;
-	private Vector<Integer> mFriendList;
 	private JPanel mSocialGrid;
 
 	public SocialSidebar(TodoUser inUser, TodoFrame inFrame, MainPageGUI inMainPage){ //Creating and filling out the panel on the east holding the add button and Social Panel
 		
-		mUser = inUser;
-		mFriendList = mUser.getFriendList();
+		setUser(inUser);
 		
 		JButton mAddTodoButton = new JButton("Add Todo");
 		mAddTodoButton.setPreferredSize(new Dimension(this.getWidth(),21));
@@ -158,5 +155,13 @@ public class SocialSidebar extends JPanel implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public TodoUser getUser() {
+		return mUser;
+	}
+
+	public void setUser(TodoUser mUser) {
+		this.mUser = mUser;
 	}
 }

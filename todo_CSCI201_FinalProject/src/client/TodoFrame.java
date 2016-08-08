@@ -3,7 +3,6 @@ package client;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -11,10 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.colorchooser.ColorSelectionModel;
-import javax.swing.plaf.ColorUIResource;
 
 import constants.Constants;
 
@@ -73,7 +68,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("ScrollBar.darkShadow",Constants.redColor);
 		UIManager.put("ScrollBar.foreground",Constants.redColor);
 		UIManager.put("ScrollBar.highlight",Constants.redColor);
-		UIManager.put("ScrollBar.shadow",Constants.redColor);
+		UIManager.put("ScrollBar.shadow",Constants.greyColor);
 		UIManager.put("ScrollBar.thumb", Constants.redColor);
 		UIManager.put("ScrollBar.thumbDarkShadow",Constants.greyColor);
 		UIManager.put("ScrollBar.thumbHighlight",Constants.greyColor);

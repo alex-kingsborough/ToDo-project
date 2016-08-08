@@ -72,6 +72,7 @@ public class PortalManager extends JPanel {
 			    	mUser.addTodoList(mNewTodoList);
 			    	mMainPage.updatePage();
 			    	TodoClientListener.get().sendUser(mUser);
+			    	mUser = TodoClientListener.get().readTodoUser();
 			    } //Else do nothing, user hit cancel
 			}
 		});
@@ -97,10 +98,10 @@ public class PortalManager extends JPanel {
 		mTestMenu = new JMenu("Menu");
 		mTestMenu.setMnemonic('M');
 		mJMenuBar.add(mTestMenu);
-		mMainPageItem = new JMenuItem("Main Page");
+		/*mMainPageItem = new JMenuItem("Main Page");
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		mMainPageItem.addActionListener(new GuestMenuItemActionListener(this, "main"));
-		mTestMenu.add(mMainPageItem);
+		mTestMenu.add(mMainPageItem);*/
 		
 		mNewTabItem = new JMenuItem("New List Tab");
 		mNewTabItem.setIcon(new ImageIcon(new ImageIcon("img/addIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
@@ -119,15 +120,15 @@ public class PortalManager extends JPanel {
 			}
 		});
 		mNewTodoItem = new JMenuItem("Add a Todo");
-		mNewTodoItem.setIcon(new ImageIcon(new ImageIcon("img/todoProjectIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
+		mNewTodoItem.setIcon(new ImageIcon(new ImageIcon("img/newTodo.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mNewTodoItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent ae){
 				new AddTodoItem();
 			}
 		});
-		
-		mTestMenu.addSeparator();
+		/*
+		mTestMenu.addSeparator();*/
 		mTestMenu.add(mNewTabItem);
 		mTestMenu.add(mNewTodoItem);
 		
@@ -162,6 +163,7 @@ public class PortalManager extends JPanel {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private class GuestMenuItemActionListener implements ActionListener {
 		private JPanel mPortalManager;
 		private String mPanelName;

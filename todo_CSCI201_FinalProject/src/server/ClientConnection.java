@@ -72,7 +72,6 @@ public class ClientConnection extends Thread{
 				sendMessage(Constants.NOT_AUTHENTICATED_MESSAGE);
 			} else {
 				if(Database.get().login(elements[1], elements[2])){
-					TodoUser temp = Database.get().getUserInfo(elements[1]);
 					username = elements[1];
 					userID = Database.get().getUserID(elements[1]);
 					System.out.println(username + " " + userID);
@@ -174,8 +173,6 @@ public class ClientConnection extends Thread{
 	}
 
 	private void handleRecievedTodoObject(TodoObject to) {
-		//TODO: make handleRecievedTodoObject AS LIT as handleRecievedUser
-
 		Database.get().addTodo(to,username);
 		MainServer.gui.writeToLog("Added todo \"" + to.getTitle() + "\" for user: " + username);
 	}
