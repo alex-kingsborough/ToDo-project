@@ -198,30 +198,37 @@ public class UserInfoGUI extends JPanel {
 		mRemoveFriendButton = new JButton("Remove");
 		mRemoveFriendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				String friendName = mRemoveFriendTextField.getText();
-				if(!friendName.isEmpty()) {
-					String request = Constants.REMOVE_FRIEND_REQUEST + " " + friendName;
-					System.out.println("Friend Name: " + friendName);
-					TodoClientListener.get().send(request);
-					System.out.println("request: " + request);
-					String response = TodoClientListener.get().readLine();
-					System.out.println("response: " + response);
-					if(response.startsWith(Constants.FAIL_MESSAGE)) {
-						JOptionPane.showMessageDialog(mRemoveFriendButton, "Failed to removes friend: " + friendName,
-													"Failure", JOptionPane.ERROR_MESSAGE);
-					} else {
-						String [] parameters = response.split(" ");
-						int userID = Integer.parseInt(parameters[1]);
-						System.out.println("userID: " + userID);
-						if(!friendName.equals(PortalManager.mUser.getUsername())) {
-							PortalManager.mUser.removeFriend(userID);
-							TodoClientListener.get().sendUser(PortalManager.mUser);
-							PortalManager.mUser = TodoClientListener.get().readTodoUser();
-							mListModel.removeElement(friendName);
-							//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
+				TodoClientListener.lock.lock();
+				try {
+					System.out.println("Removing Friend In Lock");
+					String friendName = mRemoveFriendTextField.getText();
+					if(!friendName.isEmpty()) {
+						String request = Constants.REMOVE_FRIEND_REQUEST + " " + friendName;
+						System.out.println("Friend Name: " + friendName);
+						TodoClientListener.get().send(request);
+						System.out.println("request: " + request);
+						String response = TodoClientListener.get().readLine();
+						System.out.println("response: " + response);
+						if(response.startsWith(Constants.FAIL_MESSAGE)) {
+							JOptionPane.showMessageDialog(mRemoveFriendButton, "Failed to removes friend: " + friendName,
+														"Failure", JOptionPane.ERROR_MESSAGE);
+						} else {
+							String [] parameters = response.split(" ");
+							int userID = Integer.parseInt(parameters[1]);
+							System.out.println("userID: " + userID);
+							if(!friendName.equals(PortalManager.mUser.getUsername())) {
+								PortalManager.mUser.removeFriend(userID);
+								TodoClientListener.get().sendUser(PortalManager.mUser);
+								PortalManager.mUser = TodoClientListener.get().readTodoUser();
+								mListModel.removeElement(friendName);
+								//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
+							}
 						}
-					}
-				} 
+					} 
+				} finally {
+					TodoClientListener.lock.unlock();
+					System.out.println("Removing Friend Out of Lock");
+				}
 			}
 		});
 		mRemoveFriendPanel.add(mRemoveFriendLabel);
