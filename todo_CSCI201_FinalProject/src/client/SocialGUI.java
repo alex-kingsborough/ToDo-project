@@ -35,6 +35,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		setBackground(Constants.greyColor);
 		setLayout(new BorderLayout());
 		tabbedPane = new JTabbedPane();
+		tabbedPane.setBackground(Constants.greyColor);
 		add(tabbedPane, BorderLayout.CENTER);
 		
 		createFriendsTab();
@@ -57,6 +58,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		     }
 		});
 		friendSP = new JScrollPane(friendsTodo);
+		friendSP.setBackground(Constants.greyColor);
 		
 		JScrollBar sb = friendSP.getVerticalScrollBar();
 		sb.setPreferredSize(new Dimension(14, Integer.MAX_VALUE));
