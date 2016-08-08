@@ -41,7 +41,7 @@ public class PortalManager extends JPanel {
 		mTestMenu.setMnemonic('M');
 		mJMenuBar.add(mTestMenu);
 		mMainPageItem = new JMenuItem("Main Page");
-		mMainPageItem.setIcon(new ImageIcon(new ImageIcon("img/userinfoIcon.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
+		mMainPageItem.setIcon(new ImageIcon(new ImageIcon("img/mainPageImage.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT)));
 		mMainPageItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		mMainPageItem.addActionListener(new MenuItemActionListener(this, "main"));
 		mTestMenu.add(mMainPageItem);
@@ -65,7 +65,7 @@ public class PortalManager extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent ae){
 			    String mNewTabMessage = "Please enter the title of the new tab:";
-			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage);
+			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage, "New tab title", JOptionPane.INFORMATION_MESSAGE);
 			    if(mTabTitle != null){
 			    	int newTodoListIndex = mUser.getTodoLists().size();
 			    	TodoList mNewTodoList = new TodoList(newTodoListIndex, mTabTitle);
@@ -117,7 +117,7 @@ public class PortalManager extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent ae){
 			    String mNewTabMessage = "Please enter the title of the new tab:";
-			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage);
+			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage, "New tab title", JOptionPane.INFORMATION_MESSAGE);
 			    if(mTabTitle != null){
 			    	int newTodoListIndex = mUser.getTodoLists().size();
 			    	TodoList mNewTodoList = new TodoList(newTodoListIndex, mTabTitle);

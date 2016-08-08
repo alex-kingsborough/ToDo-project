@@ -1,5 +1,6 @@
 package client;
 import java.awt.Dimension;
+import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
@@ -31,14 +32,15 @@ public class SocialGUI extends JPanel implements Runnable {
 	
 	
 	public SocialGUI() {
+		setBackground(Constants.greyColor);
+		setLayout(new BorderLayout());
 		tabbedPane = new JTabbedPane();
+		add(tabbedPane, BorderLayout.CENTER);
 		
 		createFriendsTab();
 		createPublicTab();
 		
-		(new Thread(this)).start();	
-		
-		
+		(new Thread(this)).start();
 	}
 	
 	//create the friends tab
