@@ -22,7 +22,7 @@ package client;
 
     MyScrollbarUI() {
     	UIManager.put("Button.background", Color.black);
-
+    	
     	try {
              imageThumb = ImageIO.read(new File("img/ThumbColor.png"));
             imageTrack = ImageIO.read(new File("img/bgColor.png"));

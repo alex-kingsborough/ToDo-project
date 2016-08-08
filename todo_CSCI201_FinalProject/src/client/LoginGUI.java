@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -71,6 +72,18 @@ private static final long serialVersionUID = 456789212311L;
 				}
 
 			}
+		});
+		loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+				loginButton.setBorder(BorderFactory.createLineBorder(Color.white ,8));
+				loginButton.setBackground(Color.white);
+				
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+				loginButton.setBorder(BorderFactory.createLineBorder(Color.black,8));
+				loginButton.setBackground(Color.black);
+		    }
 		});
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
