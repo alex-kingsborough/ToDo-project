@@ -42,7 +42,6 @@ public class ViewTodo extends JFrame {
 		setLocation(800, 400);
 		mTU = PortalManager.mUser;
 		AddTodo(to);
-	
 	}
 	
 	private void AddTodo(TodoObject to) {
