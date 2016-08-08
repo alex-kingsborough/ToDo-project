@@ -195,6 +195,7 @@ public class UserInfoGUI extends JPanel {
 			public void actionPerformed(ActionEvent ae) {
 				String friendName = mAddFriendTextField.getText();
 				if(!friendName.isEmpty()) {
+					mAddFriendTextField.setText("");
 					String request = Constants.ADD_FRIEND_REQUEST + " " + friendName;
 					System.out.println("Friend Name: " + friendName);
 					TodoClientListener.get().send(request);
@@ -241,6 +242,7 @@ public class UserInfoGUI extends JPanel {
 					System.out.println("Removing Friend In Lock");
 					String friendName = mRemoveFriendTextField.getText();
 					if(!friendName.isEmpty()) {
+						mRemoveFriendTextField.setText("");
 						String request = Constants.REMOVE_FRIEND_REQUEST + " " + friendName;
 						System.out.println("Friend Name: " + friendName);
 						TodoClientListener.get().send(request);
