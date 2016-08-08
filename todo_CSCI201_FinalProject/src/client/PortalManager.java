@@ -72,13 +72,11 @@ public class PortalManager extends JPanel {
 			    	mUser.addTodoList(mNewTodoList);
 			    	TodoClientListener.lock.lock();
 			    	try {
-			    		System.out.println("portal mangaer in the lock");
 				    	TodoClientListener.get().sendUser(mUser);
 				    	mUser = TodoClientListener.get().readTodoUser();
 			    	} finally {
 						TodoClientListener.lock.unlock();
 				    	mMainPage.updatePage();
-						System.out.println("portal manager out of the lock");
 					}
 			    } //Else do nothing, user hit cancel
 			}
