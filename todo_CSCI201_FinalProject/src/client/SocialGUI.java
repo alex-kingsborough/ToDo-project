@@ -58,7 +58,7 @@ public class SocialGUI extends JPanel implements Runnable {
 		     }
 		});
 		friendSP = new JScrollPane(friendsTodo);
-		friendSP.setBackground(Constants.greyColor);
+		friendSP.getViewport().setBackground(Constants.greyColor);
 		
 		JScrollBar sb = friendSP.getVerticalScrollBar();
 		sb.setPreferredSize(new Dimension(14, Integer.MAX_VALUE));
@@ -89,6 +89,8 @@ public class SocialGUI extends JPanel implements Runnable {
 		     }
 		});
 		pubSP = new JScrollPane(publicTodo);
+		pubSP.getViewport().setBackground(Constants.greyColor);
+		
 		tabbedPane.add(pubSP, "Public");
 		//updateTab(1);
 		

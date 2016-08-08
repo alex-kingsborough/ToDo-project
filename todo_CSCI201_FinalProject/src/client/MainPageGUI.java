@@ -37,14 +37,9 @@ public class MainPageGUI extends JPanel {
 	
 	//Constructor
 	public MainPageGUI(){
-		
 		mMainTabbedPane = new JTabbedPane();
 		
 		setBackground(Constants.greyColor);
-
-		//Fill user variables from user
-		//TODO make sure all necessary is here
-		mAllTodos = PortalManager.mUser.getTodoLists();
 		
 		createTabbedPane();
 		setLayout(new BorderLayout());
@@ -53,6 +48,7 @@ public class MainPageGUI extends JPanel {
 	
 	private void createTabbedPane(){//Creating the Tabbed pane which is the bulk of the Main Page
 		//Creating a tab with appropriate title for each TabTitle in the User, then filling each tab with a scroll pane that is filled with a table of Todos
+		mAllTodos = PortalManager.mUser.getTodoLists();
 		for(int i=0; i<mAllTodos.size(); i++){
 			TodoList currTodoList = mAllTodos.get(i);
 			Vector<TodoObject> currTodos = currTodoList.getAllTodos();
