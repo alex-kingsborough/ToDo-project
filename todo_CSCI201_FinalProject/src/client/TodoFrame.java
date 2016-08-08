@@ -73,7 +73,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		UIManager.put("ScrollBar.darkShadow",Constants.redColor);
 		UIManager.put("ScrollBar.foreground",Constants.redColor);
 		UIManager.put("ScrollBar.highlight",Constants.redColor);
-		UIManager.put("ScrollBar.shadow",Constants.redColor);
+		UIManager.put("ScrollBar.shadow",Constants.greyColor);
 		UIManager.put("ScrollBar.thumb", Constants.redColor);
 		UIManager.put("ScrollBar.thumbDarkShadow",Constants.greyColor);
 		UIManager.put("ScrollBar.thumbHighlight",Constants.greyColor);
