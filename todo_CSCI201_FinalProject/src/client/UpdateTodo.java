@@ -144,6 +144,7 @@ public class UpdateTodo extends JFrame {
 		mTitleText = new JTextField(15);
 		mTitleText.setText(to.getTitle());
 		mTitleText.setBorder(null);
+		mTitleText.setEditable(false);
 		mTitleText.setFont(mFont.deriveFont(20));
 		mTitleText.setForeground(Constants.redColor);
 		mTitleText.setBackground(Constants.lightGreyColor);		

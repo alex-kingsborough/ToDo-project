@@ -204,8 +204,9 @@ public class ViewTodo extends JFrame {
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
 
 		add(outsidePanel);
-		setVisible(true);
 		addSaveEvents();
+		//setVisible(true);
+
 	}
 	
 	
