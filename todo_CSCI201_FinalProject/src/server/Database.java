@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class Database {
@@ -53,6 +54,7 @@ public class Database {
 	private final static String addFriend = "INSERT INTO FRIENDSHIP(fromID,toID,createdAt) VALUES(?,?,?)";
 	private final static String addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
 	private final static String todoExists = "SELECT * FROM TODOS WHERE userID=? AND todoTitle=? AND listID=?";
+	private final static String getAllTodos = "SELECT * FROM TODOS ORDER BY createdAt DESC";
 
 
 
@@ -367,36 +369,42 @@ public class Database {
 			ps = con.prepareStatement(getAllUserFriends);
 			ps.setInt(1, _userId);
 			ResultSet result = ps.executeQuery();
-
-			//now iterate through all friends
+			
+			ArrayList<Integer> userIds = new ArrayList<Integer>();
+			//get all friend ids in one arraylist
 			while (result.next())
 			{
 				//get a friends todos
 				int userId = result.getInt("toId");
-				ps = con.prepareStatement(getUserTodosById);
-				ps.setInt(1, userId);
-				ResultSet todoResult = ps.executeQuery();
+				userIds.add(userId);
+			}
+			
+			ps = con.prepareStatement(getAllTodos);
+			ResultSet todoResult = ps.executeQuery();
 
-				//now iterate through all of that friends's todos
-				/*
-				 *  TodoObject Constructor: 
-				 *	public TodoObject(String _title, int _priority, boolean _isPrivate, int _listID, 
-				 *	String _listName, String _desc, int _points, int _userID, boolean _isCompleted)
-				 *
-				 */
-				while (todoResult.next())
-				{
-					String name = todoResult.getString("todoTitle");
-					String description = todoResult.getString("todoDesc");
-					boolean isComplete = todoResult.getBoolean("todoIsCompleted");
-					int priority = todoResult.getInt("todoPriority");
-					boolean isPrivate = todoResult.getBoolean("todoIsCompleted");
-					int points = todoResult.getInt("todoPoints");
-					int listId = todoResult.getInt("listID");
-					TodoObject to = new TodoObject(name, priority, isPrivate, listId, getListName(userId, listId), description, points, userId, isComplete);
-					to.setUsername(getUsernameByID(userId));
-					friendTodos.add(to);
-				}
+			//now iterate through all of that friends's todos
+			/*
+			 *  TodoObject Constructor: 
+			 *	public TodoObject(String _title, int _priority, boolean _isPrivate, int _listID, 
+			 *	String _listName, String _desc, int _points, int _userID, boolean _isCompleted)
+			 *
+			 */
+			while (todoResult.next())
+			{
+				int userId = todoResult.getInt("userID");
+				if (!userIds.contains(userId))
+					continue;
+				
+				String name = todoResult.getString("todoTitle");
+				String description = todoResult.getString("todoDesc");
+				boolean isComplete = todoResult.getBoolean("todoIsCompleted");
+				int priority = todoResult.getInt("todoPriority");
+				boolean isPrivate = todoResult.getBoolean("todoIsCompleted");
+				int points = todoResult.getInt("todoPoints");
+				int listId = todoResult.getInt("listID");
+				TodoObject to = new TodoObject(name, priority, isPrivate, listId, getListName(userId, listId), description, points, userId, isComplete);
+				to.setUsername(getUsernameByID(userId));
+				friendTodos.add(to);
 			}
 
 
