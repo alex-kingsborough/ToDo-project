@@ -47,7 +47,7 @@ public class Database {
 	private final static String getListNameByUserAndID = "SELECT l.listName FROM lists l, users u, todos t WHERE l.listID=? AND u.userID=?";
 	private final static String updateUserInfo = "UPDATE USERS SET actualname=?, email=?, points=?, aboutme=? WHERE userID=?";
 //	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?";
-	private final static String updateUserTodos = "UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
+	private final static String updateUserTodos = "UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoIsCompleted=?, todoPrivate=? WHERE userID=? AND todoTitle=?";
 	private final static String getUsernameByID = "SELECT USERNAME FROM USERS WHERE USERID=?";
 	private final static String removeFriend = "DELETE FROM FRIENDSHIP WHERE fromID=? AND toID=?";
 	private final static String addFriend = "INSERT INTO FRIENDSHIP(fromID,toID,createdAt) VALUES(?,?,?)";
@@ -518,37 +518,42 @@ public class Database {
 
 	//UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
 	private void updateUserTodos(TodoUser tu) {
-		PreparedStatement ps = null;
 		try{
-			ps = con.prepareStatement(updateUserTodos);
 			int userID = getUserID(tu.getUsername());
-			ps.setInt(7, userID);
 			for(TodoList tl : tu.getTodoLists()){
 				int listID = getListID(tl.getName(), userID);
 				for(TodoObject to : tl.getAllTodos()){
+					System.out.println("Does "+ to + ": " + todoExists(to, userID, listID));
 					if(todoExists(to, userID, listID)){
+						System.out.println("Updating " + to.getTitle());
+						PreparedStatement ps = con.prepareStatement(updateUserTodos);
 						ps.setInt(1, to.getPoints());
 						ps.setInt(2, to.getPriority());
 						ps.setString(3, to.getDescription());
-						ps.setString(4, to.getTitle());
-						ps.setBoolean(5, to.getCompleted());
-						ps.setBoolean(6, to.getIsPrivate());
+						ps.setString(7, to.getTitle());
+						ps.setBoolean(4, to.getCompleted());
+						ps.setBoolean(5, to.getIsPrivate());
+						ps.setInt(6, userID);
 						ps.executeUpdate();
 					} else 
-						addTodoOther(to, tu.getUsername(), listID);
+					{
+						System.out.println("Adding " + to.getTitle());
+						PreparedStatement ps2 = con.prepareStatement(addTodo);
+						ps2.setInt(1, userID);
+						ps2.setInt(2, listID);
+						ps2.setInt(3, to.getPoints());
+						ps2.setInt(4, to.getPriority());
+						ps2.setString(5, to.getDescription());
+						ps2.setString(6, to.getTitle());
+						ps2.setBoolean(7, to.getCompleted());
+						ps2.setBoolean(8, to.getIsPrivate());
+						ps2.executeUpdate();
+					}
 				}
 			}
 		} catch (SQLException e){
 			System.out.println("SQLE in updateUserLists: " + e.getMessage());
 			e.printStackTrace();
-		} finally {
-			if(ps != null)
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					System.out.println("SQLE in Closing updateUserTodos: " + e.getMessage());
-					e.printStackTrace();
-				}
 		}
 
 	}
