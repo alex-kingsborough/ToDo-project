@@ -531,9 +531,7 @@ public class Database {
 			for(TodoList tl : tu.getTodoLists()){
 				int listID = getListID(tl.getName(), userID);
 				for(TodoObject to : tl.getAllTodos()){
-					System.out.println("Does "+ to + ": " + todoExists(to, userID, listID));
 					if(todoExists(to, userID, listID)){
-						System.out.println("Updating " + to.getTitle());
 						PreparedStatement ps = con.prepareStatement(updateUserTodos);
 						ps.setInt(1, to.getPoints());
 						ps.setInt(2, to.getPriority());
@@ -545,7 +543,6 @@ public class Database {
 						ps.executeUpdate();
 					} else 
 					{
-						System.out.println("Adding " + to.getTitle());
 						PreparedStatement ps2 = con.prepareStatement(addTodo);
 						ps2.setInt(1, userID);
 						ps2.setInt(2, listID);
