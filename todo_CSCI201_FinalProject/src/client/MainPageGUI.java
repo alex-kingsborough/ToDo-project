@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -107,9 +108,13 @@ public class MainPageGUI extends JPanel {
 	        
 			JScrollPane mScrollPane = new JScrollPane(mTable);
 
-			JScrollBar sb= mScrollPane.getVerticalScrollBar();
-			sb.setPreferredSize(new Dimension(25, Integer.MAX_VALUE));
+			JScrollBar sb = mScrollPane.getVerticalScrollBar();
+			sb.setPreferredSize(new Dimension(16, Integer.MAX_VALUE));
 			sb.setUI(new MyScrollbarUI());
+			sb.getComponent(0).setBackground(Constants.redColor);
+			sb.getComponent(1).setBackground(Constants.redColor);
+			sb.getComponent(0).setForeground(Constants.goldColor);
+			sb.getComponent(1).setForeground(Constants.goldColor);
 			
 			mScrollPane.getViewport().setBackground(Constants.greyColor);
 			mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
