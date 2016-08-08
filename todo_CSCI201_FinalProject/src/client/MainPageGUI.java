@@ -93,8 +93,15 @@ public class MainPageGUI extends JPanel {
 		    				updatePage();
 		    				if(mUser.getUsername()!=Constants.GUEST_USER){
 		    					PortalManager.mUserInfoPage.updatePoints();
-		    					TodoClientListener.get().sendUser(mUser);
-		    					mUser = TodoClientListener.get().readTodoUser();
+		    					TodoClientListener.lock.lock();
+		    					try {
+		    						System.out.println("we're in mainpage a new lock");
+			    					TodoClientListener.get().sendUser(mUser);
+			    					mUser = TodoClientListener.get().readTodoUser();
+		    					} finally {
+		    						TodoClientListener.lock.unlock();
+		    						System.out.println("main page i dont' have it");
+		    					}
 		    				}
 		    			}
 		    			if(mTable.getSelectedColumn()==1){

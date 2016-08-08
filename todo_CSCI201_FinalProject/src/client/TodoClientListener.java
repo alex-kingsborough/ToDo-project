@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Vector;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import constants.Constants;
 
@@ -23,6 +25,8 @@ public class TodoClientListener {
 	
 	private String username;
 	
+	static Lock lock;
+	
 	private TodoClientListener(String hostname, int port) {
 		s = null;
 		recievedStrings = new Vector<String>();
@@ -30,6 +34,7 @@ public class TodoClientListener {
 			s = new Socket(hostname, port);
 			oos = new ObjectOutputStream(s.getOutputStream());
 			ois = new ObjectInputStream(s.getInputStream());
+			lock = new ReentrantLock();
 		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
 		}
@@ -113,43 +118,58 @@ public class TodoClientListener {
 		return " ";
 	}
 	
-public synchronized Vector<TodoObject> readTodoObjects(String request) {
-		TodoClientListener.get().send(request);
-		
+	public Vector<TodoObject> readTodoObjects(String request) {
+		lock.lock();
 		try {
-			Object o = ois.readObject();
-			if(o instanceof Vector<?>) {
-				Vector<TodoObject> todoVec = (Vector<TodoObject>) o;
-				return todoVec;
+			System.out.println("in read todo objects");
+			TodoClientListener.get().send(request);
+			
+			try {
+				Object o = ois.readObject();
+				if(o instanceof Vector<?>) {
+					Vector<TodoObject> todoVec = (Vector<TodoObject>) o;
+					return todoVec;
+				}
+			} catch (ClassNotFoundException cnfe) {
+				System.out.println("cnfe: " + cnfe.getMessage());
+			} catch (IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
 			}
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println("cnfe: " + cnfe.getMessage());
-		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			return new Vector<TodoObject>();
+		} finally {
+			lock.unlock();
+			System.out.println("onlocked read todo objects");
 		}
-		return new Vector<TodoObject>();
 	}
 	
 	public Vector<Vector<TodoObject>> readVectorTodoObjects() {
-		TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
-		
+		lock.lock();
 		try {
-			Object o = ois.readObject();
-			System.out.println(o);
-			if(o instanceof Vector<?>) {
-				Vector<Vector<TodoObject>> todoVec = (Vector<Vector<TodoObject>>) o;
-				System.out.println("Reading vector of length " + todoVec.size());
-				return todoVec;
+			System.out.println("read vector in the lock");
+			TodoClientListener.get().send(Constants.GET_PUBLIC_TODOS);
+			
+			try {
+				Object o = ois.readObject();
+				System.out.println(o);
+				if(o instanceof Vector<?>) {
+					Vector<Vector<TodoObject>> todoVec = (Vector<Vector<TodoObject>>) o;
+					System.out.println("Reading vector of length " + todoVec.size());
+					return todoVec;
+				}
+			} catch (ClassNotFoundException cnfe) {
+				System.out.println("cnfe: " + cnfe.getMessage());
+			} catch (IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+				ioe.printStackTrace();
 			}
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println("cnfe: " + cnfe.getMessage());
-		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
+			Vector<Vector<TodoObject>> vvt = new Vector<Vector<TodoObject>>();
+			vvt.add(new Vector<TodoObject>());
+			vvt.add(new Vector<TodoObject>());
+			return vvt;
+		}  finally {
+			TodoClientListener.lock.unlock();
+			System.out.println("read vector out of the lock");
 		}
-		Vector<Vector<TodoObject>> vvt = new Vector<Vector<TodoObject>>();
-		vvt.add(new Vector<TodoObject>());
-		vvt.add(new Vector<TodoObject>());
-		return vvt;
 	}
 	
 	public TodoUser readTodoUser() {
