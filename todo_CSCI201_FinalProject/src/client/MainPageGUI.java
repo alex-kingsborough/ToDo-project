@@ -84,12 +84,10 @@ public class MainPageGUI extends JPanel {
 		    					PortalManager.mUserInfoPage.updatePoints();
 		    					TodoClientListener.lock.lock();
 		    					try {
-		    						System.out.println("we're in mainpage a new lock");
 			    					TodoClientListener.get().sendUser(PortalManager.mUser);
 			    					PortalManager.mUser = TodoClientListener.get().readTodoUser();
 		    					} finally {
 		    						TodoClientListener.lock.unlock();
-		    						System.out.println("main page i dont' have it");
 		    					}
 		    				}
 		    				updatePage();

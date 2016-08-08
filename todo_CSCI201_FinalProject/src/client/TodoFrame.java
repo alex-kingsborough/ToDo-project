@@ -141,8 +141,6 @@ public class TodoFrame extends JFrame implements Navigator {
 
 	@Override
 	public void toPortal() {
-		System.out.println("Guest user");
-		System.out.println(TodoClientListener.get().getUsername());
 		
 		getContentPane().removeAll();
 

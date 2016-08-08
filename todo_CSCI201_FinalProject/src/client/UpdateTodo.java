@@ -289,7 +289,6 @@ public class UpdateTodo extends JFrame {
 				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
 				
-				System.out.println(description);
 				
 				int points = Integer.parseInt(mPointsText.getText());
 				
@@ -322,12 +321,10 @@ public class UpdateTodo extends JFrame {
 				if(!PortalManager.mUser.getName().equals(Constants.GUEST_USER)){
 					TodoClientListener.lock.lock();
 					try {
-						System.out.println("update todo in the lock");
 						TodoClientListener.get().sendUser(PortalManager.mUser);
 						PortalManager.mUser = TodoClientListener.get().readTodoUser();
 					}  finally {
 						TodoClientListener.lock.unlock();
-						System.out.println("update todo out of the lock");
 					}
 				}
 				mMainPage.updatePage();
