@@ -163,6 +163,7 @@ public class PortalManager extends JPanel {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private class GuestMenuItemActionListener implements ActionListener {
 		private JPanel mPortalManager;
 		private String mPanelName;
