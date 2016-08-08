@@ -329,7 +329,6 @@ public class UpdateTodo extends JFrame {
 						System.out.println("update todo out of the lock");
 					}
 				}
-				
 				mMainPage.updatePage();
 				setVisible(false);
 

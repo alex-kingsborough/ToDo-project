@@ -55,7 +55,6 @@ public class AddTodoItem extends JFrame {
 	private boolean isPrivate;
 	private JTextField mPointsText;
 	private Font mFont;
-	private TodoUser mTU;
 	private int listID = 0;
 	private MainPageGUI mMainPage;
 	
@@ -80,7 +79,6 @@ public class AddTodoItem extends JFrame {
 		UIManager.put("ComboBox.borderPaintsFocus", false);
 		UIManager.put("Button.border", BorderFactory.createLineBorder(Constants.redColor,0));
 
-		mTU = PortalManager.mUser;
 		mMainPage = PortalManager.mMainPage;
 		setSize(400, 300);
 		setLocation(800, 400);
@@ -210,9 +208,9 @@ public class AddTodoItem extends JFrame {
 		mPointsText.setFont(mFont);
 		
 		String name;
-		for(int i = 0; i < mTU.getTodoLists().size(); i ++){
-			name = mTU.getTodoLists().get(i).getName();
-			listID = mTU.getTodoLists().get(i).getID();
+		for(int i = 0; i < PortalManager.mUser.getTodoLists().size(); i ++){
+			name = PortalManager.mUser.getTodoLists().get(i).getName();
+			listID = PortalManager.mUser.getTodoLists().get(i).getID();
 			mListVector.addElement(name);
 			mListIDVector.addElement(listID);
 		}
@@ -256,7 +254,7 @@ public class AddTodoItem extends JFrame {
 		mMainPanel.add(mPointsLabel);
 		mMainPanel.add(mPointsText);
 		
-		if(!mTU.getName().equals(Constants.GUEST_USER)){
+		if(!PortalManager.mUser.getName().equals(Constants.GUEST_USER)){
 			mMainPanel.add(mPrivacyLabel);
 			mMainPanel.add(mPrivacyPanel);
 		}
@@ -321,29 +319,29 @@ public class AddTodoItem extends JFrame {
 				String description = mDescriptionText.getText();
 				int points = Integer.parseInt(mPointsText.getText()); ;
 				
-				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, currListID, list, description, points, mTU.getID(), false);
+				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, currListID, list, description, points, PortalManager.mUser.getID(), false);
 
 				int currPlace = 0;
-				for(int i = 0; i < mTU.getTodoLists().size(); i ++){
-					if(mTU.getTodoLists().get(i).getID() == currListID){
+				for(int i = 0; i < PortalManager.mUser.getTodoLists().size(); i ++){
+					if(PortalManager.mUser.getTodoLists().get(i).getID() == currListID){
 						currPlace = i;
 					}
 				}
 				
-				mTU.getTodoLists().get(currPlace).addTodo(mTodoObject);
+				PortalManager.mUser.getTodoLists().get(currPlace).addTodo(mTodoObject);
 	
-				mMainPage.updatePage();
-				if(!mTU.getName().equals(Constants.GUEST_USER)){
+				if(!PortalManager.mUser.getName().equals(Constants.GUEST_USER)){
 					TodoClientListener.lock.lock();
 					try {
 						System.out.println("add todo in the lock");
-						TodoClientListener.get().sendUser(mTU);
-						mTU = TodoClientListener.get().readTodoUser();
+						TodoClientListener.get().sendUser(PortalManager.mUser);
+						PortalManager.mUser = TodoClientListener.get().readTodoUser();
 					} finally {
 						TodoClientListener.lock.unlock();
 						System.out.println("add todo out of the lock");
 					}
 				}
+				mMainPage.updatePage();
 				
 				setVisible(false);
 				

@@ -22,12 +22,9 @@ public class SocialSidebar extends JPanel implements Runnable {
 	private static final long serialVersionUID = 4325615311L;
 	
 	private JScrollPane mSocialPanel;
-	private TodoUser mUser;
 	private JPanel mSocialGrid;
 
 	public SocialSidebar(TodoUser inUser, TodoFrame inFrame, MainPageGUI inMainPage){ //Creating and filling out the panel on the east holding the add button and Social Panel
-		
-		setUser(inUser);
 		
 		JButton mAddTodoButton = new JButton("Add Todo");
 		mAddTodoButton.setPreferredSize(new Dimension(this.getWidth(),21));
@@ -171,13 +168,5 @@ public class SocialSidebar extends JPanel implements Runnable {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public TodoUser getUser() {
-		return mUser;
-	}
-
-	public void setUser(TodoUser mUser) {
-		this.mUser = mUser;
 	}
 }

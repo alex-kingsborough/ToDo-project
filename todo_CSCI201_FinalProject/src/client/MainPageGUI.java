@@ -29,7 +29,6 @@ public class MainPageGUI extends JPanel {
 	private String [] mTableHeaders = { "Finished", "Title", "Description", "Private", "Priority", "Points" };
 	
 	//Necessary user variables
-	private TodoUser mUser;
 	private Vector<TodoList> mAllTodos;
 	/*
 	//TODO
@@ -38,7 +37,6 @@ public class MainPageGUI extends JPanel {
 	
 	//Constructor
 	public MainPageGUI(){
-		mUser = PortalManager.mUser;
 		
 		mMainTabbedPane = new JTabbedPane();
 		
@@ -46,7 +44,7 @@ public class MainPageGUI extends JPanel {
 
 		//Fill user variables from user
 		//TODO make sure all necessary is here
-		mAllTodos = mUser.getTodoLists();
+		mAllTodos = PortalManager.mUser.getTodoLists();
 		
 		createTabbedPane();
 		setLayout(new BorderLayout());
@@ -83,21 +81,21 @@ public class MainPageGUI extends JPanel {
 		    			if(mTable.getSelectedColumn()==0){
 		    				TodoObject changeFinishedTodo = currTodos.get(mTable.getSelectedRow());
 		    				if(changeFinishedTodo.getCompleted()){
-		    					mUser.setTotalPoints(mUser.getTotalPoints()-changeFinishedTodo.getPoints());
+		    					PortalManager.mUser.setTotalPoints(PortalManager.mUser.getTotalPoints()-changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(false);
 		    				}
 		    				else{
-		    					mUser.setTotalPoints(mUser.getTotalPoints()+changeFinishedTodo.getPoints());
+		    					PortalManager.mUser.setTotalPoints(PortalManager.mUser.getTotalPoints()+changeFinishedTodo.getPoints());
 		    					changeFinishedTodo.setCompleted(true);
 		    				}
 		    				updatePage();
-		    				if(mUser.getUsername()!=Constants.GUEST_USER){
+		    				if(PortalManager.mUser.getUsername()!=Constants.GUEST_USER){
 		    					PortalManager.mUserInfoPage.updatePoints();
 		    					TodoClientListener.lock.lock();
 		    					try {
 		    						System.out.println("we're in mainpage a new lock");
-			    					TodoClientListener.get().sendUser(mUser);
-			    					mUser = TodoClientListener.get().readTodoUser();
+			    					TodoClientListener.get().sendUser(PortalManager.mUser);
+			    					PortalManager.mUser = TodoClientListener.get().readTodoUser();
 		    					} finally {
 		    						TodoClientListener.lock.unlock();
 		    						System.out.println("main page i dont' have it");
