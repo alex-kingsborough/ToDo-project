@@ -33,6 +33,8 @@ public class PortalManager extends JPanel {
 	
 	public PortalManager(TodoUser inUser, JMenuBar jmb) { //FOR LOGIN USER
 		mUser = inUser;
+		System.out.println("mUser.getTodolists(): " + mUser.getTodoLists());
+		System.out.println("mUser.getTodolists().size(): " + mUser.getTodoLists().size());
 		if (mUser.getTodoLists().size() == 0)
 		{
 			TodoClientListener.lock.lock();
