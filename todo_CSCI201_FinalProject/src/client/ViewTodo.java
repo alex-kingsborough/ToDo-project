@@ -142,7 +142,7 @@ public class ViewTodo extends JFrame {
 			}
 		}
 		
-		
+		System.out.println("priority= " + to.getPriority());
 		JTextField mPriorityText = new JTextField(to.getPriority());
 		mPriorityText.setBorder(null);
 		mPriorityText.setEditable(false);
@@ -168,6 +168,7 @@ public class ViewTodo extends JFrame {
 		mPrivacyText.setEditable(false);
 		mPrivacyText.setBackground(Constants.greyColor);
 		mPrivacyText.setForeground(Constants.redColor);
+		mPrivacyText.setFont(mFont);
 		
 		mMainPanel =  new JPanel();
 		mMainPanel.setForeground(Constants.goldColor);
