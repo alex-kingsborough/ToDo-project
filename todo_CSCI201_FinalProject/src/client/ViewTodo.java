@@ -52,6 +52,7 @@ public class ViewTodo extends JFrame {
 	}
 	
 	private void AddTodo(TodoObject to) {
+		System.out.println("here 1");
 		mFont = new Font("Serif", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mMainPanel.setBackground(Constants.greyColor);
@@ -63,7 +64,7 @@ public class ViewTodo extends JFrame {
 		mTitleLabel.setForeground(Constants.goldColor);
 		mTitleLabel.setBackground(Constants.greyColor);		
 
-		
+		System.out.println("here 2");	
 		mPriorityLabel = new JLabel("Priority: ");
 		mPriorityLabel.setFont(mFont);
 		mPriorityLabel.setForeground(Constants.goldColor);
@@ -81,13 +82,13 @@ public class ViewTodo extends JFrame {
 		mPrivacyLabel.setForeground(Constants.goldColor);
 		mPrivacyLabel.setBackground(Constants.greyColor);		
 
-		
+		System.out.println("here 1");		
 		mListLabel = new JLabel("List: ");
 		mListLabel.setFont(mFont);
 		mListLabel.setForeground(Constants.goldColor);
 		mListLabel.setBackground(Constants.greyColor);		
 		
-		
+		System.out.println("here 1");	
 		mDescriptionLabel = new JLabel("Description: ");
 		mDescriptionLabel.setFont(mFont);
 		mDescriptionLabel.setForeground(Constants.goldColor);
