@@ -319,8 +319,15 @@ public class UpdateTodo extends JFrame {
 				mTU.getTodoLists().get(currPlace).addTodo(mTO);
 	
 				if(!mTU.getName().equals(Constants.GUEST_USER)){
-					TodoClientListener.get().sendUser(mTU);
-					mTU = TodoClientListener.get().readTodoUser();
+					TodoClientListener.lock.lock();
+					try {
+						System.out.println("update todo in the lock");
+						TodoClientListener.get().sendUser(mTU);
+						mTU = TodoClientListener.get().readTodoUser();
+					}  finally {
+						TodoClientListener.lock.unlock();
+						System.out.println("update todo out of the lock");
+					}
 				}
 				
 				mMainPage.updatePage();

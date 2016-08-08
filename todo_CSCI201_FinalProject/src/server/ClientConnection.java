@@ -81,16 +81,17 @@ public class ClientConnection extends Thread{
 				}
 			}
 		} else if(s.startsWith(Constants.GET_PUBLIC_TODOS)) {
+			/*
 			Vector<TodoObject> todovec = Database.get().getLatestPublic();
 			Vector<TodoObject> todovec2 =  Database.get().getFriendsTodos(userID);
 			Vector<Vector<TodoObject>> todovecvec = new Vector<Vector<TodoObject>>();
 			todovecvec.add(todovec2);
 			todovecvec.add(todovec);
-			System.out.println(userID);
-			System.out.println(todovec.size());
-			System.out.println(todovecvec.size());
+			*/
+			Vector<TodoObject> todovec = Database.get().getLatestPublic();
 			try {
-				mOutputWriter.writeObject(todovecvec);
+				mOutputWriter.writeObject(todovec);
+				mOutputWriter.flush();
 			} catch (IOException e) {
 				System.out.println("IOE in getPublicTodos, string send: " + e.getMessage());
 				e.printStackTrace();
@@ -100,6 +101,7 @@ public class ClientConnection extends Thread{
 			
 			try {
 				mOutputWriter.writeObject(todovec);
+				mOutputWriter.flush();
 			} catch (IOException e) {
 				System.out.println("IOE in GetFriendsTodos Write: " + e.getMessage());
 				e.printStackTrace();
@@ -108,6 +110,7 @@ public class ClientConnection extends Thread{
 			TodoUser tu = Database.get().getUserInfo(username);
 			try {
 				mOutputWriter.writeObject(tu);
+				mOutputWriter.flush();
 			} catch (IOException ioe) {
 				System.out.println("IOE in LoginUserRequest Write: " + ioe.getMessage());
 				ioe.printStackTrace();
@@ -204,6 +207,7 @@ public class ClientConnection extends Thread{
 		} else Database.get().updateAll(tu);
 		try {
 			mOutputWriter.writeObject(tu);
+			mOutputWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
