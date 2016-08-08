@@ -9,50 +9,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import constants.Constants;
 
-
-/* This needs a vector of the different lists that the current user has 
- * to give the user an option of what list to add the new todo to.
- * 
- * 
- * 
-*/
 public class ViewTodo extends JFrame {
 	private static final long serialVersionUID = 1376543;
-	JLabel mTitleLabel;
-	JLabel mPriorityLabel;
-	JLabel mPointsLabel;
-	JLabel mPrivacyLabel;
-	JLabel mListLabel;
-	JLabel mDescriptionLabel;
-	JButton mSaveButton;
-	JTextField mTitleText;
-	JRadioButton mPublicRB;
-	JTextArea mDescriptionText;
-	JComboBox<Integer> mPriorityBox;
-	JComboBox<String> mListBox;
-	JRadioButton mPrivateRB;
-	JPanel mMainPanel;
-	JPanel mTitlePanel;
-	JPanel mPriorityPanel;
-	JPanel mPrivacyPanel;
-	JPanel mListPanel;
-	JPanel mDescriptionPanel;
-	//Vector<Integer> mPriorityVector;
-	Vector<String> mListVector;
-	boolean isPrivate;
-	JTextField mPointsText;
-	Font mFont;
-	TodoUser mTU;
+	private JLabel mTitleLabel;
+	private JLabel mPriorityLabel;
+	private JLabel mPointsLabel;
+	private JLabel mPrivacyLabel;
+	private JLabel mListLabel;
+	private JLabel mDescriptionLabel;
+	private JButton mSaveButton;
+	private JTextField mTitleText;
+	private JTextArea mDescriptionText;
+	private JPanel mMainPanel;
+	private JPanel mPrivacyPanel;
+	private Vector<String> mListVector;
+	private boolean isPrivate;
+	private JTextField mPointsText;
+	private Font mFont;
+	private TodoUser mTU;
 	
 	public ViewTodo(TodoObject to){
 		super("View Todo");
@@ -181,7 +163,6 @@ public class ViewTodo extends JFrame {
 		}
 		
 		mPrivacyText.setBorder(null);
-		
 		mPrivacyText.setEditable(false);
 		mPrivacyText.setBackground(Constants.greyColor);
 		mPrivacyText.setForeground(Constants.redColor);
@@ -191,11 +172,7 @@ public class ViewTodo extends JFrame {
 		mMainPanel.setBackground(Constants.greyColor);		
 		
 		
-		mTitlePanel =  new JPanel();
-		mPriorityPanel =  new JPanel();
 		mPrivacyPanel =  new JPanel();
-		mListPanel =  new JPanel();
-		mDescriptionPanel =  new JPanel();
 		mMainPanel.setLayout(new GridLayout(6, 2));
 		mPrivacyPanel.setLayout(new FlowLayout());
 		mPrivacyPanel.setForeground(Constants.goldColor);

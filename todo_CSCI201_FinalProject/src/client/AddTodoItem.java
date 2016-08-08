@@ -273,15 +273,10 @@ public class AddTodoItem extends JFrame {
 		outsidePanel.add(mMainPanel, BorderLayout.CENTER);
 		outsidePanel.add(mSaveButton, BorderLayout.SOUTH);
 		add(outsidePanel);
-		setBorder(BorderFactory.createLineBorder(Constants.greyColor,0));
 		addSaveEvents();
 	}
 	
 	
-	private void setBorder(Border createLineBorder) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private void addPublicRBEvents(){
 		mPublicRB.addActionListener(new ActionListener(){
@@ -318,16 +313,16 @@ public class AddTodoItem extends JFrame {
 						    JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				
+
 				String title = mTitleText.getText();
 				int priority = Integer.parseInt(mPriorityBox.getSelectedItem().toString());
 				String list = mListBox.getSelectedItem().toString();
 				int currListID = mListIDVector.get(mListBox.getSelectedIndex());
 				String description = mDescriptionText.getText();
-				
 				int points = Integer.parseInt(mPointsText.getText()); ;
 				
 				TodoObject mTodoObject = new TodoObject(title, priority, isPrivate, currListID, list, description, points, mTU.getID(), false);
+
 				int currPlace = 0;
 				for(int i = 0; i < mTU.getTodoLists().size(); i ++){
 					if(mTU.getTodoLists().get(i).getID() == currListID){
@@ -357,15 +352,14 @@ public class AddTodoItem extends JFrame {
 	}
 
 	
-	public static boolean isInteger(String s) {
+	public static boolean isInteger(String mString) {
 	    try { 
-	        Integer.parseInt(s); 
-	    } catch(NumberFormatException e) { 
+	        Integer.parseInt(mString); 
+	    } catch(NumberFormatException nfe) { 
 	        return false; 
-	    } catch(NullPointerException e) {
+	    } catch(NullPointerException nfe) {
 	        return false;
 	    }
-	    // only got here if we didn't return false
 	    return true;
 	}
 }

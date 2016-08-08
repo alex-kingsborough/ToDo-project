@@ -65,7 +65,7 @@ public class PortalManager extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent ae){
 			    String mNewTabMessage = "Please enter the title of the new tab:";
-			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage);
+			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage, "New tab title", JOptionPane.INFORMATION_MESSAGE);
 			    if(mTabTitle != null){
 			    	int newTodoListIndex = mUser.getTodoLists().size();
 			    	TodoList mNewTodoList = new TodoList(newTodoListIndex, mTabTitle);
@@ -117,7 +117,7 @@ public class PortalManager extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent ae){
 			    String mNewTabMessage = "Please enter the title of the new tab:";
-			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage);
+			    String mTabTitle = JOptionPane.showInputDialog(PortalManager.this, mNewTabMessage, "New tab title", JOptionPane.INFORMATION_MESSAGE);
 			    if(mTabTitle != null){
 			    	int newTodoListIndex = mUser.getTodoLists().size();
 			    	TodoList mNewTodoList = new TodoList(newTodoListIndex, mTabTitle);
