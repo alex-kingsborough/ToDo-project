@@ -26,7 +26,6 @@ public class UserInfoGUI extends JPanel {
 	
 	
 	private static final long serialVersionUID = 676767676761L;
-	private TodoUser mTodoUser;
 	private JLabel mUsernameLabel;
 	private JLabel mNameLabel;
 	private JLabel mEmailLabel;
@@ -46,13 +45,12 @@ public class UserInfoGUI extends JPanel {
 	JScrollPane mFriendsScrollPane;
 	
 	//public UserInfoGUI(TodoUser tu) {
-	//	mTodoUser = tu;
+	//	PortalManager.mUser = tu;
 	//}
 	
 	public UserInfoGUI(TodoUser tu) {
-		mTodoUser = PortalManager.mUser;
 		setLayout(new BorderLayout());
-		mUsernameLabel = new JLabel("Username: " + mTodoUser.getUsername());
+		mUsernameLabel = new JLabel("Username: " + PortalManager.mUser.getUsername());
 		mUsernameLabel.setFont(mUsernameLabel.getFont().deriveFont(24f));
 		JPanel mTopPanel = new JPanel();
 		mTopPanel.add(mUsernameLabel);
@@ -63,13 +61,13 @@ public class UserInfoGUI extends JPanel {
 		JPanel mInfoPanel = new JPanel();
 		//mInfoPanel.setLayout(new BoxLayout(mInfoPanel, BoxLayout.Y_AXIS));
 		mInfoPanel.setLayout(new GridLayout(7,1));
-		mNameLabel = new JLabel("Name: " + mTodoUser.getName() + "                         ");
+		mNameLabel = new JLabel("Name: " + PortalManager.mUser.getName() + "                         ");
 		mNameLabel.setFont(mNameLabel.getFont().deriveFont(15f));
 		
-		mEmailLabel = new JLabel("Email: " + mTodoUser.getEmail());
+		mEmailLabel = new JLabel("Email: " + PortalManager.mUser.getEmail());
 		mEmailLabel.setFont(mEmailLabel.getFont().deriveFont(15f));
 		
-		mPointsLabel = new JLabel("Total Points: " + mTodoUser.getTotalPoints());
+		mPointsLabel = new JLabel("Total Points: " + PortalManager.mUser.getTotalPoints());
 		mPointsLabel.setFont(mPointsLabel.getFont().deriveFont(15f));
 		
 		mInfoPanel.add(mNameLabel);
@@ -81,7 +79,7 @@ public class UserInfoGUI extends JPanel {
 		mAboutMeTextArea = new JTextArea();
 		mAboutMeTextArea.setLineWrap(true); //TODO Marshall, you'll probably want to add this, but I noticed it fucks with the alignment
 		//of the other things. I didn't want to mess with stuff much so just leaving it here commented out. -Luc
-		mAboutMeTextArea.setText(mTodoUser.getAboutMe());
+		mAboutMeTextArea.setText(PortalManager.mUser.getAboutMe());
 		mAboutMeTextArea.setEditable(false);
 		mAboutMePanel.add(mAboutMeTextArea);
 		mAboutMePanel.setBorder(new TitledBorder("About Me")); //give about me new titled border
@@ -96,17 +94,16 @@ public class UserInfoGUI extends JPanel {
 		mFriendsPanel.add(mFriendsLabel);
 		mListModel = new DefaultListModel<String>();
 		
-		System.out.println("mTodoUser.getFriendList().size(): " + mTodoUser.getFriendList().size());
+		System.out.println("PortalManager.mUser.getFriendList().size(): " + PortalManager.mUser.getFriendList().size());
 		TodoClientListener.lock.lock();
 		try {
-			System.out.println("got the friends lock");
-			for(Integer i: mTodoUser.getFriendList()) {
+			for(Integer i: PortalManager.mUser.getFriendList()) {
 				TodoClientListener.get().send(Constants.REQUEST_USERNAME_BY_ID + " " + i);
 				String response = TodoClientListener.get().readLine();
 				System.out.println("response: " + response);
 				if(!response.equals(Constants.FAIL_MESSAGE)) {
 					String username = response.split(" ")[1];
-					if(!username.equals(mTodoUser.getUsername())) {
+					if(!username.equals(PortalManager.mUser.getUsername())) {
 						mListModel.addElement(username);
 					}
 				}
@@ -178,10 +175,10 @@ public class UserInfoGUI extends JPanel {
 						String [] parameters = response.split(" ");
 						int userID = Integer.parseInt(parameters[1]);
 						System.out.println("userID: " + userID);
-						if(!friendName.equals(mTodoUser.getUsername())) {
-							mTodoUser.addFriend(userID);
-							TodoClientListener.get().sendUser(mTodoUser);
-							mTodoUser = TodoClientListener.get().readTodoUser();
+						if(!friendName.equals(PortalManager.mUser.getUsername())) {
+							PortalManager.mUser.addFriend(userID);
+							TodoClientListener.get().sendUser(PortalManager.mUser);
+							PortalManager.mUser = TodoClientListener.get().readTodoUser();
 							mListModel.addElement(friendName);
 						//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
 						}
@@ -216,10 +213,10 @@ public class UserInfoGUI extends JPanel {
 						String [] parameters = response.split(" ");
 						int userID = Integer.parseInt(parameters[1]);
 						System.out.println("userID: " + userID);
-						if(!friendName.equals(mTodoUser.getUsername())) {
-							mTodoUser.removeFriend(userID);
-							TodoClientListener.get().sendUser(mTodoUser);
-							mTodoUser = TodoClientListener.get().readTodoUser();
+						if(!friendName.equals(PortalManager.mUser.getUsername())) {
+							PortalManager.mUser.removeFriend(userID);
+							TodoClientListener.get().sendUser(PortalManager.mUser);
+							PortalManager.mUser = TodoClientListener.get().readTodoUser();
 							mListModel.removeElement(friendName);
 							//TodoUser mNewFriend = TodoClientListener.get().readTodoUser();
 						}
@@ -237,7 +234,7 @@ public class UserInfoGUI extends JPanel {
 	}
 	
 	public void updatePoints() {
-		mPointsLabel.setText("Total points: " + mTodoUser.getTotalPoints());
+		mPointsLabel.setText("Total points: " + PortalManager.mUser.getTotalPoints());
 		revalidate();
 		repaint();
 	}

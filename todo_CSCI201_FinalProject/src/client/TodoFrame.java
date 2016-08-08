@@ -18,7 +18,6 @@ public class TodoFrame extends JFrame implements Navigator {
 	private static final long serialVersionUID = 1290395190L;
 	
 	//private TodoUser tempUser; //TODO temporary user for working on functionality/communication between classes
-	private TodoUser mTodoUser;
 	
 	public static void main(String[] args) {
 
@@ -107,7 +106,6 @@ public class TodoFrame extends JFrame implements Navigator {
 	
 	@Override
 	public void toPortal(TodoUser tu) {
-		mTodoUser = tu;
 		
 		getContentPane().removeAll();
 		
@@ -130,7 +128,7 @@ public class TodoFrame extends JFrame implements Navigator {
 		Vector<TodoList> tempTodoListVec = new Vector<TodoList>();
 		tempTodoListVec.add(playList);
 		tempTodoListVec.add(workList);
-		mTodoUser.setTodoLists(tempTodoListVec);
+		PortalManager.mUser.setTodoLists(tempTodoListVec);
 		//END OF STUFF TO REMOVE
 		 * 
 		 */
@@ -138,9 +136,9 @@ public class TodoFrame extends JFrame implements Navigator {
 		JMenuBar mTestBar = new JMenuBar();
 		setJMenuBar(mTestBar);
 		
-		//getContentPane().add(new PortalManager(mTodoUser, mTestBar), BorderLayout.CENTER);
-		getContentPane().add(new PortalManager(mTodoUser, mTestBar), BorderLayout.CENTER);
-		getContentPane().add(new SocialSidebar(mTodoUser, this, PortalManager.mMainPage), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
+		//getContentPane().add(new PortalManager(PortalManager.mUser, mTestBar), BorderLayout.CENTER);
+		getContentPane().add(new PortalManager(PortalManager.mUser, mTestBar), BorderLayout.CENTER);
+		getContentPane().add(new SocialSidebar(PortalManager.mUser, this, PortalManager.mMainPage), BorderLayout.EAST); //I ADDED THE TODOUSER BECAUSE IT IS NOW NECESSARY FOR SOCIAL SIDEBAR CONSTRUCTOR
 		revalidate();
 		repaint();
 	}

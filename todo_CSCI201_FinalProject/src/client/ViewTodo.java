@@ -34,13 +34,11 @@ public class ViewTodo extends JFrame {
 	private boolean isPrivate;
 	private JTextField mPointsText;
 	private Font mFont;
-	private TodoUser mTU;
 	
 	public ViewTodo(TodoObject to){
 		super("View Todo");
 		setSize(400, 300);
 		setLocation(800, 400);
-		mTU = PortalManager.mUser;
 		AddTodo(to);
 	}
 	
@@ -125,10 +123,10 @@ public class ViewTodo extends JFrame {
 		
 		mListVector = new Vector<String>();
 		
-		if(mTU.getTodoLists() != null){
-			for(int i = 0; i < mTU.getTodoLists().size(); i ++){
+		if(PortalManager.mUser.getTodoLists() != null){
+			for(int i = 0; i < PortalManager.mUser.getTodoLists().size(); i ++){
 				String name;
-				name = mTU.getTodoLists().get(i).getName();
+				name = PortalManager.mUser.getTodoLists().get(i).getName();
 				mListVector.addElement(name);
 			}
 		}
