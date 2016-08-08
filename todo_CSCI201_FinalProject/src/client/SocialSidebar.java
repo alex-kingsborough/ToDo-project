@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 import client.CustomScrollBar.MyScrollbarUI;
 import constants.Constants;
@@ -24,6 +26,7 @@ public class SocialSidebar extends JPanel implements Runnable {
 	private JScrollPane mSocialPanel;
 	private JPanel mSocialGrid;
 
+	
 	public SocialSidebar(TodoUser inUser, TodoFrame inFrame, MainPageGUI inMainPage){ //Creating and filling out the panel on the east holding the add button and Social Panel
 		
 		JButton mAddTodoButton = new JButton("Add Todo");
@@ -49,6 +52,11 @@ public class SocialSidebar extends JPanel implements Runnable {
 	}
 	
 	private void createSocialPanel(){ //Creating and filling out the Social Panel that is on every page
+		UIManager.put("Button.border", BorderFactory.createLineBorder(Color.black,0));
+		UIManager.put("Button.foreground", Constants.goldColor);
+		UIManager.put("Button.select", Color.WHITE);
+		
+		
 		mSocialPanel = new JScrollPane();
 		mSocialPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		mSocialPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -81,15 +89,17 @@ public class SocialSidebar extends JPanel implements Runnable {
 			
 			
 			JButton mSocialButton = new JButton();
+			mSocialButton.setBorder(BorderFactory.createLineBorder(Constants.greyColor, 0));
+			
+			//mSocialButton.setBorder(null);
 			mSocialButton.setText("View " + newTodos.get(i).getTitle());
 			mSocialButton.setPreferredSize(new Dimension(mSocialItemPanel.getWidth(), 18));
 			mSocialButton.setBackground(Constants.greyColor);
 			mSocialButton.setForeground(Constants.redColor);
 //			mSocialButton.setBorder(BorderFactory.createLineBorder(Constants.greyColor, 4));
-			mSocialButton.setBorder(null);
 			System.out.println("current border" + mSocialButton.getBorder());
 			mSocialButton.addActionListener(new ActionListener(){
-				@Override
+				
 				public void actionPerformed(ActionEvent ae){
 					System.out.println("clicked the social button");
 					new ViewTodo(thisTodo);
@@ -105,6 +115,8 @@ public class SocialSidebar extends JPanel implements Runnable {
 			mSocialItemPanel.add(mSocialButton, BorderLayout.SOUTH);
 			mSocialGrid.add(mSocialItemPanel);
 		}
+		mSocialPanel.getVerticalScrollBar().setValue(1);
+		mSocialPanel.getVerticalScrollBar().setValue(0);
 		
 		mSocialPanel.getViewport().add(mSocialGrid);
 	}
