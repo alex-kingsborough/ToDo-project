@@ -46,7 +46,7 @@ public class Database {
 	private final static String getUserTodosById = "SELECT * FROM TODOS WHERE userID=?";
 	private final static String getListNameByUserAndID = "SELECT l.listName FROM lists l, users u, todos t WHERE l.listID=? AND u.userID=?";
 	private final static String updateUserInfo = "UPDATE USERS SET actualname=?, email=?, points=?, aboutme=? WHERE userID=?";
-	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?";
+//	private final static String updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?";
 	private final static String updateUserTodos = "UPDATE TODOS SET todoPoints=?, todoPriority=?, todoDesc=?, todoTitle=?, todoIsCompleted=?, todoPrivate=? WHERE userID=?";
 	private final static String getUsernameByID = "SELECT USERNAME FROM USERS WHERE USERID=?";
 	private final static String removeFriend = "DELETE FROM FRIENDSHIP WHERE fromID=? AND toID=?";
@@ -178,6 +178,7 @@ public class Database {
 	//(userID,listID,todoPoints,todoPriority,todoDesc,todoName,todoFinished,todoPrivate)
 	//TodoObject Construtor: public TodoObject(String _title, int _priority, boolean _isPrivate, int _listID, 
 	//String _listName, String _desc, int _points, int _userID, boolean _isCompleted)
+	/* deprecated
 	public void addTodo(TodoObject to, String username){
 		try{
 			PreparedStatement ps = con.prepareStatement(addTodo);
@@ -194,6 +195,7 @@ public class Database {
 			System.out.println("SQLE: " + e.getMessage());
 		}
 	}
+	*/
 	
 	public void addTodoOther(TodoObject to, String username, int listID){
 		try{
@@ -473,19 +475,19 @@ public class Database {
 	//updateUserLists = "UPDATE LISTS SET listName=?, isActive=? WHERE userID=?"
 	//addList = "INSERT INTO LISTS(userID, listName, isActive) VALUES(?,?,?)";
 	private void updateUserLists(TodoUser tu) {
-		PreparedStatement ps = null;
+		//PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
 		try{
-			ps = con.prepareStatement(updateUserLists);
+			//ps = con.prepareStatement(updateUserLists);
 			ps2 = con.prepareStatement(addList);
 			int userID = getUserID(tu.getUsername());
-			ps.setInt(3, userID);
+			//ps.setInt(3, userID);
 			ps2.setInt(1, userID);
 			for(TodoList tl : tu.getTodoLists()){
 				if(getListID(tl.getName(), userID) != 0){
-					ps.setString(1, tl.getName());
+					/*ps.setString(1, tl.getName());
 					ps.setBoolean(2, tl.isActive());
-					ps.executeUpdate();
+					ps.executeUpdate();*/
 				} else {
 					ps2.setString(2, tl.getName());
 					ps2.setBoolean(3, tl.isActive());
@@ -496,13 +498,13 @@ public class Database {
 			System.out.println("SQLE in updateUserLists: " + e.getMessage());
 			e.printStackTrace();
 		} finally {
-			if(ps != null)
+			/*if(ps != null)
 				try {
 					ps.close();
 				} catch (SQLException e) {
 					System.out.println("SQLE in Closing updateUserLists: " + e.getMessage());
 					e.printStackTrace();
-				}
+				}*/
 			if(ps2 != null)
 				try {
 					ps2.close();
@@ -615,9 +617,6 @@ public class Database {
 					ps.setInt(1, tu.getID());
 					ps.setInt(2, friend);
 					ps.executeUpdate();
-					ps.setInt(1, friend);
-					ps.setInt(2, tu.getID());
-					ps.executeUpdate();
 				}
 			}
 
@@ -642,9 +641,6 @@ public class Database {
 				if(!exFriends.contains(friend)){
 					ps.setInt(1, tu.getID());
 					ps.setInt(2, friend);
-					ps.executeUpdate();
-					ps.setInt(1, friend);
-					ps.setInt(2, tu.getID());
 					ps.executeUpdate();
 				}
 			}
