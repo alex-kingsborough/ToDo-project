@@ -80,7 +80,7 @@ public class UpdateTodo extends JFrame {
 	}
 	
 	private void AddTodo(TodoObject to) {
-		mFont = new Font("Serif", Font.PLAIN, 22);
+		mFont = new Font("Comic Sans MS", Font.PLAIN, 22);
 		mMainPanel = new JPanel();
 		mMainPanel.setBackground(Constants.greyColor);
 		setBackground(Constants.goldColor);
