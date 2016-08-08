@@ -185,9 +185,11 @@ public class SocialSidebar extends JPanel implements Runnable {
 				//wait for 5 seconds
 
 				//call update on sidebar
+				int scrollPoint = mSocialPanel.getVerticalScrollBar().getValue();
 				updateBar();
 				mSocialPanel.getVerticalScrollBar().setValue(mSocialPanel.getVerticalScrollBar().getMaximum());
 				mSocialPanel.getVerticalScrollBar().setValue(0);
+				mSocialPanel.getVerticalScrollBar().setValue(scrollPoint);
 				Thread.sleep(5000);
 
 			} catch (InterruptedException e) {

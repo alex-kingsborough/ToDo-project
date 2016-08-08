@@ -1,8 +1,6 @@
 package client;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.JPanel;
