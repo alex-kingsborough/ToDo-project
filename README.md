@@ -1,3 +1,1 @@
-# Todo Group Project
-
-hell yea
+To deploy this application within Eclipse, import the CSCI201TodoProject.zip file into Eclipse. This should generate a project called CSCI201-Todo with src and resources directories. The src directory contains the client, resource, server, and utilities packages. To execute the Todo Server, run server.TodoServer. To execute the Client, run client.TodoClient. 
